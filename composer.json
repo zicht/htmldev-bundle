@@ -19,5 +19,12 @@
     "autoload": {
         "psr-0": { "": ["src/"] }
     },
+    "scripts": {
+        "post-install-cmd": [
+            "Zicht\\Bundle\\HtmldevBundle\\Composer\\ScriptHandler::createHtmldev"
+        ],
+        "post-update-cmd": [
+        ]
+    },
     "minimum-stability": "dev"
 }
