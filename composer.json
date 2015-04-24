@@ -16,6 +16,7 @@
         "symfony/framework-bundle": "*",
         "symfony/routing": "*"
     },
+    "bin": ["bin/htmldev.sh"],
     "autoload": {
         "psr-0": { "": ["src/"] }
     },
