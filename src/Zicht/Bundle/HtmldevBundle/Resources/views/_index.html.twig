@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Table of contents</title>
+    </head>
+
+    <body>
+        <h2>Table of contents</h2>
+
+        <ul>
+            {% for template in templates %}
+                <li>
+                    <a href="/htmldev/{{ template.getBasename('.twig') }}">{{ template.getBasename('.html.twig') }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
