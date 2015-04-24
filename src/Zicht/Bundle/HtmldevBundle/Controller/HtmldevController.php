@@ -17,6 +17,7 @@ class HtmldevController extends Controller
 {
     /**
      * @Route("/htmldev")
+     * @Route("/htmldev/")
      *
      * @return Response
      */
