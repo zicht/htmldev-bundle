@@ -1,10 +1,23 @@
 #!/bin/bash
 
 ROOT=$(pwd)
+HTMLDEV=htmldev
+RESOURCES=vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources
+CONFIG=app/config/bundles
 
-mkdir -p htmldev/{images,style,sass,javascript}
+if [ ! -d $HTMLDEV ]; then
+    mkdir -p $HTMLDEV/{images,style,sass,javascript}
+    cp $RESOURCES/views/_index.html.twig $HTMLDEV/_index.html.twig
+fi
 
-cp vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/.bowerrc htmldev/.bowerrc
-cp vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/bower.json htmldev/bower.json
-cp vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/views/_index.html.twig htmldev/_index.html.twig
-cp vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/config/zicht_htmldev.yml app/config/bundles/zicht_htmldev.yml
+if [ ! -f $HTMLDEV/.bowerrc ]; then
+    cp $RESOURCES/.bowerrc $HTMLDEV/.bowerrc
+fi
+
+if [ ! -f $HTMLDEV/bower.json ]; then
+    cp $RESOURCES/bower.json $HTMLDEV/bower.json
+fi
+
+if [ ! -f $CONFIG/zicht_htmldev.yml ]; then
+    cp $RESOURCES/config/zicht_htmldev.yml $CONFIG/zicht_htmldev.yml
+fi
