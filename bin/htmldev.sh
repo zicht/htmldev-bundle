@@ -18,6 +18,8 @@ if [ ! -f $HTMLDEV/bower.json ]; then
     cp $RESOURCES/bower.json $HTMLDEV/bower.json
 fi
 
+bower install
+
 if [ ! -f $CONFIG/zicht_htmldev.yml ]; then
     cp $RESOURCES/config/zicht_htmldev.yml $CONFIG/zicht_htmldev.yml
 fi
