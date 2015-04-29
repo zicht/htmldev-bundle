@@ -8,6 +8,7 @@ CONFIG=app/config/bundles
 if [ ! -d $HTMLDEV ]; then
     mkdir -p $HTMLDEV/{images,style,sass,javascript}
     cp $RESOURCES/views/_index.html.twig $HTMLDEV/_index.html.twig
+    cp $RESOURCES/views/_base.html.twig $HTMLDEV/_base.html.twig
 fi
 
 if [ ! -f $HTMLDEV/.bowerrc ]; then
