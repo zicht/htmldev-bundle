@@ -11,12 +11,12 @@ if [ ! -d $HTMLDEV ]; then
     cp $RESOURCES/views/_base.html.twig $HTMLDEV/_base.html.twig
 fi
 
-if [ ! -f $HTMLDEV/.bowerrc ]; then
-    cp $RESOURCES/.bowerrc $HTMLDEV/.bowerrc
+if [ ! -f $ROOT/.bowerrc ]; then
+    cp $RESOURCES/.bowerrc $ROOT/.bowerrc
 fi
 
-if [ ! -f $HTMLDEV/bower.json ]; then
-    cp $RESOURCES/bower.json $HTMLDEV/bower.json
+if [ ! -f $ROOT/bower.json ]; then
+    cp $RESOURCES/bower.json $ROOT/bower.json
 fi
 
 bower install
