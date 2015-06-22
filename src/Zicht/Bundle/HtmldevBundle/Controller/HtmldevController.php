@@ -41,6 +41,8 @@ class HtmldevController extends Controller
     {
         $template = $this->get('htmldev.template');
 
-        return $this->render(sprintf('@htmldev/%s', $template->find($filename)), array());
+        return $this->render(sprintf('@htmldev/%s', $template->find($filename)), array(
+            'templates' => $template->findAll()
+        ));
     }
 }
