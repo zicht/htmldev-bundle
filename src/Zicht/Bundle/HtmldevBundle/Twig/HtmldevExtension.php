@@ -77,6 +77,21 @@ class HtmldevExtension extends Twig_Extension
     }
 
     /**
+     * Register a 'faker' global if faker is available
+     *
+     * @return array
+     */
+    public function getGlobals()
+    {
+        if (class_exists('Faker\Factory')) {
+            return [
+                'faker' => \Faker\Factory::create()
+            ];
+        }
+        return [];
+    }
+
+    /**
      * The name of this twig extension.
      *
      * @return string
