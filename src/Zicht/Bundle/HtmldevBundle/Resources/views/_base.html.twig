@@ -1,8 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]><html class="no-js not-loaded lt-ie9 lt-ie8 lt-ie7"><![endif]-->
-<!--[if IE 7]><html class="no-js not-loaded lt-ie9 lt-ie8"><![endif]-->
-<!--[if IE 8]><html class="no-js not-loaded lt-ie9"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js not-loaded"><!--<![endif]-->
+<html class="no-js  not-loaded">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -19,7 +16,11 @@
         {% block stylesheets %}{% endblock %}
         {% block meta %}{% endblock %}
 
-        <link rel="icon" type="image/x-icon" href="htmldev/images/favicon.ico" />
+        {#
+            TODO add a favicon, preferably from http://realfavicongenerator.net/.
+            Please place the favicon code in an inheriting template inside your project bundle,
+            to keep this base template clean and re-usable if your project has multiple bundles.
+         #}
 
         <script>
             'use strict';
@@ -27,18 +28,12 @@
             html.className = html.className.replace('no-js', '');
         </script>
 
-        <!--[if lt IE 9]>
-            <script src="/htmldev/vendor/html5shiv/dist/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
         {% block javascripts_top %}{% endblock %}
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+        {% block body %}{% endblock %}
 
-    {% block body %}{% endblock %}
-
-    {% block bottom_data %}{% endblock %}
+        {% block bottom_data %}{% endblock %}
     </body>
 </html>
