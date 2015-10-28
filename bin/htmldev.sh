@@ -16,6 +16,7 @@ if [ ! -d $HTMLDEV ]; then
     cp $RESOURCES/views/_index.html.twig $HTMLDEV/_index.html.twig
     cp $RESOURCES/views/_base.html.twig $HTMLDEV/_base.html.twig
     cp $RESOURCES/views/macros/components.html.twig $HTMLDEV/macros/components.html.twig
+    cp $RESOURCES/.scss-lint.yml $HTMLDEV/sass/.scss-lint.yml
 
     sed "s/@bundle@/$BUNDLE_NAME/g" $RESOURCES/system.conf.js > $HTMLDEV/javascript/system.conf.js
 fi
