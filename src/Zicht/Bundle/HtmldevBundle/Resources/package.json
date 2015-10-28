@@ -1,0 +1,20 @@
+{
+    "name": "htmldev-bundle",
+    "version": "0.0.0",
+    "scripts": {
+        "babel": "node_modules/babel/bin/babel.js htmldev/src --stage 1 --out-dir htmldev/javascript --modules system",
+        "babel-watch": "node_modules/babel/bin/babel.js htmldev/src --stage 1 --watch --out-dir htmldev/javascript --modules system"
+    },
+    "devDependencies": {
+        "autoprefixer": "^5.2.0",
+        "postcss-cli": "^1.5.0",
+        "jscs": "^1.13.1",
+        "jshint": "^2.8.0",
+        "babel": "^5.8.23",
+        "es6-module-loader": "^0.17.8",
+        "systemjs": "^0.19.3"
+    },
+    "dependencies": {
+        "babel-core": "^5.8.25"
+    }
+}
