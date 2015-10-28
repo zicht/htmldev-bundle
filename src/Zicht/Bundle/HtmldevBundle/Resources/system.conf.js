@@ -1,7 +1,7 @@
 /*global System*/
 
 System.config({
-    baseURL: '/bundles/<bundle>/javascript',
+    baseURL: '/bundles/@bundle@/javascript',
 
     transpiler: 'babel',
 
