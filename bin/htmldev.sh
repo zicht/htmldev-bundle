@@ -37,6 +37,7 @@ if [ ! -f $ROOT/bower.json ]; then
 fi
 
 bower install
+npm install
 
 if [ ! -f $CONFIG/zicht_htmldev.yml ]; then
     cp $RESOURCES/config/zicht_htmldev.yml $CONFIG/zicht_htmldev.yml
