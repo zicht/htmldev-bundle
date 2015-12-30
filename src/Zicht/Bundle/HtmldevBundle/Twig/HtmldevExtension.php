@@ -2,7 +2,9 @@
 
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
-use \Twig_Extension;
+use Symfony\Component\Yaml\Yaml;
+use Twig_Extension;
+use Zicht\Bundle\HtmldevBundle\Service\IColorService;
 
 /**
  * Twig extensions that make rendering a style guide easier.
@@ -11,6 +13,19 @@ use \Twig_Extension;
  */
 class HtmldevExtension extends Twig_Extension
 {
+    private $htmldevDirectory;
+
+    /**
+     * @var IColorService
+     */
+    private $colorService;
+
+    public function __construct($htmldevDirectory, IColorService $colorService)
+    {
+        $this->htmldevDirectory = $htmldevDirectory;
+        $this->colorService = $colorService;
+    }
+
     /**
      * Gets the list of functions available in the Twig templates.
      *
@@ -21,6 +36,9 @@ class HtmldevExtension extends Twig_Extension
             new \Twig_SimpleFunction('ui_and_html', array($this, 'ui_and_html'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('get_ui_and_html', array($this, 'get_ui_and_html'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('get_current_datetime', array($this, 'get_current_datetime')),
+            new \Twig_SimpleFunction('load_data', array($this, 'loadData')),
+            new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
+            new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance'))
         );
     }
 
@@ -74,6 +92,21 @@ class HtmldevExtension extends Twig_Extension
         ', $html, htmlentities($html));
 
         return $resultHtml;
+    }
+
+    /**
+     * @param $type
+     *
+     * @return array
+     */
+    public function loadData($type)
+    {
+        $fileName = sprintf('%s/data/%s.yml', $this->htmldevDirectory, $type);
+        if (!is_file($fileName)) {
+            return [];
+        }
+
+        return Yaml::parse(file_get_contents($fileName));
     }
 
     /**
