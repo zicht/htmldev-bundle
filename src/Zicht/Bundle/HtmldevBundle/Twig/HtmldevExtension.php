@@ -37,6 +37,7 @@ class HtmldevExtension extends Twig_Extension
             new \Twig_SimpleFunction('get_ui_and_html', array($this, 'get_ui_and_html'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('get_current_datetime', array($this, 'get_current_datetime')),
             new \Twig_SimpleFunction('load_data', array($this, 'loadData')),
+            new \Twig_SimpleFunction('icons', array($this, 'getIcons')),
             new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
             new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance'))
         );
@@ -107,6 +108,28 @@ class HtmldevExtension extends Twig_Extension
         }
 
         return Yaml::parse(file_get_contents($fileName));
+    }
+
+    /**
+     * Returns the names of the icons of the supplied type, without file extension.
+     *
+     * @param $type
+     *
+     * @return array
+     */
+    public function getIcons($type)
+    {
+        $imageDirectory = sprintf('%s/images/icons/%s', $this->htmldevDirectory, $type);
+        if (!is_dir($imageDirectory)) {
+            return [];
+        }
+
+        $files = array_diff(scandir($imageDirectory), ['..', '.']);
+        $iconNames = array_map(function($item) {
+            return basename($item, '.svg');
+        }, $files);
+
+        return $iconNames;
     }
 
     /**
