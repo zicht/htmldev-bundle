@@ -43,6 +43,49 @@ class HtmldevExtension extends Twig_Extension
         );
     }
 
+
+    function getFilters()
+    {
+        return [
+            new \Twig_SimpleFilter('ui_printable_arguments', [$this, 'ui_printable_arguments']),
+        ];
+    }
+
+
+    /**
+     * Format a set of arguments into a legible json object.
+     *
+     * @param mixed $val
+     * @param string|mixed
+     * @return array|string
+     */
+    public function ui_printable_arguments($val, $format = true)
+    {
+        if ($val instanceof \Twig_Markup) {
+            $val = (string)$val;
+        }
+
+        if (is_array($val)) {
+            foreach ($val as $key => $value) {
+                $val[$key] = $this->ui_printable_arguments($value, false);
+            }
+        } else if (is_object($val)) {
+            foreach (get_object_vars($val) as $key => $value) {
+                $val->$key = $this->ui_printable_arguments($value, false);
+            }
+        } else if (is_string($val)) {
+            $val = trim($val);
+            if (strlen($val) >  50) {
+                $val = substr($val, 0, 47) . '...';
+            }
+        }
+
+        if ($format) {
+            return json_encode($val, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        }
+        return $val;
+    }
+
     /**
      * Returns the current time with, optionally, a modifier
      *
