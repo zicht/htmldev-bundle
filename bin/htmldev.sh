@@ -12,11 +12,10 @@ if [ -z "$BUNDLE_NAME" ]; then
 fi
 
 if [ ! -d $HTMLDEV ]; then
-    mkdir -p $HTMLDEV/{images,style,sass,javascript,src,macros}
+    mkdir -p $HTMLDEV/{components,images,javascript,src,macros,style,sass}
     cp $RESOURCES/views/_index.html.twig $HTMLDEV/_index.html.twig
     cp $RESOURCES/views/_base.html.twig $HTMLDEV/_base.html.twig
     cp $RESOURCES/views/macros/components.html.twig $HTMLDEV/macros/components.html.twig
-    cp $RESOURCES/.scss-lint.yml $HTMLDEV/sass/.scss-lint.yml
 
     sed "s/@bundle@/$BUNDLE_NAME/g" $RESOURCES/system.conf.js > $HTMLDEV/javascript/system.conf.js
 fi
