@@ -1,9 +1,15 @@
 <?php
+/**
+ * @author Robert van der Kemp <robert@zicht.nl>
+ * @author Boudewijn Schoon <boudewijn@zicht.nl>
+ * @copyright Zicht online
+ */
 
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
-use Symfony\Component\Yaml\Yaml;
+use Faker\Factory;
 use Twig_Extension;
+use Symfony\Component\Yaml\Yaml;
 use Zicht\Bundle\HtmldevBundle\Service\IColorService;
 
 /**
@@ -20,6 +26,12 @@ class HtmldevExtension extends Twig_Extension
      */
     private $colorService;
 
+    /**
+     * Constructor
+     *
+     * @param string $htmldevDirectory
+     * @param IColorService $colorService
+     */
     public function __construct($htmldevDirectory, IColorService $colorService)
     {
         $this->htmldevDirectory = $htmldevDirectory;
@@ -27,11 +39,10 @@ class HtmldevExtension extends Twig_Extension
     }
 
     /**
-     * Gets the list of functions available in the Twig templates.
-     *
-     * @return array
+     * @{inheritDoc}
      */
-    function getFunctions() {
+    public function getFunctions()
+    {
         return array(
             new \Twig_SimpleFunction('ui_and_html', array($this, 'ui_and_html'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('get_ui_and_html', array($this, 'get_ui_and_html'), array('is_safe' => array('html'))),
@@ -44,7 +55,10 @@ class HtmldevExtension extends Twig_Extension
     }
 
 
-    function getFilters()
+    /**
+     * @{inheritDoc}
+     */
+    public function getFilters()
     {
         return [
             new \Twig_SimpleFilter('ui_printable_arguments', [$this, 'ui_printable_arguments']),
@@ -56,10 +70,12 @@ class HtmldevExtension extends Twig_Extension
      * Format a set of arguments into a legible json object.
      *
      * @param mixed $val
-     * @param string|mixed
+     * @param bool $format
      * @return array|string
      */
+    // @codingStandardsIgnoreStart
     public function ui_printable_arguments($val, $format = true)
+    // @codingStandardsIgnoreEnd
     {
         if ($val instanceof \Twig_Markup) {
             $val = (string)$val;
@@ -98,11 +114,16 @@ class HtmldevExtension extends Twig_Extension
      * @param string $modify
      * @return \DateTime
      */
+    // @codingStandardsIgnoreStart
     public function get_current_datetime($modify = '')
+    // @codingStandardsIgnoreEnd
     {
         // use static $now to ensure that all dates are -exactly- the same
         static $now = null;
-        if (null === $now) { $now = new \DateTime('now'); }
+
+        if (null === $now) {
+            $now = new \DateTime('now');
+        }
 
         $datetime = clone $now;
         if (!empty($modify)) {
@@ -113,10 +134,16 @@ class HtmldevExtension extends Twig_Extension
     }
 
     /**
-     * @param $html
+     * Renders ui and html
+     *
+     * @param string $html
+     * @return string
+     *
      * @deprecated Use get_ui_and_html instead
      */
+    // @codingStandardsIgnoreStart
     public function ui_and_html($html)
+    // @codingStandardsIgnoreEnd
     {
         return $this->get_ui_and_html($html);
     }
@@ -124,10 +151,12 @@ class HtmldevExtension extends Twig_Extension
     /**
      * Renders the supplied HTML both as actual HTML and a code block.
      *
-     * @param $html
+     * @param string $html
      * @return string
      */
+    // @codingStandardsIgnoreStart
     public function get_ui_and_html($html)
+    // @codingStandardsIgnoreEnd
     {
         $resultHtml = sprintf('%s
             <pre>
@@ -139,8 +168,9 @@ class HtmldevExtension extends Twig_Extension
     }
 
     /**
-     * @param $type
+     * Load data from yml file.
      *
+     * @param string $type
      * @return array
      */
     public function loadData($type)
@@ -156,8 +186,7 @@ class HtmldevExtension extends Twig_Extension
     /**
      * Returns the names of the icons of the supplied type, without file extension.
      *
-     * @param $type
-     *
+     * @param string $type
      * @return array
      */
     public function getIcons($type)
@@ -184,7 +213,7 @@ class HtmldevExtension extends Twig_Extension
     {
         if (class_exists('Faker\Factory')) {
             return [
-                'faker' => \Faker\Factory::create()
+                'faker' => Factory::create()
             ];
         }
         return [];

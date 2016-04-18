@@ -9,8 +9,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Provides an example type with some commonly used types.
+ */
 class ExampleType extends AbstractType
 {
+    /**
+     * @{inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -18,7 +24,9 @@ class ExampleType extends AbstractType
         ]);
     }
 
-
+    /**
+     * @{inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -57,6 +65,9 @@ class ExampleType extends AbstractType
     }
 
 
+    /**
+     * @{inheritDoc}
+     */
     public function getName()
     {
         return 'htmldev_example';

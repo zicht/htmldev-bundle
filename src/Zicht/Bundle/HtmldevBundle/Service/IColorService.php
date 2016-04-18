@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Robert van der Kemp <robert@zicht.nl>
+ * @copyright Zicht online
+ */
 
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
@@ -12,14 +16,12 @@ interface IColorService
 {
     /**
      * @param string $hexColor
-     *
      * @return number
      */
     public function getLuminance($hexColor);
 
     /**
-     * @param $file
-     *
+     * @param string $file
      * @return mixed
      */
     public function getColorGroups($file);
