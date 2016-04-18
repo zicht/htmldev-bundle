@@ -2,7 +2,9 @@
 
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
-use \Twig_Extension;
+use Symfony\Component\Yaml\Yaml;
+use Twig_Extension;
+use Zicht\Bundle\HtmldevBundle\Service\IColorService;
 
 /**
  * Twig extensions that make rendering a style guide easier.
@@ -11,6 +13,19 @@ use \Twig_Extension;
  */
 class HtmldevExtension extends Twig_Extension
 {
+    private $htmldevDirectory;
+
+    /**
+     * @var IColorService
+     */
+    private $colorService;
+
+    public function __construct($htmldevDirectory, IColorService $colorService)
+    {
+        $this->htmldevDirectory = $htmldevDirectory;
+        $this->colorService = $colorService;
+    }
+
     /**
      * Gets the list of functions available in the Twig templates.
      *
@@ -21,7 +36,54 @@ class HtmldevExtension extends Twig_Extension
             new \Twig_SimpleFunction('ui_and_html', array($this, 'ui_and_html'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('get_ui_and_html', array($this, 'get_ui_and_html'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('get_current_datetime', array($this, 'get_current_datetime')),
+            new \Twig_SimpleFunction('load_data', array($this, 'loadData')),
+            new \Twig_SimpleFunction('icons', array($this, 'getIcons')),
+            new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
+            new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance'))
         );
+    }
+
+
+    function getFilters()
+    {
+        return [
+            new \Twig_SimpleFilter('ui_printable_arguments', [$this, 'ui_printable_arguments']),
+        ];
+    }
+
+
+    /**
+     * Format a set of arguments into a legible json object.
+     *
+     * @param mixed $val
+     * @param string|mixed
+     * @return array|string
+     */
+    public function ui_printable_arguments($val, $format = true)
+    {
+        if ($val instanceof \Twig_Markup) {
+            $val = (string)$val;
+        }
+
+        if (is_array($val)) {
+            foreach ($val as $key => $value) {
+                $val[$key] = $this->ui_printable_arguments($value, false);
+            }
+        } else if (is_object($val)) {
+            foreach (get_object_vars($val) as $key => $value) {
+                $val->$key = $this->ui_printable_arguments($value, false);
+            }
+        } else if (is_string($val)) {
+            $val = trim($val);
+            if (strlen($val) >  50) {
+                $val = substr($val, 0, 47) . '...';
+            }
+        }
+
+        if ($format) {
+            return json_encode($val, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        }
+        return $val;
     }
 
     /**
@@ -74,6 +136,43 @@ class HtmldevExtension extends Twig_Extension
         ', $html, htmlentities($html));
 
         return $resultHtml;
+    }
+
+    /**
+     * @param $type
+     *
+     * @return array
+     */
+    public function loadData($type)
+    {
+        $fileName = sprintf('%s/data/%s.yml', $this->htmldevDirectory, $type);
+        if (!is_file($fileName)) {
+            return [];
+        }
+
+        return Yaml::parse(file_get_contents($fileName));
+    }
+
+    /**
+     * Returns the names of the icons of the supplied type, without file extension.
+     *
+     * @param $type
+     *
+     * @return array
+     */
+    public function getIcons($type)
+    {
+        $imageDirectory = sprintf('%s/images/icons/%s', $this->htmldevDirectory, $type);
+        if (!is_dir($imageDirectory)) {
+            return [];
+        }
+
+        $files = array_diff(scandir($imageDirectory), ['..', '.']);
+        $iconNames = array_map(function($item) {
+            return basename($item, '.svg');
+        }, $files);
+
+        return $iconNames;
     }
 
     /**

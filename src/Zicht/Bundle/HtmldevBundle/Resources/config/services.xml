@@ -4,11 +4,21 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="htmldev.directory">%kernel.root_dir%/../htmldev</parameter>
+    </parameters>
+
     <services>
         <service id="htmldev.template" class="Zicht\Bundle\HtmldevBundle\Service\Template">
-            <argument type="string">%kernel.root_dir%/../htmldev</argument>
+            <argument type="string">%htmldev.directory%</argument>
         </service>
+        <service id="htmldev.color_service" class="Zicht\Bundle\HtmldevBundle\Service\SassColorService">
+            <argument type="string">%htmldev.directory%</argument>
+        </service>
+
         <service id="htmldev.twig.extension" class="Zicht\Bundle\HtmldevBundle\Twig\HtmldevExtension">
+            <argument type="string">%htmldev.directory%</argument>
+            <argument type="service" id="htmldev.color_service" />
             <tag name="twig.extension"/>
         </service>
     </services>
