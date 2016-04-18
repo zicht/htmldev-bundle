@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class HtmldevController
@@ -18,10 +19,12 @@ use Symfony\Component\Form\FormError;
 class HtmldevController extends Controller
 {
     /**
-     * @Route("/htmldev")
-     * @Route("/htmldev/")
+     * Renders all templates using the '_index.html.twig' template file
      *
      * @return Response
+     *
+     * @Route("/htmldev")
+     * @Route("/htmldev/")
      */
     public function indexAction()
     {
@@ -34,10 +37,12 @@ class HtmldevController extends Controller
     }
 
     /**
-     * @Route("/htmldev/{filename}")
+     * Renders the specified template
      *
-     * @param $filename
+     * @param string $filename
      * @return Response
+     *
+     * @Route("/htmldev/{filename}")
      */
     public function detailAction($filename)
     {
@@ -50,6 +55,10 @@ class HtmldevController extends Controller
 
 
     /**
+     * Renders a form using the `htmldev_example` type. Including errors.
+     *
+     * @return array
+     *
      * @Route("/htmldev/_form")
      * @Template
      */

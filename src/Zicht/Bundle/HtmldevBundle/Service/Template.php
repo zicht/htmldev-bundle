@@ -18,15 +18,19 @@ class Template
     private $rootDir;
 
     /**
+     * Construct with the passed dir as the root for the template files
+     *
      * @param string $rootDir
      */
-    function __construct($rootDir)
+    public function __construct($rootDir)
     {
         $this->rootDir = $rootDir;
     }
 
     /**
-     * @return \RegexIterator
+     * Returns an iterator of all template files
+     *
+     * @return \SplFileInfo[]
      */
     public function findAll()
     {
@@ -34,6 +38,8 @@ class Template
     }
 
     /**
+     * Returns the twig template represented by the specified file name
+     *
      * @param string $name
      * @return string
      */

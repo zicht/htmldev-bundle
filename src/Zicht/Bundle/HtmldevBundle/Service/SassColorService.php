@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Robert van der Kemp <robert@zicht.nl>
+ * @copyright Zicht online
+ */
 
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
@@ -18,7 +22,7 @@ class SassColorService implements IColorService
     /**
      * Initializes a new instance of the SassColorService.
      *
-     * @param $htmldevDirectory
+     * @param string $htmldevDirectory
      */
     public function __construct($htmldevDirectory)
     {
@@ -61,7 +65,7 @@ class SassColorService implements IColorService
         }
 
         $css = file_get_contents($fileName);
-        $cssLines = array_filter(explode('//', $css), function($item) {
+        $cssLines = array_filter(explode('//', $css), function ($item) {
             return !empty(trim($item));
         });
 
@@ -98,15 +102,14 @@ class SassColorService implements IColorService
      * Helper function that reads color definitions in Sass and turns
      * them into an array.
      *
-     * @param $colorLines
-     *
+     * @param array $colorLines
      * @return array
      */
     protected function createPairsFromColorLines($colorLines)
     {
         $pairs = [];
 
-        foreach($colorLines as $line) {
+        foreach ($colorLines as $line) {
             if (empty(trim($line))) {
                 continue;
             }

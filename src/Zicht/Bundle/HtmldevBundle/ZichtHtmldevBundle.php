@@ -4,7 +4,7 @@
  */
 namespace Zicht\Bundle\HtmldevBundle;
 
-use \Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class ZichtHtmldevBundle
