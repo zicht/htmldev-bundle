@@ -21,5 +21,11 @@
             <argument type="service" id="htmldev.color_service" />
             <tag name="twig.extension"/>
         </service>
+
+        <service id="htmldev.command" class="Zicht\Bundle\HtmldevBundle\Command\RenderCommand">
+            <argument type="service" id="templating"/>
+            <argument type="service" id="service_container"/>
+            <tag name="console.command"/>
+        </service>
     </services>
 </container>
