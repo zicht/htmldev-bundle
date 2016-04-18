@@ -1,3 +1,4 @@
-zicht_zicht:
+zicht_htmldev:
+    prefix: /htmldev
     resource: "@ZichtHtmldevBundle/Controller"
 

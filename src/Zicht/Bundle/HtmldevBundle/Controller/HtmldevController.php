@@ -19,32 +19,15 @@ use Symfony\Component\HttpFoundation\Response;
 class HtmldevController extends Controller
 {
     /**
-     * Renders all templates using the '_index.html.twig' template file
-     *
-     * @return Response
-     *
-     * @Route("/htmldev")
-     * @Route("/htmldev/")
-     */
-    public function indexAction()
-    {
-
-        $template = $this->get('htmldev.template');
-
-        return $this->render('@htmldev/_index.html.twig', array(
-            'templates' => $template->findAll()
-        ));
-    }
-
-    /**
      * Renders the specified template
      *
      * @param string $filename
      * @return Response
      *
-     * @Route("/htmldev/{filename}")
+     * @Route("/{filename}", defaults={"filename"="index.html"}, requirements={"filename"="(?!_).*\.html"})
+     * @Route("")
      */
-    public function detailAction($filename)
+    public function detailAction($filename = 'index.html')
     {
         $template = $this->get('htmldev.template');
 
@@ -59,7 +42,7 @@ class HtmldevController extends Controller
      *
      * @return array
      *
-     * @Route("/htmldev/_form")
+     * @Route("/_form")
      * @Template
      */
     public function formAction()
