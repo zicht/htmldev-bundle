@@ -40,6 +40,7 @@ class RenderCommand extends Console\Command\Command
         $this
             ->setName('zicht:htmldev:render')
             ->addArgument('file', Console\Input\InputArgument::REQUIRED, 'The template to render')
+            ->addOption('output', 'o', Console\Input\InputOption::VALUE_REQUIRED, 'Specify output file, default is stdout', '-');
         ;
     }
 
@@ -49,7 +50,17 @@ class RenderCommand extends Console\Command\Command
         $this->container->enterScope('request');
         $request = new Request();
         $this->container->set('request', $request, 'request');
-        $output->writeln($this->templating->render($input->getArgument('file')));
+        $outputFile = $input->getOption('output');
+        if ($outputFile === '-') {
+            $outputFile = 'php://stdout';
+        }
+        try {
+            $rendered = $this->templating->render($input->getArgument('file'));
+            file_put_contents($outputFile, $rendered);
+        } catch (\Exception $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+        }
+
         $this->container->leaveScope('request');
     }
 }
