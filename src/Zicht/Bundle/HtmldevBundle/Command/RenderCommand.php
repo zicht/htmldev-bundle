@@ -11,8 +11,17 @@ use Symfony\Component\Console;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Renders a template.
+ */
 class RenderCommand extends Console\Command\Command
 {
+    /**
+     * Constructor
+     *
+     * @param EngineInterface $templating
+     * @param ContainerInterface $container
+     */
     public function __construct(EngineInterface $templating, ContainerInterface $container)
     {
         parent::__construct();
@@ -21,6 +30,11 @@ class RenderCommand extends Console\Command\Command
         $this->container = $container;
     }
 
+    /**
+     * Configuring
+     *
+     *
+     */
     protected function configure()
     {
         $this
