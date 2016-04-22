@@ -22,11 +22,11 @@ class RenderCommand extends Console\Command\Command
      * @param EngineInterface $templating
      * @param ContainerInterface $container
      */
-    public function __construct(EngineInterface $templating, ContainerInterface $container)
+    public function __construct(\Twig_Environment $twig, ContainerInterface $container)
     {
         parent::__construct();
 
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->container = $container;
     }
 
@@ -55,7 +55,9 @@ class RenderCommand extends Console\Command\Command
             $outputFile = 'php://stdout';
         }
         try {
-            $rendered = $this->templating->render($input->getArgument('file'));
+            $filename = basename($input->getArgument('file'), '.twig');
+            $this->twig->addGlobal('htmldev_templatename', $filename);
+            $rendered = $this->twig->render($input->getArgument('file'));
             file_put_contents($outputFile, $rendered);
         } catch (\Exception $e) {
             $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));

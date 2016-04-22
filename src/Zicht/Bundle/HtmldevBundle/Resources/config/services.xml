@@ -23,7 +23,7 @@
         </service>
 
         <service id="htmldev.command" class="Zicht\Bundle\HtmldevBundle\Command\RenderCommand">
-            <argument type="service" id="templating"/>
+            <argument type="service" id="twig"/>
             <argument type="service" id="service_container"/>
             <tag name="console.command"/>
         </service>

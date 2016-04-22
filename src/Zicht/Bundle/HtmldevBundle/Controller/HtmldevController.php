@@ -31,6 +31,7 @@ class HtmldevController extends Controller
     {
         $template = $this->get('htmldev.template');
 
+        $this->get('twig')->addGlobal('htmldev_templatename', $filename);
         return $this->render(sprintf('@htmldev/%s', $template->find($filename)), array(
             'templates' => $template->findAll()
         ));
