@@ -13,11 +13,12 @@ A bower.json is placed in the root of the project along with a .bowerrc file, in
 installs all packages in htmldev/vendor.
 For this bundle is a configuration yaml copied to the bundles config dir.
 
-The only part that has to be done manually is adding the following to the to routing.yml    
+The only part that has to be done manually is adding the following to the to routing.yml
 ```
 htmldev:
     resource: "@ZichtHtmldevBundle/Resources/config/routing.yml"
 ```
+! Make sure the following line is added *above* any routing which has the /{locale} (or simular) pattern - like the PageBundle or (often) the site-specific controllers extending the PageController!
 
 ## Usage
 
