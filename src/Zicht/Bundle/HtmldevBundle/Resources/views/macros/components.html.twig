@@ -62,3 +62,26 @@ Locates the given icon symbol and returns its XML with the given options as its 
 
     {{ embed_icon(symbol, options.width, options.height, options.viewbox_x, options.viewbox_y, options.extra_css_classes, options.include_accessibility, options.directory)|raw }}
 {% endmacro %}
+
+
+
+{#
+Locates the given SVG file and returns its XML with the given options as its attributes.
+
+@param string symbol The name of the SVG to load, without .svg extension.
+@param object options
+#}
+{% macro svg(name, options) %}
+    {% set default_options = {
+        width: '',
+        height: '',
+        viewbox_x: '',
+        viewbox_y: '',
+        css_classes: [],
+        accessibility_attributes: [],
+        directory: 'images'
+    } %}
+    {% set options = default_options|merge(options|default([])) %}
+
+    {{ embed_svg(name, options.width, options.height, options.viewbox_x, options.viewbox_y, options.css_classes, options.accessibility_attributes, options.directory)|raw }}
+{% endmacro %}
