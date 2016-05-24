@@ -15,10 +15,14 @@
         <service id="htmldev.color_service" class="Zicht\Bundle\HtmldevBundle\Service\SassColorService">
             <argument type="string">%htmldev.directory%</argument>
         </service>
+        <service id="htmldev.svg_service" class="Zicht\Bundle\HtmldevBundle\Service\SvgService">
+            <argument type="string">%htmldev.directory%</argument>
+        </service>
 
         <service id="htmldev.twig.extension" class="Zicht\Bundle\HtmldevBundle\Twig\HtmldevExtension">
             <argument type="string">%htmldev.directory%</argument>
             <argument type="service" id="htmldev.color_service" />
+            <argument type="service" id="htmldev.svg_service" />
             <tag name="twig.extension"/>
         </service>
 

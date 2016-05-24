@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Robert van der Kemp <robert@zicht.nl>
+ * @author Robert van Kempen <robert@zicht.nl>
  * @author Boudewijn Schoon <boudewijn@zicht.nl>
  * @copyright Zicht online
  */
@@ -11,6 +11,7 @@ use Faker\Factory;
 use Twig_Extension;
 use Symfony\Component\Yaml\Yaml;
 use Zicht\Bundle\HtmldevBundle\Service\IColorService;
+use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 
 /**
  * Twig extensions that make rendering a style guide easier.
@@ -19,6 +20,9 @@ use Zicht\Bundle\HtmldevBundle\Service\IColorService;
  */
 class HtmldevExtension extends Twig_Extension
 {
+    /**
+     * @var string
+     */
     private $htmldevDirectory;
 
     /**
@@ -27,16 +31,25 @@ class HtmldevExtension extends Twig_Extension
     private $colorService;
 
     /**
-     * Constructor
+     * @var SvgServiceInterface
+     */
+    private $svgService;
+
+
+    /**
+     * Initializes a new instance of the HtmldevExtension class.
      *
      * @param string $htmldevDirectory
      * @param IColorService $colorService
+     * @param SvgServiceInterface $svgService
      */
-    public function __construct($htmldevDirectory, IColorService $colorService)
+    public function __construct($htmldevDirectory, IColorService $colorService, SvgServiceInterface $svgService)
     {
         $this->htmldevDirectory = $htmldevDirectory;
         $this->colorService = $colorService;
+        $this->svgService = $svgService;
     }
+
 
     /**
      * @{inheritDoc}
@@ -50,7 +63,9 @@ class HtmldevExtension extends Twig_Extension
             new \Twig_SimpleFunction('load_data', array($this, 'loadData')),
             new \Twig_SimpleFunction('icons', array($this, 'getIcons')),
             new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
-            new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance'))
+            new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance')),
+            new \Twig_SimpleFunction('embed_svg', array($this->svgService, 'getSvg')),
+            new \Twig_SimpleFunction('embed_icon', array($this->svgService, 'getSvgIcon'))
         );
     }
 

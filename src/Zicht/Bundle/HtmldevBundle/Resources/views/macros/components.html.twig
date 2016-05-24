@@ -39,3 +39,26 @@ for rendering inside the style guide, with code examples et cetera.
     {{ ui_and_html(componentHtml) }}
 
 {% endmacro %}
+
+
+
+{#
+Locates the given icon symbol and returns its XML with the given options as its attributes.
+
+@param string symbol The name of the symbol to load, without .svg extension.
+@param object options
+#}
+{% macro svg_icon(symbol, options) %}
+    {% set default_options = {
+        width: 16,
+        height: 16,
+        viewbox_x: 16,
+        viewbox_y: 16,
+        extra_css_classes: [],
+        include_accessibility: true,
+        directory: 'images/icons'
+    } %}
+    {% set options = default_options|merge(options|default([])) %}
+
+    {{ embed_icon(symbol, options.width, options.height, options.viewbox_x, options.viewbox_y, options.extra_css_classes, options.include_accessibility, options.directory)|raw }}
+{% endmacro %}

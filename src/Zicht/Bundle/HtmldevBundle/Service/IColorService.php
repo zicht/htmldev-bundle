@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Robert van der Kemp <robert@zicht.nl>
+ * @author Robert van Kempen <robert@zicht.nl>
  * @copyright Zicht online
  */
 
