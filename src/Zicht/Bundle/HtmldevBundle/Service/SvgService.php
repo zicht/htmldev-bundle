@@ -47,7 +47,7 @@ class SvgService implements SvgServiceInterface
      */
     public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $directory)
     {
-        $cssClasses = ['c-icon', sprintf('c-icon--%s', $symbol)] + $extraCssClasses;
+        $cssClasses = array_merge(['c-icon', sprintf('c-icon--%s', $symbol)], $extraCssClasses);
         $accessibilityAttributes = $includeAccessibility ? ['aria-hidden' => 'true', 'role' => 'img'] : [];
 
         return $this->getSvg(
