@@ -6,3 +6,6 @@
 
 * 2.2.0
     * Add twig functions for embedding SVG and SVG icons in HTML.
+
+* 2.2.1
+    * Minor bug: rename `browserlist` to `browerslist` to meet autoprefixer's expectations

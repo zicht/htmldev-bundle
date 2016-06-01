@@ -20,8 +20,8 @@ if [ ! -d $HTMLDEV ]; then
     sed "s/@bundle@/$BUNDLE_NAME/g" $RESOURCES/system.conf.js > $HTMLDEV/javascript/system.conf.js
 fi
 
-if [ ! -f $HTMLDEV/browserlist ]; then
-    cp $RESOURCES/browserlist $HTMLDEV/browserlist
+if [ ! -f $HTMLDEV/browserslist ]; then
+    cp $RESOURCES/browserslist $HTMLDEV/browserslist
 fi
 
 if [ ! -f $ROOT/package.json ]; then
