@@ -104,13 +104,13 @@ class SvgService implements SvgServiceInterface
             $this->setSvgAttribute($svg, 'viewbox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')));
         }
 
-        $svg->setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        $this->setSvgAttribute($svg, 'preserveAspectRatio', 'xMidYMid meet');
 
         /**
          * Add CSS classes for extra theming or positioning.
          */
         if (is_array($cssClasses)) {
-            $svg->setAttribute('class', implode('  ', $cssClasses));
+            $this->setSvgAttribute($svg, 'class',  implode('  ', $cssClasses));
         }
 
         /**
@@ -128,15 +128,25 @@ class SvgService implements SvgServiceInterface
 
     /**
      * Adds the given name-value pair as an XML attribute to the given SVG node, but
-     * does not override existing attribute values.
+     * does not override existing attribute values, except when the merge parameter
+     * is set to `true`.
      *
      * @param \DOMNode $svg
      * @param string $name
-     * @param string $value
+     * @param string
+     * @param boolean $merge
      */
-    protected function setSvgAttribute($svg, $name, $value)
+    protected function setSvgAttribute($svg, $name, $value, $merge = false)
     {
-        if ($svg->getAttribute($name) !== '') {
+        $existingValue = $svg->getAttribute($name);
+
+        if (!$merge && $existingValue !== '') {
+            return;
+        }
+
+        if ($merge && $existingValue !== '') {
+            $svg->setAttribute($name, sprintf('%s  %s', $existingValue, $value));
+
             return;
         }
 
