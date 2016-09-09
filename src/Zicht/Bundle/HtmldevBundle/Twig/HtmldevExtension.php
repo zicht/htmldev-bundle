@@ -9,9 +9,8 @@ namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig_Extension;
 use Symfony\Component\Yaml\Yaml;
-use Zicht\Bundle\HtmldevBundle\Service\HtmlService;
+use Zicht\Bundle\HtmldevBundle\Service\ColorServiceInterface;
 use Zicht\Bundle\HtmldevBundle\Service\HtmlServiceInterface;
-use Zicht\Bundle\HtmldevBundle\Service\IColorService;
 use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 
 /**
@@ -27,7 +26,7 @@ class HtmldevExtension extends Twig_Extension
     private $htmldevDirectory;
 
     /**
-     * @var IColorService
+     * @var ColorServiceInterface
      */
     private $colorService;
 
@@ -46,7 +45,7 @@ class HtmldevExtension extends Twig_Extension
      * Initializes a new instance of the HtmldevExtension class.
      *
      * @param string $htmldevDirectory
-     * @param IColorService $colorService
+     * @param ColorServiceInterface $colorService
      * @param SvgServiceInterface $svgService
      */
     public function __construct(

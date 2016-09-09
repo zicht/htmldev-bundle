@@ -7,12 +7,12 @@
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
- * Class that turns Sass file into a readable palette that
+ * Class that turns a Sass file into a readable palette that
  * can be displayed in a style guide.
  *
  * @package Zicht\Bundle\HtmldevBundle\Service
  */
-class SassColorService implements IColorService
+class SassColorService implements ColorServiceInterface
 {
     /**
      * @var string
