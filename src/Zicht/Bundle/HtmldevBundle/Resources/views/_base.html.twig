@@ -1,9 +1,9 @@
 <!doctype html>
-<html class="no-js  not-loaded">
+<html class="no-js  not-loaded  {% block html_classes '' %}" {% block html_attributes '' %}>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title '' %}</title>
 
         <!--
         Copyright (c) Zicht online {{ 'now'|date('Y') }} All rights reserved
@@ -13,8 +13,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block stylesheets %}{% endblock %}
-        {% block meta %}{% endblock %}
+        {% block stylesheets '' %}
+        {% block meta '' %}
 
         {#
             TODO add a favicon, preferably from http://realfavicongenerator.net/.
@@ -28,12 +28,12 @@
             html.className = html.className.replace('no-js', '');
         </script>
 
-        {% block javascripts_top %}{% endblock %}
+        {% block javascript_top '' %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% block body %}{% endblock %}
+    <body class="{% block body_classes '' %}" {% block body_attributes '' %}>
+        {% block body '' %}
 
-        {% block bottom_data %}{% endblock %}
+        {% block body_bottom '' %}
     </body>
 </html>
