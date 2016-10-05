@@ -132,4 +132,14 @@ class HtmlServiceTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('jerry  art-vandelay', $classes);
     }
+
+    /**
+     * @test
+     */
+    public function getClassesDoesNotBreakOnUnsupportedTypes()
+    {
+        $classes = $this->service->getClasses(new \stdClass());
+
+        $this->assertEmpty($classes);
+    }
 }
