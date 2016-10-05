@@ -1,0 +1,31 @@
+<phpunit
+        bootstrap="vendor/autoload.php"
+        convertWarningsToExceptions="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        backupGlobals="false"
+>
+    <php>
+        <const name="APPLICATION_ENV" value="testing"/>
+    </php>
+    <testsuites>
+        <testsuite>
+            <directory suffix="Test.php">src/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+            <exclude>
+                <directory suffix=".php">src/Zicht/Bundle/HtmldevBundle/Resources</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="build/coverage" title="HtmldevBundle"
+             charset="UTF-8" yui="true" highlight="true"
+             lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
+</phpunit>
