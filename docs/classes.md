@@ -23,7 +23,7 @@ When classes are manually added by checking one ore more properties, code can be
     equal_height  ? 'c-card--equal-height@sm' : ''
 ] %}
    
-<artlcie class="{{ classes|join('  ') }}">
+<article class="{{ classes|join('  ') }}">
     ...
 </article>
 ```
@@ -31,13 +31,13 @@ When classes are manually added by checking one ore more properties, code can be
 With the `classes` function, it becomes much more apparent which class is toggled by what property:
 
 ```
-{% set classes = classes([
+{% set classes = classes({
     'c-card--with-image': image.url,
     'c-card--no-image  u-text--center': not image.url,
     'c-card--equal-height@sm': equal_height
-]) %} 
+}) %} 
    
-<artlcie class="{{ classes }}">
+<article class="{{ classes }}">
     ...
 </article>
 ```
