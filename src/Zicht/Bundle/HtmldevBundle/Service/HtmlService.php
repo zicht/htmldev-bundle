@@ -14,7 +14,7 @@ namespace Zicht\Bundle\HtmldevBundle\Service;
 class HtmlService implements HtmlServiceInterface
 {
     /**
-     * Builds a string of class names based on supplied predicates.
+     * Builds a string of CSS class names based on supplied predicates.
      *
      * @param array ...$config
      *

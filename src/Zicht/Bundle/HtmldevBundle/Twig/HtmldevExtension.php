@@ -11,6 +11,7 @@ use Faker\Factory;
 use Twig_Extension;
 use Symfony\Component\Yaml\Yaml;
 use Zicht\Bundle\HtmldevBundle\Service\HtmlService;
+use Zicht\Bundle\HtmldevBundle\Service\HtmlServiceInterface;
 use Zicht\Bundle\HtmldevBundle\Service\IColorService;
 use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 
@@ -76,7 +77,7 @@ class HtmldevExtension extends Twig_Extension
             new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
             new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance')),
             new \Twig_SimpleFunction('embed_svg', array($this->svgService, 'getSvg')),
-            new \Twig_SimpleFunction('embed_icon', array($this->svgService, 'getSvgIcon'))
+            new \Twig_SimpleFunction('embed_icon', array($this->svgService, 'getSvgIcon')),
             new \Twig_SimpleFunction('classes', array($this->htmlService, 'getClasses'))
         );
     }
