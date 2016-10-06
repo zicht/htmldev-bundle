@@ -10,6 +10,8 @@ namespace Zicht\Bundle\HtmldevBundle\Twig;
 use Faker\Factory;
 use Twig_Extension;
 use Symfony\Component\Yaml\Yaml;
+use Zicht\Bundle\HtmldevBundle\Service\HtmlService;
+use Zicht\Bundle\HtmldevBundle\Service\HtmlServiceInterface;
 use Zicht\Bundle\HtmldevBundle\Service\IColorService;
 use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 
@@ -35,6 +37,11 @@ class HtmldevExtension extends Twig_Extension
      */
     private $svgService;
 
+    /**
+     * @var HtmlServiceInterface
+     */
+    private $htmlService;
+
 
     /**
      * Initializes a new instance of the HtmldevExtension class.
@@ -43,11 +50,16 @@ class HtmldevExtension extends Twig_Extension
      * @param IColorService $colorService
      * @param SvgServiceInterface $svgService
      */
-    public function __construct($htmldevDirectory, IColorService $colorService, SvgServiceInterface $svgService)
+    public function __construct(
+        $htmldevDirectory,
+        IColorService $colorService,
+        SvgServiceInterface $svgService,
+        HtmlServiceInterface $htmlService)
     {
         $this->htmldevDirectory = $htmldevDirectory;
         $this->colorService = $colorService;
         $this->svgService = $svgService;
+        $this->htmlService = $htmlService;
     }
 
 
@@ -65,7 +77,8 @@ class HtmldevExtension extends Twig_Extension
             new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
             new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance')),
             new \Twig_SimpleFunction('embed_svg', array($this->svgService, 'getSvg')),
-            new \Twig_SimpleFunction('embed_icon', array($this->svgService, 'getSvgIcon'))
+            new \Twig_SimpleFunction('embed_icon', array($this->svgService, 'getSvgIcon')),
+            new \Twig_SimpleFunction('classes', array($this->htmlService, 'getClasses'))
         );
     }
 
