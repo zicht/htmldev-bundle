@@ -17,7 +17,6 @@ class HtmlService implements HtmlServiceInterface
      * Builds a string of CSS class names based on supplied predicates.
      *
      * @param array ...$config
-     *
      * @return string
      */
     public function getClasses(...$config)
@@ -78,7 +77,7 @@ class HtmlService implements HtmlServiceInterface
         $keys = array_keys($array);
 
         /**
-         * If the array keys of the keys match the keys, then the array must not be associative
+         * If the array keys of the keys match the keys, then the array must not be associative.
          */
         return array_keys($keys) !== $keys;
     }
