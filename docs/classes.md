@@ -1,6 +1,6 @@
 # Twig function: `classes`
 
-Function that conditionally builds a CSS class name. 
+Function that conditionally builds a CSS class name.
 
 When building a component (or any piece of HTML, really) in Twig, it's quite common to render or not render based on cerrtain variables. If you manually contatenate the class names, it quickly becomes a mess of `if` / `else` or ternay operators. This function helps to keep that part readable.
 
@@ -61,3 +61,7 @@ You can even created a nested object if you need to conditionally apply classes 
     ...
 </article>
 ```
+
+## Credits
+
+This function was created because the JS equivalent [classnames](https://github.com/JedWatson/classnames) was so nice to use in React.
