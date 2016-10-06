@@ -1,4 +1,6 @@
-plugins: ['core', 'svn']
+plugins: ['core', 'git', 'ci']
 
-vcs:
-    url: svn://zon/projecten/zicht-libraries/ZichtHtmldevBundle
+tasks:
+    ci.phpunit:
+        pre: composer install --dev
+        do: ./vendor/phpunit/phpunit/phpunit $(ci.phpunit.opts ? ci.phpunit.opts)
