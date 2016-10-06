@@ -25,33 +25,45 @@ class HtmlService implements HtmlServiceInterface
         $classes = [];
 
         foreach ($config as $argument) {
-            switch(gettype($argument))
-            {
-                case 'string':
-                    array_push($classes, $argument);
-                    break;
-                case 'array':
-                    if (!$this->hasStringKeys($argument)) {
-//                        array_push($classes, $this->getClasses($argument));
-                        $classes = array_merge($classes, $argument);
-                        break;
-                    }
-
-                    foreach($argument as $class => $predicate) {
-                        if (!$predicate) {
-                            continue;
-                        }
-
-                        array_push($classes, $class);
-                    }
-                    break;
-
-                default:
-                    break;
-            }
+            $classes = $this->addArgumentToClasses($classes, $argument);
         }
 
         return join('  ', $classes);
+    }
+
+
+    /**
+     * @param $classes
+     * @param $argument
+     * @return array
+     */
+    private function addArgumentToClasses($classes, $argument)
+    {
+        switch(gettype($argument))
+        {
+            case 'string':
+                array_push($classes, $argument);
+                break;
+            case 'array':
+                if (!$this->hasStringKeys($argument)) {
+                    $classes = array_merge($classes, $argument);
+                    break;
+                }
+
+                foreach($argument as $class => $predicate) {
+                    if (!$predicate) {
+                        continue;
+                    }
+
+                    array_push($classes, $class);
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        return $classes;
     }
 
 

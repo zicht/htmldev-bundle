@@ -138,7 +138,7 @@ class HtmlServiceTest extends PHPUnit_Framework_TestCase
      */
     public function getClassesDoesNotBreakOnUnsupportedTypes()
     {
-        $classes = $this->service->getClasses(new \stdClass());
+        $classes = $this->service->getClasses(new \stdClass(), false, 0, 1, true, null);
 
         $this->assertEmpty($classes);
     }
