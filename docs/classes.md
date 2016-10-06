@@ -41,3 +41,23 @@ With the `classes` function, it becomes much more apparent which class is toggle
     ...
 </article>
 ```
+
+You can even created a nested object if you need to conditionally apply classes to multiple elements.
+
+```
+{% set classes = {
+    card: classes({
+        'c-card--with-image': image.url,
+        'c-card--no-image  u-text--center': not image.url,
+        'c-card--equal-height@sm': equal_height
+    }),
+    img: classes({
+        'u-black  u-bg--red': is_black
+     })
+ %} 
+   
+<article class="{{ classes.card }}">
+    <img class="{{ classes.img }}">
+    ...
+</article>
+```
