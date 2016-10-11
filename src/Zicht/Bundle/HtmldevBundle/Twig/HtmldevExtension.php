@@ -47,10 +47,11 @@ class HtmldevExtension extends Twig_Extension
      * @param string $htmldevDirectory
      * @param ColorServiceInterface $colorService
      * @param SvgServiceInterface $svgService
+     * @param HtmlServiceInterface $htmlService
      */
     public function __construct(
         $htmldevDirectory,
-        IColorService $colorService,
+        ColorServiceInterface $colorService,
         SvgServiceInterface $svgService,
         HtmlServiceInterface $htmlService)
     {
@@ -67,9 +68,6 @@ class HtmldevExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('ui_and_html', array($this, 'ui_and_html'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('get_ui_and_html', array($this, 'get_ui_and_html'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('get_current_datetime', array($this, 'get_current_datetime')),
             new \Twig_SimpleFunction('load_data', array($this, 'loadData')),
             new \Twig_SimpleFunction('icons', array($this, 'getIcons')),
             new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
@@ -87,7 +85,7 @@ class HtmldevExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('ui_printable_arguments', [$this, 'ui_printable_arguments']),
+            new \Twig_SimpleFilter('ui_printable_arguments', [$this, 'getUiPrintableArguments'])
         ];
     }
 
@@ -99,9 +97,7 @@ class HtmldevExtension extends Twig_Extension
      * @param bool $format
      * @return array|string
      */
-    // @codingStandardsIgnoreStart
-    public function ui_printable_arguments($val, $format = true)
-    // @codingStandardsIgnoreEnd
+    public function getUiPrintableArguments($val, $format = true)
     {
         if ($val instanceof \Twig_Markup) {
             $val = (string)$val;
@@ -109,11 +105,11 @@ class HtmldevExtension extends Twig_Extension
 
         if (is_array($val)) {
             foreach ($val as $key => $value) {
-                $val[$key] = $this->ui_printable_arguments($value, false);
+                $val[$key] = $this->getUiPrintableArguments($value, false);
             }
         } else if (is_object($val)) {
             foreach (get_object_vars($val) as $key => $value) {
-                $val->$key = $this->ui_printable_arguments($value, false);
+                $val->$key = $this->getUiPrintableArguments($value, false);
             }
         } else if (is_string($val)) {
             $val = trim($val);
@@ -126,71 +122,6 @@ class HtmldevExtension extends Twig_Extension
             return json_encode($val, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         }
         return $val;
-    }
-
-    /**
-     * Returns the current time with, optionally, a modifier
-     *
-     * > get_current_datetime()
-     * Datetime('now')
-     *
-     * > get_current_datetime('+1 day')
-     * Datetime('now')->modify('+1 day')
-     *
-     * @param string $modify
-     * @return \DateTime
-     */
-    // @codingStandardsIgnoreStart
-    public function get_current_datetime($modify = '')
-    // @codingStandardsIgnoreEnd
-    {
-        // use static $now to ensure that all dates are -exactly- the same
-        static $now = null;
-
-        if (null === $now) {
-            $now = new \DateTime('now');
-        }
-
-        $datetime = clone $now;
-        if (!empty($modify)) {
-            $datetime->modify($modify);
-        }
-
-        return $datetime;
-    }
-
-    /**
-     * Renders ui and html
-     *
-     * @param string $html
-     * @return string
-     *
-     * @deprecated Use get_ui_and_html instead
-     */
-    // @codingStandardsIgnoreStart
-    public function ui_and_html($html)
-    // @codingStandardsIgnoreEnd
-    {
-        return $this->get_ui_and_html($html);
-    }
-
-    /**
-     * Renders the supplied HTML both as actual HTML and a code block.
-     *
-     * @param string $html
-     * @return string
-     */
-    // @codingStandardsIgnoreStart
-    public function get_ui_and_html($html)
-    // @codingStandardsIgnoreEnd
-    {
-        $resultHtml = sprintf('%s
-            <pre>
-                <code>%s</code>
-            </pre>
-        ', $html, htmlentities($html));
-
-        return $resultHtml;
     }
 
     /**
