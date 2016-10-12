@@ -24,7 +24,7 @@ class HtmldevController
     /**
      * @var PageService
      */
-    private $pageService;
+    private $template;
 
     /**
      * @var Twig_Environment
@@ -37,7 +37,7 @@ class HtmldevController
     private $templating;
 
     /**
-     * @var FormFactory
+     * @var FormFactoryInterface
      */
     private $formFactory;
 
@@ -47,7 +47,7 @@ class HtmldevController
      * @param PageService $template
      * @param Twig_Environment $twig
      * @param EngineInterface $templating
-     * @param FormFactoryInterface $formRegistry
+     * @param FormFactoryInterface $formFactory
      */
     public function __construct(PageService $template, Twig_Environment $twig, EngineInterface $templating, FormFactoryInterface $formFactory)
     {
