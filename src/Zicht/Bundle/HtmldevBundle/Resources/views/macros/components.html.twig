@@ -1,52 +1,68 @@
 {#
-This macro facilitates the easy embedding of component views.
-These component views can be used in both the app's views and the styleguide, to prevent
-HTML duplication.
+    This macro facilitates the easy embedding of component views.
+    These component views can be used in both the app's views and the styleguide, to prevent
+    HTML duplication.
 
-Considerations:
-1. Another solution is to let the developer create macros for each component, but that could
-become tedious when all you want is to do is include a bit of HTML in your view.
-Also, the current solution forces each component to have it's own file, which improves clarity.
-2. The include uses the `only` keyword to make sure no other data from parent views leaks into
-the components view, and all data is sent through the `properties` parameter.
+    Considerations:
+    1. Another solution is to let the developer create macros for each component, but that could
+    become tedious when all you want is to do is include a bit of HTML in your view.
+    Also, the current solution forces each component to have it's own file, which improves clarity.
+    2. The include uses the `only` keyword to make sure no other data from parent views leaks into
+    the components view, and all data is sent through the `properties` parameter.
 
-Example call:
-`{{ ui.component('buttons/button', { 'title': 'Melp' }) }}`
+    Example call:
+    `{{ ui.component('buttons/button', { 'title': 'Melp' }) }}`
 
-@param string slug The name of the component, which corresponds with the name of the file.
-@param object properties The properties of the component.
+    @param string slug The name of the component, which corresponds with the name of the file.
+    @param object properties The properties of the component.
 #}
 {% macro component(slug, properties) %}
-    {% include ('@htmldev/components/' ~ slug ~ '.html.twig') with properties only %}
+    {% strict false %}
+        {% include ('@htmldev/components/' ~ slug ~ '.html.twig') with properties only %}
+    {% endstrict %}
 {% endmacro %}
 
 
 
 {#
-This method does exactly the same as the `component()` macro, except it's intended
-for rendering inside the style guide, with code examples et cetera.
+    This method does exactly the same as the `component()` macro, except it's intended
+    for rendering inside the style guide, with code examples et cetera.
 
-@param string slug The name of the component, which corresponds with the name of the file.
-@param object properties The properties of the component.
+    @param string slug The name of the component, which corresponds with the name of the file.
+    @param object properties The properties of the component.
 #}
 {% macro styleguide_component(slug, properties) %}
-    {% import '@htmldev/macros/components.html.twig' as _self %}
+    {% import '@htmldev_macros/components.html.twig' as _self %}
 
-    {% set componentHtml %}
-        {{ _self.component(slug, properties) }}
-    {% endset %}
+    {% set component_properties = properties|delete('styleguide_title', 'styleguide_type') %}
 
-    {{ ui_and_html(componentHtml) }}
+    <div class="o-grid__row">
+        <div class="o-grid__col  o-grid__col--12@xs  o-grid__col--4@md">
+            {{ _self.component(slug, component_properties) }}
+        </div>
 
+        <div class="o-grid__col  o-grid__col--12@xs  o-grid__col--8@md">
+            {% if properties.styleguide_title|default %}
+                <h2 class="c-component__title  c-copy--h2">{{ properties.styleguide_title }}</h2>
+            {% endif %}
+
+            {% if properties.styleguide_description|default %}
+                <p class="c-component__description  c-copy--body">{{ properties.styleguide_description }}</p>
+            {% endif %}
+
+            {% set json = component_properties|ui_printable_arguments %}
+            <pre class="c-component__code  u-size--7">{{ '{{ ' }}ui.component('{{ slug }}', {{ json }}{{ ') }}' }}</pre>
+        </div>
+    </div>
 {% endmacro %}
 
 
 
 {#
-Locates the given icon symbol and returns its XML with the given options as its attributes.
+    Locates the given icon symbol and returns its XML with the given options as its attributes.
 
-@param string symbol The name of the symbol to load, without .svg extension.
-@param object options
+    @param string symbol The name of the symbol to load, without .svg extension.
+    @param object options
 #}
 {% macro svg_icon(symbol, options) %}
     {% set default_options = {
@@ -66,10 +82,10 @@ Locates the given icon symbol and returns its XML with the given options as its 
 
 
 {#
-Locates the given SVG file and returns its XML with the given options as its attributes.
+    Locates the given SVG file and returns its XML with the given options as its attributes.
 
-@param string symbol The name of the SVG to load, without .svg extension.
-@param object options
+    @param string symbol The name of the SVG to load, without .svg extension.
+    @param object options
 #}
 {% macro svg(name, options) %}
     {% set default_options = {
