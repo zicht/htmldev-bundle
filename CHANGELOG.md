@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1 (2016-12-05)
+
+- Fix bug: the macro `embed_svg` now actually replaces the attributes in the original SVG with the attributes specified in the supplied options.
+
 ## 2.3.0
 
 - Add Twig `classes` function for conditionally building CSS class names.
