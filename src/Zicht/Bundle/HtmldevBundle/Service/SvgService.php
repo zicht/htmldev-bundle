@@ -93,15 +93,15 @@ class SvgService implements SvgServiceInterface
          * Set dimensions to ensure proper rendering across different browsers.
          */
         if (!empty($width)) {
-            $this->setSvgAttribute($svg, 'width', $this->addUnit($width, 'px'));
+            $this->setSvgAttribute($svg, 'width', $this->addUnit($width, 'px'), true);
         }
 
         if (!empty($height)) {
-            $this->setSvgAttribute($svg, 'height', $this->addUnit($height, 'px'));
+            $this->setSvgAttribute($svg, 'height', $this->addUnit($height, 'px'), true);
         }
 
         if (!empty($viewboxX) && !empty($viewboxY)) {
-            $this->setSvgAttribute($svg, 'viewbox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')));
+            $this->setSvgAttribute($svg, 'viewbox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')), true);
         }
 
         $this->setSvgAttribute($svg, 'preserveAspectRatio', 'xMidYMid meet');
@@ -134,18 +134,18 @@ class SvgService implements SvgServiceInterface
      * @param \DOMNode $svg
      * @param string $name
      * @param string
-     * @param boolean $merge
+     * @param boolean $overwrite
      */
-    protected function setSvgAttribute($svg, $name, $value, $merge = false)
+    public function setSvgAttribute($svg, $name, $value, $overwrite = false)
     {
         $existingValue = $svg->getAttribute($name);
 
-        if (!$merge && $existingValue !== '') {
+        if (!$overwrite && $existingValue !== '') {
             return;
         }
 
-        if ($merge && $existingValue !== '') {
-            $svg->setAttribute($name, sprintf('%s  %s', $existingValue, $value));
+        if ($overwrite && $existingValue !== '') {
+            $svg->setAttribute($name, $value);
 
             return;
         }
@@ -162,7 +162,7 @@ class SvgService implements SvgServiceInterface
      *
      * @return string
      */
-    protected function addUnit($value, $unit)
+    public function addUnit($value, $unit)
     {
         if (strpos($value, $unit) > 0) {
             return $value;
@@ -180,7 +180,7 @@ class SvgService implements SvgServiceInterface
      *
      * @return string
      */
-    protected function removeUnit($value, $unit)
+    public function removeUnit($value, $unit)
     {
         if (strpos($value, $unit) === false) {
             return $value;
