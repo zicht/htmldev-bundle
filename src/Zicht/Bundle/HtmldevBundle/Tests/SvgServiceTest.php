@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @copyright Zicht online
+ */
 namespace Zicht\Bundle\HtmldevBundle\Tests;
 
 use PHPUnit_Framework_TestCase;
@@ -23,6 +25,12 @@ class SvgServiceTest extends PHPUnit_Framework_TestCase
         $this->service = new SvgService('');
     }
 
+    /**
+     * Helper function for quickly creating an XML document.
+     *
+     * @param string $s
+     * @return \DOMNode
+     */
     protected function getNodeFromSvgString($s)
     {
         $d = new \DOMDocument();
@@ -31,6 +39,12 @@ class SvgServiceTest extends PHPUnit_Framework_TestCase
         return $d->getElementsByTagName('svg')->item(0);
     }
 
+    /**
+     * Helper function for quickly saving an XML document to string.
+     *
+     * @param \DOMElement $element
+     * @return string
+     */
     protected function elementToString(\DOMElement $element)
     {
         return trim($element->ownerDocument->saveHTML());
