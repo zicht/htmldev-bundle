@@ -2,7 +2,7 @@
     "name": "zicht/htmldev-bundle",
     "description": "Htmldev environment for Symfony",
     "type": "symfony-bundle",
-    "repositories": { },
+    "repositories": [],
     "authors": [
         {
             "name": "Zicht online",
@@ -17,9 +17,16 @@
         "symfony/routing": "*",
         "phpunit/phpunit": "<=4.4"
     },
-    "bin": ["bin/htmldev.sh"],
+    "bin": [
+        "bin/htmldev.sh"
+    ],
     "autoload": {
-        "psr-0": { "": ["src/"] }
+        "psr-0": {
+            "": [
+                "src/"
+            ]
+        }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "license": "MIT"
 }
