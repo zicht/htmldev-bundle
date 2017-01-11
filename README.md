@@ -25,6 +25,5 @@ htmldev:
 If you want to include or import twig files in a template then use the syntax `@htmldev/<path>`. The path is relative to
 the htmldev dir.
 
-## Maintained by
-
-- [Robert van Kempen](https://github.com/DoNormal)
+# Maintainer(s)
+* Robert van Kempen <robert@zicht.nl>
