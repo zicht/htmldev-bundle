@@ -7,7 +7,6 @@
 
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
-use Faker\Factory;
 use Twig_Extension;
 use Symfony\Component\Yaml\Yaml;
 use Zicht\Bundle\HtmldevBundle\Service\HtmlService;
@@ -230,21 +229,6 @@ class HtmldevExtension extends Twig_Extension
         }, $files);
 
         return $iconNames;
-    }
-
-    /**
-     * Register a 'faker' global if faker is available
-     *
-     * @return array
-     */
-    public function getGlobals()
-    {
-        if (class_exists('Faker\Factory')) {
-            return [
-                'faker' => Factory::create()
-            ];
-        }
-        return [];
     }
 
     /**
