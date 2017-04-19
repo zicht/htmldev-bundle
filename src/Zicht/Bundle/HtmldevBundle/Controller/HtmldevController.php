@@ -5,19 +5,58 @@
 
 namespace Zicht\Bundle\HtmldevBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
+use \Twig_Environment;
+use Zicht\Bundle\HtmldevBundle\Service\Template as PageService;
 
 /**
  * Class HtmldevController
  *
- * @package Zicht\Bundle\HtmldevBundle\Controller
+ * @Route(service="htmldev.htmldev_controller")
  */
-class HtmldevController extends Controller
+class HtmldevController
 {
+    /**
+     * @var PageService
+     */
+    private $template;
+
+    /**
+     * @var Twig_Environment
+     */
+    private $twig;
+
+    /**
+     * @var EngineInterface
+     */
+    private $templating;
+
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    /**
+     * Initializes a new instance of the HtmldevController class.
+     *
+     * @param PageService $template
+     * @param Twig_Environment $twig
+     * @param EngineInterface $templating
+     * @param FormFactoryInterface $formFactory
+     */
+    public function __construct(PageService $template, Twig_Environment $twig, EngineInterface $templating, FormFactoryInterface $formFactory)
+    {
+        $this->template = $template;
+        $this->twig = $twig;
+        $this->templating = $templating;
+        $this->formFactory = $formFactory;
+    }
+
     /**
      * Renders the specified template
      *
@@ -29,14 +68,11 @@ class HtmldevController extends Controller
      */
     public function detailAction($filename = 'index.html')
     {
-        $template = $this->get('htmldev.template');
-
-        $this->get('twig')->addGlobal('htmldev_templatename', $filename);
-        return $this->render(sprintf('@htmldev/%s', $template->find($filename)), array(
-            'templates' => $template->findAll()
+        $this->twig->addGlobal('htmldev_templatename', $filename);
+        return $this->templating->renderResponse(sprintf('@htmldev/%s', $this->template->find($filename)), array(
+            'templates' => $this->template->findAll()
         ));
     }
-
 
     /**
      * Renders a form using the `htmldev_example` type. Including errors.
@@ -48,7 +84,7 @@ class HtmldevController extends Controller
      */
     public function formAction()
     {
-        $form = $this->createForm('htmldev_example');
+        $form = $this->formFactory->create('htmldev_example');
 
         $form->addError(new FormError('This is an example form error message'));
         $form->get('htmldev_email')->addError(new FormError('This is an example form field error message'));

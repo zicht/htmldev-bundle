@@ -1,5 +1,12 @@
 .idea/
+
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+
 build/
 dist/
 node_modules/
+
 vendor/

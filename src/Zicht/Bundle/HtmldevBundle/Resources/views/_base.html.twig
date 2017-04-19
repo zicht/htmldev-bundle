@@ -1,9 +1,9 @@
 <!doctype html>
-<html class="no-js  not-loaded">
+<html class="no-js  not-loaded  {% block html_class '' %}" {% block html_attributes '' %}>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block head_title '' %}</title>
 
         <!--
         Copyright (c) Zicht online {{ 'now'|date('Y') }} All rights reserved
@@ -13,27 +13,16 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block stylesheets %}{% endblock %}
-        {% block meta %}{% endblock %}
-
-        {#
-            TODO add a favicon, preferably from http://realfavicongenerator.net/.
-            Please place the favicon code in an inheriting template inside your project bundle,
-            to keep this base template clean and re-usable if your project has multiple bundles.
-         #}
-
         <script>
             'use strict';
             var html = document.getElementsByTagName('html')[0];
             html.className = html.className.replace('no-js', '');
         </script>
 
-        {% block javascripts_top %}{% endblock %}
+        {% block head '' %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% block body %}{% endblock %}
-
-        {% block bottom_data %}{% endblock %}
+    <body class="{% block body_class '' %}" {% block body_attributes '' %}>
+        {% block body '' %}
     </body>
 </html>

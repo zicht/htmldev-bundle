@@ -7,8 +7,7 @@
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
- * Class that turns Sass file into a readable palette that
- * can be displayed in a style guide.
+ * Class that turns reads the contents of an SVG file.
  *
  * @package Zicht\Bundle\HtmldevBundle\Service
  */

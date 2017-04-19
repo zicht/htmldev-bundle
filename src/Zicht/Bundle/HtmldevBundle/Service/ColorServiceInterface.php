@@ -12,7 +12,7 @@ namespace Zicht\Bundle\HtmldevBundle\Service;
  *
  * @package Zicht\Bundle\HtmldevBundle\Service
  */
-interface IColorService
+interface ColorServiceInterface
 {
     /**
      * @param string $hexColor
