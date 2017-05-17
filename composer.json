@@ -17,9 +17,6 @@
         "symfony/routing": "*",
         "phpunit/phpunit": "<=4.4"
     },
-    "bin": [
-        "bin/htmldev.sh"
-    ],
     "autoload": {
         "psr-0": {
             "": [
