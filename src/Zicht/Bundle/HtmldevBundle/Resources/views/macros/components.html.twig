@@ -76,7 +76,7 @@
     } %}
     {% set options = default_options|merge(options|default([])) %}
 
-    {{ embed_icon(symbol, options.width, options.height, options.viewbox_x, options.viewbox_y, options.extra_css_classes, options.include_accessibility, options.directory)|raw }}
+    {{ embed_icon(symbol, options.width, options.height, options.viewbox_x, options.viewbox_y, options.extra_css_classes, options.include_accessibility, options.title, options.directory)|raw }}
 {% endmacro %}
 
 
@@ -99,5 +99,5 @@
     } %}
     {% set options = default_options|merge(options|default([])) %}
 
-    {{ embed_svg(name, options.width, options.height, options.viewbox_x, options.viewbox_y, options.css_classes, options.accessibility_attributes, options.directory)|raw }}
+    {{ embed_svg(name, options.width, options.height, options.viewbox_x, options.viewbox_y, options.css_classes, options.accessibility_attributes, options.title, options.directory)|raw }}
 {% endmacro %}

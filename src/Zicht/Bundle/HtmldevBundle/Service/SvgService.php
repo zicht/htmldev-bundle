@@ -40,11 +40,12 @@ class SvgService implements SvgServiceInterface
      * @param string $viewboxY
      * @param array $extraCssClasses
      * @param array $includeAccessibility
+     * @param string $title
      * @param string $directory
      *
      * @return null|string
      */
-    public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $directory)
+    public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $title, $directory)
     {
         $cssClasses = array_merge(['c-icon', sprintf('c-icon--%s', $symbol)], $extraCssClasses);
         $accessibilityAttributes = $includeAccessibility ? ['aria-hidden' => 'true', 'role' => 'img'] : [];
@@ -57,6 +58,7 @@ class SvgService implements SvgServiceInterface
             $viewboxY,
             $cssClasses,
             $accessibilityAttributes,
+            $title,
             $directory
         );
     }
@@ -72,11 +74,12 @@ class SvgService implements SvgServiceInterface
      * @param string $viewboxY
      * @param array $cssClasses
      * @param array $accessibilityAttributes
+     * @param array $title
      * @param string $directory
      *
      * @return null|string
      */
-    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $directory)
+    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $title, $directory)
     {
         $fileName = sprintf('%s/%s/%s.svg', $this->htmldevDirectory, $directory, $name);
         if (!is_file($fileName)) {
@@ -110,6 +113,10 @@ class SvgService implements SvgServiceInterface
          */
         if (is_array($cssClasses)) {
             $this->setSvgAttribute($svg, 'class',  implode('  ', $cssClasses));
+        }
+
+        if (!empty($title)) {
+            $svg->appendChild($d->createElement('title', $title));
         }
 
         /**

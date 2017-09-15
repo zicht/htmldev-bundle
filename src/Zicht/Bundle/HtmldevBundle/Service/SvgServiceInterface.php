@@ -23,11 +23,12 @@ interface SvgServiceInterface
      * @param string $viewboxY
      * @param array $extraCssClasses
      * @param array $includeAccessibility
+     * @param string $title
      * @param string $directory
      *
      * @return null|string
      */
-    public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $directory);
+    public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $title, $directory);
 
 
     /**
@@ -40,9 +41,10 @@ interface SvgServiceInterface
      * @param string $viewboxY
      * @param array $cssClasses
      * @param array $accessibilityAttributes
+     * @param string $title
      * @param string $directory
      *
      * @return null|string
      */
-    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $directory);
+    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $title, $directory);
 }
