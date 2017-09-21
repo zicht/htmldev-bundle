@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright Zicht Online <http://zicht.nl>
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig_Extension;

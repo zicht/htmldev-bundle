@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright Zicht online
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Tests;
 
 use PHPUnit_Framework_TestCase;

@@ -1,6 +1,5 @@
 <?php
 /**
- * @author Boudewijn Schoon <boudewijn@zicht.nl>
  * @copyright Zicht Online <http://www.zicht.nl>
  */
 
@@ -17,7 +16,7 @@ use Symfony\Component\DependencyInjection\Loader;
 class ZichtHtmldevExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * @{inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {

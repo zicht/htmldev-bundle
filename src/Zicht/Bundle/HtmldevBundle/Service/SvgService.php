@@ -1,15 +1,12 @@
 <?php
 /**
- * @author Robert van Kempen <robert@zicht.nl>
- * @copyright Zicht online
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
 
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
- * Class that turns reads the contents of an SVG file.
- *
- * @package Zicht\Bundle\HtmldevBundle\Service
+ * Class that reads the contents of an SVG file.
  */
 class SvgService implements SvgServiceInterface
 {
@@ -17,7 +14,6 @@ class SvgService implements SvgServiceInterface
      * @var string
      */
     private $htmldevDirectory;
-
 
     /**
      * Initializes a new instance of the SvgService.
@@ -29,21 +25,8 @@ class SvgService implements SvgServiceInterface
         $this->htmldevDirectory = $htmldevDirectory;
     }
 
-
     /**
-     * Loads the given SVG symbol from disk and decorates it with the appropriate icon attributes.
-     *
-     * @param string $symbol
-     * @param string $width
-     * @param string $height
-     * @param string $viewboxX
-     * @param string $viewboxY
-     * @param array $extraCssClasses
-     * @param array $includeAccessibility
-     * @param string $title
-     * @param string $directory
-     *
-     * @return null|string
+     * @{inheritDoc}
      */
     public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $title, $directory)
     {
@@ -63,21 +46,8 @@ class SvgService implements SvgServiceInterface
         );
     }
 
-
     /**
-     * Loads the given SVG file name from disk and decorates it with the given attributes.
-     *
-     * @param string $name
-     * @param string $width
-     * @param string $height
-     * @param string $viewboxX
-     * @param string $viewboxY
-     * @param array $cssClasses
-     * @param array $accessibilityAttributes
-     * @param array $title
-     * @param string $directory
-     *
-     * @return null|string
+     * @{inheritDoc}
      */
     public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $title, $directory)
     {
@@ -131,7 +101,6 @@ class SvgService implements SvgServiceInterface
         return $d->saveXML();
     }
 
-
     /**
      * Adds the given name-value pair as an XML attribute to the given SVG node, but
      * does not override existing attribute values, except when the merge parameter
@@ -158,7 +127,6 @@ class SvgService implements SvgServiceInterface
 
         $svg->setAttribute($name, $value);
     }
-
 
     /**
      * Adds the given unit to the given value if it's not present yet.

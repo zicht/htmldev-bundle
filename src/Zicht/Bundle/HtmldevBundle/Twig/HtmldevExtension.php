@@ -1,8 +1,6 @@
 <?php
 /**
- * @author Robert van Kempen <robert@zicht.nl>
- * @author Boudewijn Schoon <boudewijn@zicht.nl>
- * @copyright Zicht online
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
 
 namespace Zicht\Bundle\HtmldevBundle\Twig;
@@ -14,8 +12,6 @@ use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 
 /**
  * Twig extensions that make rendering a style guide easier.
- *
- * @package Zicht\Bundle\HtmldevBundle\Twig
  */
 class HtmldevExtension extends Twig_Extension
 {
@@ -34,7 +30,6 @@ class HtmldevExtension extends Twig_Extension
      */
     private $svgService;
 
-
     /**
      * Initializes a new instance of the HtmldevExtension class.
      *
@@ -52,20 +47,19 @@ class HtmldevExtension extends Twig_Extension
         $this->svgService = $svgService;
     }
 
-
     /**
      * @{inheritDoc}
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('load_data', array($this, 'loadData')),
-            new \Twig_SimpleFunction('icons', array($this, 'getIcons')),
-            new \Twig_SimpleFunction('color_groups', array($this->colorService, 'getColorGroups')),
-            new \Twig_SimpleFunction('luminance', array($this->colorService, 'getLuminance')),
-            new \Twig_SimpleFunction('embed_svg', array($this->svgService, 'getSvg')),
-            new \Twig_SimpleFunction('embed_icon', array($this->svgService, 'getSvgIcon'))
-        );
+        return [
+            new \Twig_SimpleFunction('load_data', [$this, 'loadData']),
+            new \Twig_SimpleFunction('icons', [$this, 'getIcons']),
+            new \Twig_SimpleFunction('color_groups', [$this->colorService, 'getColorGroups']),
+            new \Twig_SimpleFunction('luminance', [$this->colorService, 'getLuminance']),
+            new \Twig_SimpleFunction('embed_svg', [$this->svgService, 'getSvg']),
+            new \Twig_SimpleFunction('embed_icon', [$this->svgService, 'getSvgIcon'])
+        ];
     }
 
     /**

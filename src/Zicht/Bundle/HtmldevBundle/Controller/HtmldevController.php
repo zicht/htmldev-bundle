@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Zicht online <http://zicht.nl>
+ * @copyright Zicht Online <http://zicht.nl>
  */
 
 namespace Zicht\Bundle\HtmldevBundle\Controller;

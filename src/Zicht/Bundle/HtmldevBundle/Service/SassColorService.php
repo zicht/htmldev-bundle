@@ -1,7 +1,6 @@
 <?php
 /**
- * @author Robert van Kempen <robert@zicht.nl>
- * @copyright Zicht online
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
 
 namespace Zicht\Bundle\HtmldevBundle\Service;
@@ -9,8 +8,6 @@ namespace Zicht\Bundle\HtmldevBundle\Service;
 /**
  * Class that turns a Sass file into a readable palette that
  * can be displayed in a style guide.
- *
- * @package Zicht\Bundle\HtmldevBundle\Service
  */
 class SassColorService implements ColorServiceInterface
 {

@@ -1,15 +1,12 @@
 <?php
 /**
- * @author Robert van Kempen <robert@zicht.nl>
- * @copyright Zicht online
+ * @copyright Zicht Online <http://www.zicht.nl>
  */
 
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
  * Provides a contract for services that load SVG files.
- *
- * @package Zicht\Bundle\HtmldevBundle\Service
  */
 interface SvgServiceInterface
 {

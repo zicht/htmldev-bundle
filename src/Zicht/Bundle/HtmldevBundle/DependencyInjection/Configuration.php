@@ -1,6 +1,5 @@
 <?php
 /**
- * @author Boudewijn Schoon <boudewijn@zicht.nl>
  * @copyright Zicht Online <http://www.zicht.nl>
  */
 
@@ -11,13 +10,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
- *
- * @package Zicht\Bundle\HtmldevBundle\DependencyInjection
  */
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * @{inheritDoc}
      */
     public function getConfigTreeBuilder()
     {
