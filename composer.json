@@ -24,6 +24,12 @@
             ]
         }
     },
-    "minimum-stability": "dev",
-    "license": "MIT"
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "scripts": {
+        "test": [
+            "@composer install --dev",
+            "./vendor/phpunit/phpunit/phpunit"
+        ]
+    }
 }

@@ -1,6 +1,0 @@
-plugins: ['core', 'git', 'ci']
-
-tasks:
-    ci.phpunit:
-        pre: composer install --dev
-        do: ./vendor/phpunit/phpunit/phpunit $(ci.phpunit.opts ? ci.phpunit.opts)
