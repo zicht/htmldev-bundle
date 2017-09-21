@@ -1,7 +1,0 @@
-form_label:
-    htmldev_example:
-        htmldev_text: "Dit is een tekstveld"
-
-form_placeholder:
-    htmldev_example:
-        htmldev_text: "Dit is de placeholder"

@@ -41,7 +41,6 @@
             <argument type="service" id="htmldev.template" />
             <argument type="service" id="twig" />
             <argument type="service" id="templating" />
-            <argument type="service" id="form.factory" />
         </service>
     </services>
 </container>
