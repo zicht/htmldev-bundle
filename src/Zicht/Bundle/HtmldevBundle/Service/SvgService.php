@@ -103,7 +103,7 @@ class SvgService implements SvgServiceInterface
         }
 
         if (!empty($viewboxX) && !empty($viewboxY)) {
-            $this->setSvgAttribute($svg, 'viewbox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')), true);
+            $this->setSvgAttribute($svg, 'viewBox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')), true);
         }
 
         $this->setSvgAttribute($svg, 'preserveAspectRatio', 'xMidYMid meet');
