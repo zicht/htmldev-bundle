@@ -1,0 +1,19 @@
+
+.c-icon-list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-gap: 2rem;
+}
+
+
+
+.c-icon-list__item {
+    text-align: center;
+}
+
+
+
+.c-icon-list__item__name {
+    margin-bottom: 2rem;
+    font-size: 0.75rem;
+}

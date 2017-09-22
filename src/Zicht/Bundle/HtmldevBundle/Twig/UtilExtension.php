@@ -2,19 +2,18 @@
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
-
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig_Extension;
 use Twig_SimpleFilter;
 
 /**
- * Twig extensions for manipulating data.
+ * Twig extension for manipulating data.
  */
 class UtilExtension extends Twig_Extension
 {
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function getFilters()
     {
@@ -38,11 +37,10 @@ class UtilExtension extends Twig_Extension
             throw new \InvalidArgumentException(sprintf('Cannot delete from an object that is not an array. Given type: %s', gettype($array)));
         }
 
-        return array_filter($array, function($value, $key) use ($keysToDelete) {
+        return array_filter($array, function($key) use ($keysToDelete) {
             return !in_array($key, $keysToDelete);
-        }, ARRAY_FILTER_USE_BOTH);
+        }, ARRAY_FILTER_USE_KEY);
     }
-
 
     /**
      * Format a set of arguments into a legible json object.
@@ -79,15 +77,13 @@ class UtilExtension extends Twig_Extension
     }
 
     /**
-     * @param $json
+     * @param string $json
      *
      * @return string
      */
     protected function formatJsonStringToTwigObjectString($json)
     {
-        $s = str_replace('"', '\'', $json);
-
-        return preg_replace('/\'(\w+)\'/i', '${1}', $s);
+        return preg_replace('/\'(\w+)\':/i', '${1}:', str_replace('"', '\'', $json));
     }
 
     /**

@@ -1,0 +1,39 @@
+
+.c-sub-navigation__list {
+    list-style-type: none;
+}
+
+
+
+.c-sub-navigation__item {
+    border-color: $grey--gainsboro;
+    border-style: solid;
+    border-width: 0 0 1px;
+
+    &:last-of-type {
+        border-width: 0;
+    }
+}
+
+
+
+.c-sub-navigation__link {
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: color 100ms ease;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 0.8rem;
+    background-color: $white--smoke;
+    color: $grey--charcoal;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    @at-root {
+        #{&}--current {
+            font-weight: 700;
+        }
+    }
+}

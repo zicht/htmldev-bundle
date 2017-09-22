@@ -1,0 +1,40 @@
+
+.c-color-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-gap: 2rem;
+}
+
+
+
+.c-color-list__item {
+    text-align: center;
+}
+
+
+
+.c-color-list__item__value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: $white--smoke;
+    border-style: solid;
+
+    .c-color-list__item--light & {
+        color: $grey--charcoal;
+    }
+
+    .c-color-list__item--dark & {
+        color: $white;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    }
+}
+
+
+
+.c-color-list__item__name {
+    font-size: 0.75rem;
+}

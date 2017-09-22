@@ -2,7 +2,6 @@
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
-
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
@@ -10,9 +9,7 @@ namespace Zicht\Bundle\HtmldevBundle\Service;
  */
 class SvgService implements SvgServiceInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $htmldevDirectory;
 
     /**
@@ -26,30 +23,9 @@ class SvgService implements SvgServiceInterface
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
-    public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $title, $directory)
-    {
-        $cssClasses = array_merge(['c-icon', sprintf('c-icon--%s', $symbol)], $extraCssClasses);
-        $accessibilityAttributes = $includeAccessibility ? ['aria-hidden' => 'true', 'role' => 'img'] : [];
-
-        return $this->getSvg(
-            $symbol,
-            $width,
-            $height,
-            $viewboxX,
-            $viewboxY,
-            $cssClasses,
-            $accessibilityAttributes,
-            $title,
-            $directory
-        );
-    }
-
-    /**
-     * @{inheritDoc}
-     */
-    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $title, $directory)
+    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory)
     {
         $fileName = sprintf('%s/%s/%s.svg', $this->htmldevDirectory, $directory, $name);
         if (!is_file($fileName)) {
@@ -92,9 +68,9 @@ class SvgService implements SvgServiceInterface
         /**
          * Set accessibility attributes.
          */
-        if (is_array($accessibilityAttributes)) {
-            foreach ($accessibilityAttributes as $attribute => $value) {
-                $svg->setAttribute($attribute, $value);
+        if (is_array($attributes)) {
+            foreach ($attributes as $attr => $value) {
+                $svg->setAttribute($attr, $value);
             }
         }
 

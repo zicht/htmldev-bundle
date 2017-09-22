@@ -1,0 +1,22 @@
+{% extends 'ZichtHtmldevBundle::_base.html.twig' %}
+
+
+{% block head_title 'Styleguide' %}
+
+
+{% block body %}
+    {% block styleguide_top %}
+        {% include 'ZichtHtmldevBundle:styleguide:_top.html.twig' %}
+    {% endblock %}
+
+    <main class="c-content">
+        {% block styleguide_aside %}
+            {% include 'ZichtHtmldevBundle:styleguide:_side-bar.html.twig' %}
+        {% endblock %}
+
+        <div class="c-content__main">
+            {% block component_intro '' %}
+            {% block component_list '' %}
+        </div>
+    </main>
+{% endblock %}

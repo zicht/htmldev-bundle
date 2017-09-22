@@ -1,0 +1,28 @@
+
+.c-page-header {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    background-color: $grey--charcoal;
+    color: $white;
+}
+
+
+
+.c-page-header__title {
+    margin-right: 2rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+
+
+.c-page-header__link {
+    transition: color 100ms ease;
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+        color: $white--75;
+    }
+}

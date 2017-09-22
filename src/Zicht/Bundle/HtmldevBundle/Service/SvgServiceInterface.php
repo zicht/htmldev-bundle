@@ -2,7 +2,6 @@
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
-
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
@@ -10,24 +9,6 @@ namespace Zicht\Bundle\HtmldevBundle\Service;
  */
 interface SvgServiceInterface
 {
-    /**
-     * Loads the given SVG symbol from disk and decorates it with the appropriate icon attributes.
-     *
-     * @param string $symbol
-     * @param string $width
-     * @param string $height
-     * @param string $viewboxX
-     * @param string $viewboxY
-     * @param array $extraCssClasses
-     * @param array $includeAccessibility
-     * @param string $title
-     * @param string $directory
-     *
-     * @return null|string
-     */
-    public function getSvgIcon($symbol, $width, $height, $viewboxX, $viewboxY, $extraCssClasses, $includeAccessibility, $title, $directory);
-
-
     /**
      * Loads the given SVG file name from disk and decorates it with the given attributes.
      *
@@ -37,11 +18,11 @@ interface SvgServiceInterface
      * @param string $viewboxX
      * @param string $viewboxY
      * @param array $cssClasses
-     * @param array $accessibilityAttributes
+     * @param array $attributes
      * @param string $title
      * @param string $directory
      *
      * @return null|string
      */
-    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $accessibilityAttributes, $title, $directory);
+    public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory);
 }

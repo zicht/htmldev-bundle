@@ -6,22 +6,52 @@
 
     <parameters>
         <parameter key="htmldev.directory">%kernel.root_dir%/../htmldev</parameter>
+        <parameter key="htmldev.controller">Zicht\Bundle\HtmldevBundle\Controller\HtmldevController</parameter>
+        <parameter key="htmldev.color_service">Zicht\Bundle\HtmldevBundle\Service\ZssColorService</parameter>
+        <parameter key="htmldev.svg_service">Zicht\Bundle\HtmldevBundle\Service\SvgService</parameter>
+        <parameter key="htmldev.menu_builder">Zicht\Bundle\HtmldevBundle\Service\MenuBuilder</parameter>
     </parameters>
 
     <services>
-        <service id="htmldev.template" class="Zicht\Bundle\HtmldevBundle\Service\Template">
-            <argument type="string">%htmldev.directory%</argument>
+        <!-- Controllers -->
+        <service id="htmldev.htmldev_controller" class="%htmldev.controller%">
+            <argument type="service" id="templating" />
+            <argument type="service" id="htmldev.yaml_data_loader" />
         </service>
-        <service id="htmldev.color_service" class="Zicht\Bundle\HtmldevBundle\Service\SassColorService">
-            <argument type="string">%htmldev.directory%</argument>
+
+
+        <!-- Services -->
+        <service id="htmldev.color_service" class="%htmldev.color_service%">
+            <argument type="service" id="htmldev.text_data_loader" />
         </service>
-        <service id="htmldev.svg_service" class="Zicht\Bundle\HtmldevBundle\Service\SvgService">
+
+        <service id="htmldev.abstract_data_loader" abstract="true">
             <argument type="string">%htmldev.directory%</argument>
         </service>
 
-        <service id="htmldev.twig.extension" class="Zicht\Bundle\HtmldevBundle\Twig\HtmldevExtension">
+        <service id="htmldev.yaml_data_loader" class="Zicht\Bundle\HtmldevBundle\Service\YamlDataLoader" parent="htmldev.abstract_data_loader" />
+
+        <service id="htmldev.text_data_loader" class="Zicht\Bundle\HtmldevBundle\Service\TextDataLoader" parent="htmldev.abstract_data_loader" />
+
+        <service id="htmldev.svg_service" class="%htmldev.svg_service%">
             <argument type="string">%htmldev.directory%</argument>
+        </service>
+
+
+        <!-- Twig extensions -->
+        <service id="htmldev.twig.data_extension" class="Zicht\Bundle\HtmldevBundle\Twig\DataExtension">
+            <argument type="string">%htmldev.directory%</argument>
+            <argument type="service" id="htmldev.yaml_data_loader" />
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="htmldev.twig.color_extension" class="Zicht\Bundle\HtmldevBundle\Twig\ColorExtension">
             <argument type="service" id="htmldev.color_service" />
+            <tag name="twig.extension"/>
+        </service>
+
+        <service id="htmldev.twig.image_extension" class="Zicht\Bundle\HtmldevBundle\Twig\ImageExtension">
+            <argument type="string">%htmldev.directory%</argument>
             <argument type="service" id="htmldev.svg_service" />
             <tag name="twig.extension"/>
         </service>
@@ -30,10 +60,20 @@
             <tag name="twig.extension"/>
         </service>
 
-        <service id="htmldev.htmldev_controller" class="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController">
-            <argument type="service" id="htmldev.template" />
-            <argument type="service" id="twig" />
-            <argument type="service" id="templating" />
+        <service id="zicht.twig.classes_extension" class="Zicht\Twig\Extension\ClassesExtension">
+            <tag name="twig.extension"/>
+        </service>
+
+
+        <!-- Navigation -->
+        <service id="htmldev.menu_builder" class="%htmldev.menu_builder%">
+            <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="htmldev.yaml_data_loader" />
+        </service>
+        <service id="htmldev.main_menu" class="Knp\Menu\MenuItem">
+            <factory service="htmldev.menu_builder" method="createStyleguideMenu" />
+            <argument type="service" id="request_stack" />
+            <tag name="knp_menu.menu" alias="styleguide" />
         </service>
     </services>
 </container>

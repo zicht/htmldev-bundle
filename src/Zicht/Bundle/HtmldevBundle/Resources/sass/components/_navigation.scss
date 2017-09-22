@@ -1,0 +1,29 @@
+
+.c-navigation__list {
+    display: flex;
+    list-style-type: none;
+}
+
+
+
+.c-navigation__link {
+    display: block;
+    padding: 1rem 0.5rem;
+    transition: color 100ms ease;
+    text-transform: uppercase;
+    color: $white--75;
+    text-decoration: none;
+    font-size: 0.8rem;
+
+    &:hover {
+        color: $white;
+        text-decoration: underline;
+    }
+
+    @at-root {
+        #{&}--current {
+            color: $white;
+            font-style: italic;
+        }
+    }
+}

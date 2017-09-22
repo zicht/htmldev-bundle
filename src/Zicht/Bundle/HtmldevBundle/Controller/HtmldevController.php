@@ -2,66 +2,64 @@
 /**
  * @copyright Zicht Online <http://zicht.nl>
  */
-
 namespace Zicht\Bundle\HtmldevBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use \Twig_Environment;
-use Zicht\Bundle\HtmldevBundle\Service\Template as PageService;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
 
 /**
- * Class HtmldevController
+ * Handles requests inside the Htmldev bundle.
  *
  * @Route(service="htmldev.htmldev_controller")
  */
 class HtmldevController
 {
-    /**
-     * @var PageService
-     */
-    private $template;
-
-    /**
-     * @var Twig_Environment
-     */
-    private $twig;
-
-    /**
-     * @var EngineInterface
-     */
+    /** @var EngineInterface */
     private $templating;
+
+    /** @var DataLoaderInterface */
+    private $yamlLoader;
 
     /**
      * Initializes a new instance of the HtmldevController class.
      *
-     * @param PageService $template
-     * @param Twig_Environment $twig
      * @param EngineInterface $templating
+     * @param DataLoaderInterface $yamlLoader
      */
-    public function __construct(PageService $template, Twig_Environment $twig, EngineInterface $templating)
+    public function __construct(EngineInterface $templating, DataLoaderInterface $yamlLoader)
     {
-        $this->template = $template;
-        $this->twig = $twig;
         $this->templating = $templating;
+        $this->yamlLoader = $yamlLoader;
     }
 
     /**
-     * Renders the specified template
-     *
-     * @param string $filename
      * @return Response
      *
-     * @Route("/{filename}", defaults={"filename"="index.html"}, requirements={"filename"="(?!_).*\.html"})
-     * @Route("")
+     * @Route("/")
      */
-    public function detailAction($filename = 'index.html')
+    public function indexAction($section = 'colors')
     {
-        $this->twig->addGlobal('htmldev_templatename', $filename);
-        return $this->templating->renderResponse(sprintf('@htmldev/%s', $this->template->find($filename)), array(
-            'templates' => $this->template->findAll()
-        ));
+        $menuItems = $this->yamlLoader->loadData('data/styleguide', 'navigation.yml');
+        if (count($menuItems) === 0) {
+            throw new NotFoundHttpException();
+        }
+
+        return new RedirectResponse($menuItems[0]['uri']);
+    }
+
+    /**
+     * @param string $section
+     * @return Response
+     *
+     * @Route("/{section}", requirements={"section"=".+"})
+     */
+    public function showAction($section)
+    {
+        return $this->templating->renderResponse(sprintf('@htmldev/pages/%s.html.twig', $section));
     }
 }

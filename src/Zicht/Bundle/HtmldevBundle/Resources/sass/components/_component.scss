@@ -1,0 +1,55 @@
+
+.c-component {
+    display: grid;
+    grid-column-gap: 3rem;
+    grid-template-columns: 400px minmax(0, 1fr);
+}
+
+
+
+.c-component__code {
+    overflow: auto;
+    padding: 0.25rem;
+    background-color: $white--smoke;
+    border-color: $white--smoke-dark;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    font-size: 0.65rem;
+}
+
+
+
+.c-component__title {
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+}
+
+
+
+.c-component__view {
+    position: relative;
+    margin-bottom: 80px;
+}
+
+.c-component__view--full {
+    grid-column: 1 / -1;
+    margin-bottom: 15px;
+}
+
+.c-component__view--dark {
+    padding: 1rem;
+    border-radius: 3px;
+    background-color: $grey--charcoal;
+}
+
+
+
+.c-component__meta {
+    margin-bottom: 80px;
+}
+
+.c-component__meta--full {
+    grid-column: 1 / -1;
+    max-width: 50vw;
+}

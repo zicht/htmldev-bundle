@@ -18,7 +18,7 @@
 #}
 {% macro component(slug, properties) %}
     {% strict false %}
-        {% include ('@htmldev/components/' ~ slug ~ '.html.twig') with properties only %}
+        {% include '@htmldev/components/%s.html.twig'|format(slug) with properties only %}
     {% endstrict %}
 {% endmacro %}
 
@@ -32,52 +32,42 @@
     @param object properties The properties of the component.
 #}
 {% macro styleguide_component(slug, properties) %}
-    {% import 'ZichtHtmldevBundle:macros:components.html.twig' as components %}
+    {% import 'ZichtHtmldevBundle:macros:components.html.twig' as component %}
 
-    {% set component_properties = properties|delete('styleguide_title', 'styleguide_type', 'styleguide_description') %}
+    {% set cx = {
+        view: classes({
+            'c-component__view--full': properties.styleguide_component_width|default == 'full',
+            'c-component__view--dark': properties.styleguide_dark|default == true
+        }),
+        meta: classes({
+            'c-component__meta--full': properties.styleguide_component_width|default == 'full'
+        })
+    } %}
 
-    <div class="o-grid__row">
-        <div class="o-grid__col  o-grid__col--12@xs  o-grid__col--4@md">
-            {{ components.component(slug, component_properties) }}
+    <div class="c-component" {% if properties.styleguide_component_width|default != '' and properties.styleguide_component_width|default != 'full' %}style="grid-template-columns: {{ properties.styleguide_component_width }} minmax(0, 1fr)"{% endif %}>
+        {% set component_properties = properties|delete(
+            'styleguide_title',
+            'styleguide_type',
+            'styleguide_dark',
+            'styleguide_component_width'
+        ) %}
+        <div class="c-component__view  {{ cx.view }}">
+            {{ component.component(slug, component_properties) }}
         </div>
 
-        <div class="o-grid__col  o-grid__col--12@xs  o-grid__col--8@md">
+        <div class="c-component__meta  {{ cx.meta }}">
             {% if properties.styleguide_title|default %}
-                <h2 class="c-component__title  c-copy--h2">{{ properties.styleguide_title }}</h2>
+                <h2 class="c-component-list__title">{{ properties.styleguide_title }}</h2>
             {% endif %}
 
             {% if properties.styleguide_description|default %}
-                <p class="c-component__description  c-copy--body">{{ properties.styleguide_description }}</p>
+                <p class="c-component__description">{{ properties.styleguide_description }}</p>
             {% endif %}
 
             {% set json = component_properties|ui_printable_arguments %}
-            <pre class="c-component__code  u-size--7">{{ '{{ ' }}ui.component('{{ slug }}', {{ json }}{{ ') }}' }}</pre>
+            <pre class="c-component__code">{{ '{{ ' }}ui.component('{{ slug }}', {{ json }}{{ ') }}' }}</pre>
         </div>
     </div>
-{% endmacro %}
-
-
-
-{#
-    Locates the given icon symbol and returns its XML with the given options as its attributes.
-
-    @param string symbol The name of the symbol to load, without .svg extension.
-    @param object options
-#}
-{% macro svg_icon(symbol, options) %}
-    {% set default_options = {
-        width: '',
-        height: '',
-        viewbox_x: '',
-        viewbox_y: '',
-        extra_css_classes: [],
-        include_accessibility: true,
-        title: '',
-        directory: 'images/icons'
-    } %}
-    {% set options = default_options|merge(options|default([])) %}
-
-    {{ embed_icon(symbol, options.width, options.height, options.viewbox_x, options.viewbox_y, options.extra_css_classes, options.include_accessibility, options.title, options.directory)|raw }}
 {% endmacro %}
 
 
@@ -95,11 +85,14 @@
         viewbox_x: '',
         viewbox_y: '',
         css_classes: [],
-        accessibility_attributes: [],
+        attributes: {
+            'aria-hidden': 'true',
+            role: 'img'
+        },
         title: '',
         directory: 'images'
     } %}
     {% set options = default_options|merge(options|default([])) %}
 
-    {{ embed_svg(name, options.width, options.height, options.viewbox_x, options.viewbox_y, options.css_classes, options.accessibility_attributes, options.title, options.directory)|raw }}
+    {{ embed_svg(name, options.width, options.height, options.viewbox_x, options.viewbox_y, options.css_classes, options.attributes, options.title, options.directory)|raw }}
 {% endmacro %}

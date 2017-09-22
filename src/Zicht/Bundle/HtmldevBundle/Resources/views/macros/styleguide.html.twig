@@ -1,0 +1,46 @@
+
+{% macro colors(color_groups) %}
+    {% if color_groups|default and color_groups|length %}
+        {% for name, colors in color_groups %}
+            <h3 class="c-copy--h3">{{ name }}</h3>
+            <div class="c-color-list">
+                {% for name, value in colors %}
+                    {% set cx_loop = {
+                        container: classes({
+                            'c-color-list__item--light': value is light,
+                            'c-color-list__item--dark': value is dark
+                        })
+                    } %}
+
+                    <div class="c-color-list__item  {{ cx_loop.container }}">
+                        <div class="c-color-list__item__value" style="background-color: {{ value }};">
+                            {{ value }}
+                        </div>
+                        <code class="c-color-list__item__name">{{ name }}</code>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro icons(icon_list) %}
+    {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
+
+    {% if icon_list|default and icon_list|length %}
+        <div class="c-icon-list">
+            {% for i in icon_list %}
+                <div class="c-icon-list__item">
+                    {{ ui.svg(i, {
+                        directory: 'images/icons',
+                        width: 32,
+                        height: 32,
+                    }) }}
+                    <p class="c-icon-list__item__name">{{ i }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}

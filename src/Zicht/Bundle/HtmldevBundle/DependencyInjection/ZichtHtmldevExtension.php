@@ -11,12 +11,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * Zicht Site bundle extension
+ * Zicht Htmldev bundle extension.
  */
 class ZichtHtmldevExtension extends Extension
 {
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -25,6 +25,5 @@ class ZichtHtmldevExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
-        $loader->load('forms.xml');
     }
 }

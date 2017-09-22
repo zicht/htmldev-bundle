@@ -1,0 +1,45 @@
+{
+  "name": "htmldev-bundle",
+  "version": "3.0.0",
+  "description": "Create living styleguides with Symfony and Twig.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "lint-css": "stylelint './src/Zicht/Bundle/HtmldevBundle/Resources/sass/**/*.scss' --verbose",
+    "build": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --mode=production",
+    "watch": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --mode=production --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zicht/htmldev-bundle.git"
+  },
+  "keywords": [
+    "zicht",
+    "styleguide",
+    "design",
+    "system"
+  ],
+  "author": "Zicht Online <info@zicht.nl>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zicht/htmldev-bundle/issues"
+  },
+  "homepage": "https://github.com/zicht/htmldev-bundle#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.1.5",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^1.0.0",
+    "mini-css-extract-plugin": "^0.4.3",
+    "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.0",
+    "stylelint-config-zicht": "^1.0.1",
+    "stylelint-webpack-plugin": "^0.10.5",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

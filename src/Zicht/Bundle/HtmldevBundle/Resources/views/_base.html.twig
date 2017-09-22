@@ -1,22 +1,24 @@
 <!doctype html>
-<html class="s-no-js  not-loaded  {% block html_class '' %}" {% block html_attributes '' %}>
+<html class="s-no-javascript  not-loaded  {% block html_class '' %}" {% block html_attributes '' %}>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>{% block head_title '' %}</title>
 
-        <!--
-        Copyright (c) Zicht online {{ 'now'|date('Y') }} All rights reserved
-        Developed by : Zicht online
-        Contact      : info@zicht.nl
-        -->
+        {% block head_copyright %}
+            <!--
+            Copyright (c) Zicht Online {{ 'now'|date('Y') }} All rights reserved
+            Developed by: Zicht online
+            Contact: info@zicht.nl
+            -->
+        {% endblock %}
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <script>
             'use strict';
             var html = document.getElementsByTagName('html')[0];
-            html.className = html.className.replace('s-no-js', 's-js');
+            html.className = html.className.replace('s-no-javascript', 's-javascript');
         </script>
 
         {% block head '' %}
