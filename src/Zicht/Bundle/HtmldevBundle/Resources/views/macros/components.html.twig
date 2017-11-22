@@ -34,7 +34,7 @@
 {% macro styleguide_component(slug, properties) %}
     {% import 'ZichtHtmldevBundle:macros:components.html.twig' as _self %}
 
-    {% set component_properties = properties|delete('styleguide_title', 'styleguide_type') %}
+    {% set component_properties = properties|delete('styleguide_title', 'styleguide_type', 'styleguide_description') %}
 
     <div class="o-grid__row">
         <div class="o-grid__col  o-grid__col--12@xs  o-grid__col--4@md">
