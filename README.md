@@ -29,78 +29,78 @@ Create living styleguides with Symfony and Twig.
 
 ## Install
 
-1. Require via composer.
+1. Require via composer.   
 
-```
-composer require zicht/htmldev-bundle
-```
+   ```
+   composer require zicht/htmldev-bundle
+   ```
 
 ## How to use
 
 ### Setup
 
-1. Load the bundle into your AppKernel.
+1. Load the bundle into your AppKernel.   
 
-```php
-new Zicht\Bundle\GridBundle\ZichtHtmldevBundle()
-```
+   ```php
+   new Zicht\Bundle\HtmldevBundle\ZichtHtmldevBundle()
+   ```
 
 2. Configure routing.
 
-Add the following Yaml to your app's route configuration.
+   Add the following Yaml to your app's route configuration.   
 
-```yaml
-htmldev:
-    resource: "@ZichtHtmldevBundle/Resources/config/routing.yml"
-```
+   ```yaml
+   htmldev:
+      resource: "@ZichtHtmldevBundle/Resources/config/routing.yml"
+   ```
 
-⚠️ if you combine this bundle with the [zicht/page-bundle](https://github.com/page-bundle), make sure this configuration is placed *above* any routing containing `/{locale}`.
+   ⚠️ if you combine this bundle with the [zicht/page-bundle](https://github.com/page-bundle), make sure this configuration is placed *above* any routing containing `/{locale}`.
 
 3. Create a directory in your project from which the styleguide will be served. The default expects a `htmldev` directory in the root of your project.
    
 4. Add a Twig template `_base.html.twig` to the `~/htmldev` created in the previous step. It should looke something like this:
 
-```twig
-{% extends 'ZichtHtmldevBundle:styleguide:index.html.twig' %}
+   ```twig
+   {% extends 'ZichtHtmldevBundle:styleguide:index.html.twig' %}
 
 
-{% block head %}
-    <link rel="stylesheet" href="{{ asset('bundles/zichthtmldev/css/styleguide.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/main.css') }}">
-    <script defer src="{{ asset('assets/main.min.js') }}"></script>
-{% endblock %}
-```
+   {% block head %}
+       <link rel="stylesheet" href="{{ asset('bundles/zichthtmldev/css/styleguide.css') }}">
+       <link rel="stylesheet" href="{{ asset('assets/main.css') }}">
+       <script defer src="{{ asset('assets/main.min.js') }}"></script>
+   {% endblock %}
+   ```
 
-The first CSS file contains the design of the styleguide, while the files below it should be the CSS and script files of 
-the project iteself.
+   The first CSS file contains the design of the styleguide, while the files below it should be the CSS and script files of 
+the project itself.
 
 5. Create a directory `data/styleguide` in the `~/htmldev` directory. Add a file `navigation.yml` containing at least
 the following:
 
-```yaml
--
-    title: Components
-    uri: /htmldev/components/buttons
-```
+   ```yaml
+   -
+       title: Components
+       uri: /htmldev/components/buttons
+   ```
 
 6. Create a directory `pages/components` in the `~/htmldev` directory. Add a Twig template `buttons.html.twig`:
 
-```twig
-{% extends '@htmldev/_base.html.twig' %}
-{% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
+   ```twig
+   {% extends '@htmldev/_base.html.twig' %}
+   {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
 
 
-{% block head_title 'Buttons - Styleguide' %}
+   {% block head_title 'Buttons - Styleguide' %}
 
 
-{% block component_intro %}
-    <h2 class="c-copy--h2">Buttons</h2>
-{% endblock %}
-```
+   {% block component_intro %}
+       <h2 class="c-copy--h2">Buttons</h2>
+   {% endblock %}
+   ```
 
 7. Go to the styleguide's URL at `/htmldev` (e.g. http://localhost/htmldev) and you should see a basic setup of the styleguide: 
 
-![](docs/initial-setup.jpg)
+   ![](docs/initial-setup.jpg)
 
 ### Adding stuff to the styleguide
 
@@ -175,13 +175,13 @@ This example loads `~/htmldev/data/buttons.yml`:
     color: white
 ```
 
-This way, you can add components to the styleguide without typing Twig code. The keys that do not start with `styleguide_`
+This way, you can add components to the styleguide without typing Twig code. The keys that start with `styleguide_`
 are only used to influence rendering of the component in the styleguide. The other keys of properties of the component itself.
 
 The available options for rendering in the styleguide are:
 
-` `styleguide_type`   
-  The name of the component to show. For example, `buttons/text` correspond to the component `~/htmldev/components/buttons/text.html.twig`.
+- `styleguide_type`   
+  The name of the component to show. For example, `buttons/text` corresponds to the component `~/htmldev/components/buttons/text.html.twig`.
 - `styleguide_title`   
   The title that will be rendered with the component.
 - `styleguide_description`   
@@ -190,11 +190,11 @@ The available options for rendering in the styleguide are:
   A boolean indicating whether the styleguide should render the component on a dark background, for example for white buttons.
 - `styleguide_component_width`
   Override the default width of the component in the styleguide. Use a pixel/percentage/viewport unit to change the width of the component
-  next to the code example. Or to render the code example below the component, use `styleguide_component_width: full`.
+  next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`.
   
 #### Adding navigation
 
-The HtmldevBundle supports two levels of navigation in the styleguide. 
+The HtmldevBundle supports two levels of navigation in the styleguide. The items that make up the menu should be added tot `~/htmldev/data/styleguide/navigation.yml`.
 
 Example of adding a submenu:
 
@@ -258,13 +258,13 @@ an array. There's also a Twig macro that can render these colors inside a grid. 
 ```
 
 The default color service assumes variables of the [ZSS](https://github.com/zicht/zss) framework, but feel free to
-use a different service. See the [Customizing](#customizing) section.
+use a different service. See the [Customising](#customising) section.
 
 ### Using the styleguide in the project
 
 #### Rendering components
 
-The HtmldevBundle provides a `components` macro to render components from the styleguide anywhere in your application.
+The HtmldevBundle provides a `component` macro to render components from the styleguide anywhere in your application.
 
 This wil load `~/htmldev/components/cards/cover.html.twig` with the given properties:
  
@@ -296,7 +296,7 @@ This will render the contents of `~/htmldev/images/icons/arrow--right.svg` in th
 
 The second argument is an options object. These keys are available:
 
-- `width` 
+- `width`    
   The width that should be set on the `<svg />` element. This will override an existing `width` attribute.  
   The macro assumes `px`, so `width: 20` will be rendered as `<svg width="20px" />`. 
   Allowed values: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/width#svg).
@@ -311,14 +311,14 @@ The second argument is an options object. These keys are available:
 - `css_classes`   
   An array of CSS classes that will be applied to the `<svg />` element.
   `css_classes: ['u-white', 'u-block']` will be rendered as `<svg class="u-white  u-black" />`.
-- `attributes`
+- `attributes`   
   An array of extra attributes that will be applied to the `<svg />` element.
   This can be any attribute that's valid for the `<svg />` element.
   The default value for this parameter is `{ 'aria-hidden: 'true', 'role: 'img' }`.
-- `title`
+- `title`   
   This will add a `<title />` element inside the `<svg />` for accessibility improvements.
   Reference: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)
-- `directory`
+- `directory`   
   The directory where the SVG file is located. This must be a directory inside the directory that's marked as 
   the root of the HtmldevBundle (default `~/htmldev`).
    
@@ -326,11 +326,11 @@ The second argument is an options object. These keys are available:
 
 There are several Symfony parameters available to override, to add a different implementation.
 
-- `htmldev.directory` (default: `%kernel.root_dir%/../htmldev`)
+- `htmldev.directory` (default: `%kernel.root_dir%/../htmldev`)   
   Change the styleguide directory. 
 - `htmldev.controller`   
   The controller that handles the requests for pages inside the styleguide.
-- `htmldev.color_service`
+- `htmldev.color_service`   
   The service that reads colors from a Sass variable in ZSS. To change the way this works, implement the `ColorServiceInterface` 
   class and change this parameter to your own class.
 - `htmldev.svg_service`   
