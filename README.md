@@ -13,7 +13,7 @@ Create living styleguides with Symfony and Twig.
       - [Pages](#pages)
       - [Rendering components in the styleguide](#rendering-components-in-the-styleguide)
       - [Rendering icons](#rendering-icons)
-      - [#### Rendering colors](#rendering-colors)
+      - [Rendering colors](#rendering-colors)
    - [Using the styleguide in the project](#using-the-styleguide-in-the-project)
       - [Rendering components](#rendering-components)
       - [Rendering SVG files](#rendering-svg-files)
@@ -25,8 +25,6 @@ Create living styleguides with Symfony and Twig.
 - Provide a single visual source for the design of a project.
 - Serve components and assets from the styleguide to prevent code duplication.
 - Deliver a good developer experience (DX) ✨ that makes creating a good-looking styleguide very easy.
-
-
 
 ## Install
 
