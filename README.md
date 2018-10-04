@@ -12,6 +12,7 @@ Create living styleguides with Symfony and Twig.
       - [Components](#components)
       - [Pages](#pages)
       - [Rendering components in the styleguide](#rendering-components-in-the-styleguide)
+      - [Adding navigation](#adding-navigation)
       - [Rendering icons](#rendering-icons)
       - [Rendering colors](#rendering-colors)
    - [Using the styleguide in the project](#using-the-styleguide-in-the-project)
