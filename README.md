@@ -4,11 +4,29 @@ Create living styleguides with Symfony and Twig.
 
 ---
 
+- [Goals](#goals)
+- [Install](#install)
+- [How to use](#how-to-use)
+   - [Setup](#setup)
+   - [Adding stuff to the styleguide](#adding-stuff-to-the-styleguide)
+      - [Components](#components)
+      - [Pages](#pages)
+      - [Rendering components in the styleguide](#rendering-components-in-the-styleguide)
+      - [Rendering icons](#rendering-icons)
+      - [#### Rendering colors](#rendering-colors)
+   - [Using the styleguide in the project](#using-the-styleguide-in-the-project)
+      - [Rendering components](#rendering-components)
+      - [Rendering SVG files](#rendering-svg-files)
+   - [Customising](#customising)
+---
+
 ## Goals
 
 - Provide a single visual source for the design of a project.
 - Serve components and assets from the styleguide to prevent code duplication.
 - Deliver a good developer experience (DX) ✨ that makes creating a good-looking styleguide very easy.
+
+
 
 ## Install
 
@@ -112,7 +130,7 @@ helper function:
 </article>
 ```
 
-#### Adding pages
+#### Pages
 
 The bundle renders pages from the `~/htmldev/pages` directory. Add as many directories and files as need.
 
@@ -260,7 +278,7 @@ This wil load `~/htmldev/components/cards/cover.html.twig` with the given proper
 }) }}
 ```
 
-#### Rendering SVG/icons
+#### Rendering SVG files
 
 The HtmldevBundle provides an `svg` macro to render SVG's located in `~/htmldev` inline in the HTML source. This allows 
 easy coloring of the SVG with `currentColor` and CSS.
