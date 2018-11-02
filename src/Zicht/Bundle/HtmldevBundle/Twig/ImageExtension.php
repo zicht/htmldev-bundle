@@ -58,9 +58,12 @@ class ImageExtension extends Twig_Extension
         }
 
         $files = array_diff(scandir($imageDirectory), ['..', '.']);
-        return array_map(function($item) {
+        return array_map(
+            function ($item) {
             return basename($item, '.svg');
-        }, $files);
+            },
+            $files
+        );
     }
 
     /**

@@ -37,9 +37,13 @@ class UtilExtension extends Twig_Extension
             throw new \InvalidArgumentException(sprintf('Cannot delete from an object that is not an array. Given type: %s', gettype($array)));
         }
 
-        return array_filter($array, function($key) use ($keysToDelete) {
+        return array_filter(
+            $array,
+            function ($key) use ($keysToDelete) {
             return !in_array($key, $keysToDelete);
-        }, ARRAY_FILTER_USE_KEY);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 
     /**
@@ -59,11 +63,11 @@ class UtilExtension extends Twig_Extension
             foreach ($val as $key => $value) {
                 $val[$key] = $this->getUiPrintableArguments($value, false);
             }
-        } else if (is_object($val)) {
+        } elseif (is_object($val)) {
             foreach (get_object_vars($val) as $key => $value) {
                 $val->$key = $this->getUiPrintableArguments($value, false);
             }
-        } else if (is_string($val)) {
+        } elseif (is_string($val)) {
             $val = trim($val);
         }
 

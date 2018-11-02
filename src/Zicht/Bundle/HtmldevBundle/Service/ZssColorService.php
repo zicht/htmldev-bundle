@@ -30,9 +30,13 @@ class ZssColorService implements ColorServiceInterface
     {
         $css = $this->textLoader->loadData('sass/variables', $file);
         $css = preg_replace('/\s+/', '', $css);
-        $colorVariables = array_filter(explode('$', $css), function($value, $key) {
+        $colorVariables = array_filter(
+            explode('$', $css),
+            function ($value, $key) {
             return strpos($value, 'zss--colors:') === 0;
-        }, ARRAY_FILTER_USE_BOTH);
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
 
         $groups = [];
         foreach ($colorVariables as $variable) {

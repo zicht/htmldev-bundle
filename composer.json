@@ -13,14 +13,14 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7",
         "symfony/framework-bundle": "*",
         "symfony/routing": "*",
         "zicht/framework-extra-bundle": "^8",
         "zicht/twig-classes": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "<=4.4",
+        "phpunit/phpunit": "^7",
         "zicht/standards-php": "^3"
     },
     "autoload": {
