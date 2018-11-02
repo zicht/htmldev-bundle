@@ -24,23 +24,22 @@
         "zicht/standards-php": "^3"
     },
     "autoload": {
-        "psr-0": {
-            "": [
-                "src/"
-            ]
-        }
+        "psr-0": { "": [ "src/" ] }
+    },
+    "autoload-dev": {
+        "psr-0": { "": ["tests/"] }
     },
     "minimum-stability": "stable",
     "license": "MIT",
     "scripts": {
         "lint": [
-            "./vendor/bin/phpcs -s src/Zicht/ --standard=vendor/zicht/standards-php/Zicht --extensions=php -p --parallel=$(nproc)"
+            "phpcs -s src/Zicht/ tests/Zicht/ --standard=vendor/zicht/standards-php/Zicht --extensions=php -p --parallel=$(nproc)"
         ],
         "lint-fix": [
-            "./vendor/bin/phpcbf -s src/Zicht/ --standard=vendor/zicht/standards-php/Zicht --extensions=php --parallel=$(nproc)"
+            "phpcbf -s src/Zicht/ tests/Zicht/ --standard=vendor/zicht/standards-php/Zicht --extensions=php --parallel=$(nproc)"
         ],
         "test": [
-            "./vendor/phpunit/phpunit/phpunit"
+            "phpunit"
         ]
     }
 }

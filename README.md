@@ -19,6 +19,8 @@ Create living styleguides with Symfony and Twig.
       - [Rendering components](#rendering-components)
       - [Rendering SVG files](#rendering-svg-files)
    - [Customising](#customising)
+- [Development](#development)
+   - [CSS](#css)
 ---
 
 ## Goals
@@ -336,6 +338,19 @@ There are several Symfony parameters available to override, to add a different i
 - `htmldev.svg_service`   
   The service that returns the contents of SVG files. To change the way this works, implement the `SvgServiceInterface` and
   change this parameter to your own class.
+
+## Development
+
+### CSS
+
+The bundle contains a CSS file to provide default styling for the styleguide. 
+
+- The source of this CSS file is `styleguide.scss`, located in the [Resourcs/sass](src/Zicht/Bundle/HtmldevBundle/Resources/sass) folder.
+- The Sass files are compiled with webpack and node-sass.
+- The Sass files are linted with [stylelint-config-zicht](https://github.com/zicht/stylelint-config-zicht).
+
+Run `npm run build` to add your features or bug fixes to the compiled CSS file, and don't forget to commit the 
+resulting files in `~/Resources/public/css`.
 
 ## Maintainer
 

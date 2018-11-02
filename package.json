@@ -3,9 +3,6 @@
   "version": "3.0.0",
   "description": "Create living styleguides with Symfony and Twig.",
   "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "lint-css": "stylelint './src/Zicht/Bundle/HtmldevBundle/Resources/sass/**/*.scss' --verbose",
     "build": "node --max-old-space-size=4096 ./node_modules/.bin/webpack --mode=production",
@@ -18,11 +15,10 @@
   "keywords": [
     "zicht",
     "styleguide",
-    "design",
-    "system"
+    "design system"
   ],
   "author": "Zicht Online <info@zicht.nl>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/zicht/htmldev-bundle/issues"
   },
@@ -41,5 +37,21 @@
     "stylelint-webpack-plugin": "^0.10.5",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-zicht",
+    "rules": {
+      "declaration-property-value-whitelist": {
+        "background-color": [
+          "/$/"
+        ],
+        "border-color": [
+          "/$/"
+        ],
+        "color": [
+          "/$/"
+        ]
+      }
+    }
   }
 }

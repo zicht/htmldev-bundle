@@ -13,9 +13,7 @@ use Zicht\Bundle\HtmldevBundle\Service\SvgService;
  */
 class SvgServiceTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var SvgService
-     */
+    /** @var SvgService */
     private $service;
 
     /**
