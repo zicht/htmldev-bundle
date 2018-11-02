@@ -110,8 +110,8 @@ Components are simple Twig templates which represent a small peace of the design
 The HtmldevBundle looks for these components in the `~/htmldev/components` folder. Inside this directory, you're free to
 structure them how you want.
 
-The components is rendered in the Twig control structure `{% strict false %}` block from the [zicht/framework-extra-bundle](https://github.com/zicht/framework-extra-bundle)
-which means there's not need for strict `null` or empty checks on variables: a simple `{% if variable %}` will suffice.
+The component is rendered inside a Twig control structure `{% strict false %}` block from the [zicht/framework-extra-bundle](https://github.com/zicht/framework-extra-bundle)
+which means there's no need for strict `null` or empty checks on variables inside a component: a simple `{% if variable %}` will suffice.
 
 **Recommended**: for easy conditional CSS classes, the HtmldevBundle automaticall loads the [zicht/twig-classes](https://github.com/zicht/twig-classes)
 helper function:
@@ -131,9 +131,9 @@ helper function:
 
 #### Pages
 
-The bundle renders pages from the `~/htmldev/pages` directory. Add as many directories and files as need.
+The bundle renders pages from the `~/htmldev/pages` directory. Add as many directories and files as needed.
 
-Example structure:
+Example directory structure:
 
 ```
 ~/htmldev/pages/
@@ -176,25 +176,25 @@ This example loads `~/htmldev/data/buttons.yml`:
 ```
 
 This way, you can add components to the styleguide without typing Twig code. The keys that start with `styleguide_`
-are only used to influence rendering of the component in the styleguide. The other keys of properties of the component itself.
+are only used to influence rendering of the component in the styleguide. The other keys are properties of the component itself.
 
 The available options for rendering in the styleguide are:
 
 - `styleguide_type`   
-  The name of the component to show. For example, `buttons/text` corresponds to the component `~/htmldev/components/buttons/text.html.twig`.
+  The name of the component to show. For example, `buttons/text` corresponds to the file `~/htmldev/components/buttons/text.html.twig`.
 - `styleguide_title`   
   The title that will be rendered with the component.
 - `styleguide_description`   
-  An extra description of the component that will be rendered below the title
-- `styleguide_dark` (true|false)
+  An extra description of the component that will be rendered below the title.
+- `styleguide_dark` (`true`|`false`)   
   A boolean indicating whether the styleguide should render the component on a dark background, for example for white buttons.
-- `styleguide_component_width`
+- `styleguide_component_width`   
   Override the default width of the component in the styleguide. Use a pixel/percentage/viewport unit to change the width of the component
   next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`.
   
 #### Adding navigation
 
-The HtmldevBundle supports two levels of navigation in the styleguide. The items that make up the menu should be added tot `~/htmldev/data/styleguide/navigation.yml`.
+The HtmldevBundle supports two levels of navigation in the styleguide. The items that make up the menu should be added to `~/htmldev/data/styleguide/navigation.yml`.
 
 Example of adding a submenu:
 
@@ -271,15 +271,15 @@ This wil load `~/htmldev/components/cards/cover.html.twig` with the given proper
 ```twig
 {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
 
-{{ ui.component('cards/cover, { 
+{{ ui.component('cards/cover', { 
     title: 'Hodor',
-    url: '/some/page 
+    url: '/some/page'
 }) }}
 ```
 
 #### Rendering SVG files
 
-The HtmldevBundle provides an `svg` macro to render SVG's located in `~/htmldev` inline in the HTML source. This allows 
+The HtmldevBundle provides an `svg` macro to inline render SVG's located in `~/htmldev`. This allows 
 easy coloring of the SVG with `currentColor` and CSS.
 
 This will render the contents of `~/htmldev/images/icons/arrow--right.svg` in the HTML:
@@ -287,7 +287,7 @@ This will render the contents of `~/htmldev/images/icons/arrow--right.svg` in th
 ```twig
 {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
 
-{{ ui.svg('arrow--right, { 
+{{ ui.svg('arrow--right', { 
     width: 20,
     height: 20,
     directory: 'images/icons'
