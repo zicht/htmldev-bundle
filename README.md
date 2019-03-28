@@ -104,6 +104,15 @@ the following:
 
    ![](docs/initial-setup.jpg)
 
+8. By default the svg service will use a file cache for the rendered svg files and on development you may want this to be array. To achieve this you could set the config param to array: 
+
+    ```
+        htmldev:
+          svg_cache: array
+    ```
+
+    other supported options are file and apcu or an service id where the class implements the [PSR-16](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-16-simple-cache.md).
+
 ### Adding stuff to the styleguide
 
 #### Components

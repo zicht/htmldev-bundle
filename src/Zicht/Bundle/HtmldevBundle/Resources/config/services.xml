@@ -33,15 +33,9 @@
 
         <service id="htmldev.text_data_loader" class="Zicht\Bundle\HtmldevBundle\Service\TextDataLoader" parent="htmldev.abstract_data_loader" />
 
-        <service id="htmldev.svg_cache" class="Symfony\Component\Cache\Simple\FilesystemCache">
-            <argument>svg_renders</argument>
-            <argument>0</argument>
-            <argument>%kernel.cache_dir%</argument>
-        </service>
-
         <service id="htmldev.svg_service" class="%htmldev.svg_service%">
             <argument type="string">%htmldev.directory%</argument>
-            <argument type="service" id="htmldev.svg_cache"/>
+            <argument/> <!-- set by config -->
             <argument type="service" id="logger"/>
             <tag name="monolog.logger" channel="svg_service"/>
         </service>
