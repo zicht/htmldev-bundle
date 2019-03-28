@@ -15,13 +15,13 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {% block head '' %}
+
         <script>
             'use strict';
             var html = document.getElementsByTagName('html')[0];
             html.className = html.className.replace('s-no-javascript', 's-javascript');
         </script>
-
-        {% block head '' %}
     </head>
 
     <body class="{% block body_class '' %}" {% block body_attributes '' %}>
