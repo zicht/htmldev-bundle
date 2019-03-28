@@ -104,6 +104,15 @@ the following:
 
    ![](docs/initial-setup.jpg)
 
+8. By default SVG's will be cached on every other environment then development. This is due to performance reasons. It makes use of file caching for the rendered SVG files. In order to disable this on development you may want this to be array. To achieve this you could set the config param just like this: 
+
+    ```
+        zicht_htmldev:
+          svg_cache: array
+    ```
+
+    other supported options are file and apcu or a service id where the class implements the [PSR-16](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-16-simple-cache.md).
+
 ### Adding stuff to the styleguide
 
 #### Components
