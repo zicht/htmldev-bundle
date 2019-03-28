@@ -107,7 +107,7 @@ the following:
 8. By default SVG's will be cached on every other environment then development. This is due to performance reasons. It makes use of file caching for the rendered SVG files. In order to disable this on development you may want this to be array. To achieve this you could set the config param just like this: 
 
     ```
-        htmldev:
+        zicht_htmldev:
           svg_cache: array
     ```
 
