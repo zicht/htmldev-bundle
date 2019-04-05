@@ -7,7 +7,7 @@ namespace Zicht\Bundle\HtmldevBundle\DependencyInjection;
 
 use Symfony\Component\Cache\Simple\ApcuCache;
 use Symfony\Component\Cache\Simple\FilesystemCache;
-use Symfony\Component\Cache\Tests\Fixtures\ArrayCache;
+use Symfony\Component\Cache\Simple\ArrayCache;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Definition;
