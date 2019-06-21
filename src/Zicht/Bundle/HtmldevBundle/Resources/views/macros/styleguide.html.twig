@@ -2,7 +2,12 @@
 {% macro colors(color_groups) %}
     {% if color_groups|default and color_groups|length %}
         {% for name, colors in color_groups %}
-            <h3 class="c-copy--h3">{{ name }}</h3>
+            {% set info = null %}
+            {% if '__' in name %}
+                {% set info = name|split('__', 2)|last %}
+                {% set name = name|split('__', 2)|first %}
+            {% endif %}
+            <h3 class="c-copy--h3">{{ name }}{% if info %} ({{ info|replace({'-': ' '}) }}){% endif %}</h3>
             <div class="c-color-list">
                 {% for name, value in colors %}
                     {% set cx_loop = {

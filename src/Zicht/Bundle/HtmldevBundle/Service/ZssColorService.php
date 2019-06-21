@@ -29,18 +29,18 @@ class ZssColorService implements ColorServiceInterface
     public function getColorGroups($file)
     {
         $css = $this->textLoader->loadData('sass/variables', $file);
-        $css = preg_replace('/\s+/', '', $css);
-        $colorVariables = array_filter(
-            explode('$', $css),
-            function ($value, $key) {
-            return strpos($value, 'zss--colors:') === 0;
-            },
-            ARRAY_FILTER_USE_BOTH
-        );
+
+        if (0 === preg_match_all('/\$(?P<name>zss--colors(?:[-_][a-z0-9\-_]+)?):\s*(?P<value>[^;]+)\s*;/', $css, $colorVariables, PREG_SET_ORDER)) {
+            return [];
+        }
 
         $groups = [];
         foreach ($colorVariables as $variable) {
-            $groups[substr($variable, 0, strpos($variable, ':'))] = $this->getColorsFromSassVariable($variable);
+            $colors = $this->getColorsFromSassVariable($variable['value']);
+            $groups[$variable['name']] = array_key_exists($variable['name'], $groups)
+                ? array_merge($groups[$variable['name']], $colors)
+                : $colors;
+            ksort($groups[$variable['name']], SORT_NATURAL);
         }
 
         return $groups;
@@ -54,14 +54,13 @@ class ZssColorService implements ColorServiceInterface
     {
         $clean = $this->cleanSassMap($sassVariable);
 
-        preg_match_all('/([a-z0-9\-]+):([#0-9a-f]+|[rgba0-9\.\(\),]+)/', $clean, $pairs);
-        if (count($pairs) < 3) {
+        if (0 === preg_match_all('/([a-z0-9\-]+):[\t ]*([#0-9a-f]+|rgba?\([0-9\., ]+\))/', $clean, $pairs, PREG_SET_ORDER)) {
             return [];
         }
 
         $colors = [];
-        foreach ($pairs[1] as $key => $name) {
-            $colors[$name] = $pairs[2][$key];
+        foreach ($pairs as $pair) {
+            $colors[$pair[1]] = $pair[2];
         }
 
         return $colors;
@@ -75,10 +74,6 @@ class ZssColorService implements ColorServiceInterface
      */
     protected function cleanSassMap($sassMap)
     {
-        $clean = str_replace('zss--colors:(', '', $sassMap);
-        $clean = preg_replace('/\/\*stylelint-[a-z\*\-\/]+/', '', $clean);
-        $clean = preg_replace('/,?\);/', '', $clean);
-
-        return $clean;
+        return preg_replace(['!/\*.*\*/!', '/\$[A-Za-z][A-Za-z0-9\-]*/'], '', $sassMap);
     }
 }
