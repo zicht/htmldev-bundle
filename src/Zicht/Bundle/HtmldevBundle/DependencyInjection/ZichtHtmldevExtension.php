@@ -34,6 +34,10 @@ class ZichtHtmldevExtension extends Extension
         if (null !== $cache = $this->getCacheReference($config, $container)) {
             $container->getDefinition('htmldev.svg_service')->replaceArgument(1, $cache);
         }
+
+        if (isset($config['styleguide']['assets']) && is_array($config['styleguide']['assets'])) {
+            $container->getDefinition('htmldev.htmldev_controller')->addMethodCall('setAssets', [$config['styleguide']['assets']]);
+        }
     }
 
     /**

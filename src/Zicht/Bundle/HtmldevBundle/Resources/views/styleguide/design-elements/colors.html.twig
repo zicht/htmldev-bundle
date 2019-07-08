@@ -1,0 +1,8 @@
+{% extends 'ZichtHtmldevBundle:styleguide:component.html.twig' %}
+{% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
+
+
+{% block component_list %}
+    {% set color_groups = color_palette('_zss-overrides.scss') %}
+    {{ styleguide.colors(color_groups) }}
+{% endblock %}

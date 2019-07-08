@@ -25,6 +25,9 @@ class HtmldevController
     /** @var DataLoaderInterface */
     private $yamlLoader;
 
+    /** @var array */
+    private $assets = [];
+
     /**
      * Initializes a new instance of the HtmldevController class.
      *
@@ -35,6 +38,14 @@ class HtmldevController
     {
         $this->templating = $templating;
         $this->yamlLoader = $yamlLoader;
+    }
+
+    /**
+     * @param array $assets
+     */
+    public function setAssets(array $assets)
+    {
+        $this->assets = $assets;
     }
 
     /**
@@ -60,6 +71,26 @@ class HtmldevController
      */
     public function showAction($section)
     {
-        return $this->templating->renderResponse(sprintf('@htmldev/pages/%s.html.twig', $section));
+        $templates = [
+            sprintf('@htmldev/pages/%s.html.twig', $section),                 // Override: Custom section specific template
+            '@htmldev/_base.html.twig',                                       // Override: Custom base template (BC)
+            '@htmldev/component.html.twig',                                   // Override: Custom component template (new way)
+            sprintf('ZichtHtmldevBundle::styleguide/%s.html.twig', $section),  // Section specific template
+            'ZichtHtmldevBundle:styleguide:component.html.twig',              // No custom template, use general component template
+            null, // Final value when nothing is found
+        ];
+        do {
+            $template = $templates[(isset($i) ? ++$i : $i = 0)];
+        } while ($i + 1 < count($templates) && !$this->templating->exists($template));
+
+
+        if (null === $template) {
+            throw new \UnexpectedValueException(sprintf('Can\'t find a template to render the "%s" section', $section));
+        }
+
+        return $this->templating->renderResponse(
+            $template,
+            ['section' => $section, 'name' => array_reverse(explode('/', $section))[0], 'assets' => $this->assets]
+        );
     }
 }

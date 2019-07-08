@@ -5,6 +5,8 @@
 
 namespace Zicht\Bundle\HtmldevBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -63,6 +65,67 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
+        $this->buildStyleguideConfigTree($rootNode);
+
         return $treeBuilder;
+    }
+
+    /**
+     * @param ArrayNodeDefinition|NodeDefinition $rootNode
+     */
+    private function buildStyleguideConfigTree($rootNode)
+    {
+        if (isset($_SERVER['APPLICATION_ENV']) && 'production' !== $_SERVER['APPLICATION_ENV']) {
+            // Don't do any effort to validate the styleguide tree in production env.
+            return;
+        }
+
+        $rootNode
+            ->children()
+                ->arrayNode('styleguide')
+                    ->fixXmlConfig('asset')
+                    ->children()
+                        ->arrayNode('assets')
+                            ->info(
+                                'These assets will be loaded additionally in the HTMLDEV Styleguide pages. Configure your website\'s stylesheet(s) and javascript(s) here.'
+                            )
+                            ->requiresAtLeastOneElement()
+                            ->prototype('array')
+                                ->info('Set at type and define one of path, url or body')
+                                ->children()
+                                    ->enumNode('type')->values(['stylesheet', 'script'])->isRequired()->end()
+                                    ->scalarNode('path')->info('Will be rendered using asset()')->end()
+                                    ->scalarNode('url')->info('For external assets')->end()
+                                    ->scalarNode('body')->info('To insert snippets directly into the document')->end()
+                                ->end()
+                                ->validate()
+                                    ->ifTrue(
+                                        static function ($asset) {
+                                            return 0 === count(array_intersect(['path', 'url', 'body'], array_keys($asset)));
+                                        }
+                                    )
+                                    ->thenInvalid('Invalid Styleguide asset configured. A path, url or body must be configured. %s')
+                                ->end()
+                                ->validate()
+                                    ->ifTrue(
+                                        static function ($asset) {
+                                            return 1 < count(array_intersect(['path', 'url', 'body'], array_keys($asset)));
+                                        }
+                                    )
+                                    ->thenInvalid('Invalid asset configured. Only one of path, url or body must be configured. %s')
+                                ->end()
+                                ->validate()
+                                    ->ifTrue(
+                                        static function ($asset) {
+                                            return 0 === count(array_intersect(['path', 'url', 'body'], array_keys(array_filter($asset))));
+                                        }
+                                    )
+                                    ->thenInvalid('Invalid asset configured. Path/url/body cannot be empty. %s')
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
     }
 }
