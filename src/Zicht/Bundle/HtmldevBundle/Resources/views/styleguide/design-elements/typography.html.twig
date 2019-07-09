@@ -1,4 +1,4 @@
-{% extends 'ZichtHtmldevBundle:styleguide:component.html.twig' %}
+{% extends ['@htmldev/pages/component.html.twig', 'ZichtHtmldevBundle:styleguide:component.html.twig'] %}
 {% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
 
 
@@ -11,7 +11,7 @@
                 <h1>The quick brown fox jumps over the lazy dog.</h1>
 
                 <h2>Jived fox nymph grabs quick waltz?</h2>
-                <p class="introduction">
+                <p>
                     That’s not the only ballroom dance. I take lessons too. There’s Salsa, Tango, Waltz,
                     Vienese Waltz, Quick Step, Jive, Swing, Foxtrot, Lindy Hop, Mambo, Cha-Cha, and Merengue.
                     There are <a href="#">obscure ones</a> too.

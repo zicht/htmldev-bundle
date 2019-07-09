@@ -73,9 +73,9 @@ class HtmldevController
     {
         $templates = [
             sprintf('@htmldev/pages/%s.html.twig', $section),                 // Override: Custom section specific template
-            '@htmldev/_base.html.twig',                                       // Override: Custom base template (BC)
-            '@htmldev/component.html.twig',                                   // Override: Custom component template (new way)
-            sprintf('ZichtHtmldevBundle::styleguide/%s.html.twig', $section),  // Section specific template
+            '@htmldev/_base.html.twig',                                       // Override: Custom base template backward compatibility (BC)
+            '@htmldev/pages/component.html.twig',                             // Override: Custom component template (new way)
+            sprintf('ZichtHtmldevBundle::styleguide/%s.html.twig', $section), // Section specific template
             'ZichtHtmldevBundle:styleguide:component.html.twig',              // No custom template, use general component template
             null, // Final value when nothing is found
         ];
