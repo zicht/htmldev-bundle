@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{%- if app.environment != 'production' %}{{ assets_version() }} - {% endif %}{% block head_title '' %}</title>
+        <title>{%- if app.environment != 'production' %}{{ asset_version('/') }} - {% endif %}{% block head_title '' %}</title>
 
         {% block head_copyright %}
             <!--
             Copyright (c) Zicht Online {{ 'now'|date('Y') }} All rights reserved
             Developed by: Zicht online
             Contact: info@zicht.nl
-            Version: {{ assets_version() }}
+            Version: {{ asset_version('/') }}
             -->
         {% endblock %}
 
