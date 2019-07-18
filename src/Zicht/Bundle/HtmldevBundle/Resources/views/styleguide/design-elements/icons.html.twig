@@ -1,0 +1,9 @@
+{% extends ['@htmldev/pages/component.html.twig', 'ZichtHtmldevBundle:styleguide:component.html.twig'] %}
+{% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
+
+
+{% block component_list %}
+    <div>
+        {{ styleguide.icons(icon_list()) }}
+    </div>
+{% endblock %}

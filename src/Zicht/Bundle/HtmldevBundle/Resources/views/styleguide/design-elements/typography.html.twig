@@ -1,0 +1,57 @@
+{% extends ['@htmldev/pages/component.html.twig', 'ZichtHtmldevBundle:styleguide:component.html.twig'] %}
+{% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
+
+
+{% block component_list %}
+    <div class="o-grid  o-grid--fixed">
+
+        <div class="o-grid__row  u-padding--t5">
+            <section class="o-grid__col  s-cms-content">
+
+                <h1>The quick brown fox jumps over the lazy dog.</h1>
+
+                <h2>Jived fox nymph grabs quick waltz?</h2>
+                <p>
+                    That’s not the only ballroom dance. I take lessons too. There’s Salsa, Tango, Waltz,
+                    Vienese Waltz, Quick Step, Jive, Swing, Foxtrot, Lindy Hop, Mambo, Cha-Cha, and Merengue.
+                    There are <a href="#">obscure ones</a> too.
+                </p>
+
+                <h3>How vexingly quick daft zebras jump!</h3>
+                <p>
+                    Further, fractal geometries are replicated on a human level in the production of certain
+                    “types” of subjectivity: for example, aging kid quiz show whiz Donnie Smith
+                    (<a href="#">William H. Macy</a>) and up and coming kid quiz show whiz Stanley Spector
+                    (<a href="#">Jeremy Blackman</a>) are connected (or, perhaps, being cloned) in ways they
+                    couldn’t possibly imagine.
+                </p>
+
+                <blockquote>
+                    You, me, or nobody is gonna hit as hard as life. But it ain't about how hard you hit. It's
+                    about how hard you can get hit and keep moving forward. How much you can take and keep moving
+                    forward. That's how winning is done!
+                </blockquote>
+                <footer>Rocky Balboa</footer>
+
+                <h3>This is a:</h3>
+                <ul>
+                    <li>Normal list with items</li>
+                    <li>Second item</li>
+                    <li>and maybe a third item</li>
+                </ul>
+
+                <h4>Link list</h4>
+                <ul>
+                    <li><a href="https://www.farside.org.uk/201410/pangrams_on_the_web" rel="noreferrer noopener" target="_blank">
+                        Pangrams on the web
+                    </a></li>
+                    <li><a href="https://www.lifewire.com/most-inspirational-movie-quotes-4177134" rel="noreferrer noopener" target="_blank">
+                        The 20 Most Inspirational Movie Quotes of 2019
+                    </a></li>
+                    <li><a href="/htmldev/">Go back</a></li>
+                </ul>
+
+            </section>
+        </div>
+    </div>
+{% endblock %}
