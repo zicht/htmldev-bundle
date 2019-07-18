@@ -1,6 +1,6 @@
 # Htmldev Bundle
 
-Create living styleguides with Symfony and Twig.
+Create living Styleguides with Symfony and Twig! ✨
 
 ---
 
@@ -10,11 +10,12 @@ Create living styleguides with Symfony and Twig.
    - [Setup](#setup)
    - [Adding stuff to the styleguide](#adding-stuff-to-the-styleguide)
       - [Components](#components)
-      - [Pages](#pages)
       - [Rendering components in the styleguide](#rendering-components-in-the-styleguide)
+      - [Pages](#pages)
       - [Adding navigation](#adding-navigation)
-      - [Rendering icons](#rendering-icons)
-      - [Rendering colors](#rendering-colors)
+      - [Colors](#colors)
+      - [Icons](#icons)
+      - [Typography](#typography)
    - [Using the styleguide in the project](#using-the-styleguide-in-the-project)
       - [Rendering components](#rendering-components)
       - [Rendering SVG files](#rendering-svg-files)
@@ -58,25 +59,28 @@ Create living styleguides with Symfony and Twig.
 
    ⚠️ if you combine this bundle with the [zicht/page-bundle](https://github.com/page-bundle), make sure this configuration is placed *above* any routing containing `/{locale}`.
 
-3. Create a directory in your project from which the styleguide will be served. The default expects a `htmldev` directory in the root of your project.
-   
-4. Add a Twig template `_base.html.twig` to the `~/htmldev` created in the previous step. It should looke something like this:
+3. Add a app/config/bundles/ bundle configuration file to configure a Twig namespace and add project specific assets to
+the Styleguide (optionally you can configure the svg cache, see down below):
 
-   ```twig
-   {% extends 'ZichtHtmldevBundle:styleguide:index.html.twig' %}
+    ```yaml
+    twig:
+        paths:
+            "%kernel.root_dir%/../htmldev": htmldev
 
+    zicht_htmldev:
+        styleguide:
+            assets:
+                -  type: stylesheet
+                   path: 'assets/main.css'
+                -  type: script
+                   path: 'assets/main.min.js'
+    ```
 
-   {% block head %}
-       <link rel="stylesheet" href="{{ asset('bundles/zichthtmldev/css/styleguide.css') }}">
-       <link rel="stylesheet" href="{{ asset('assets/main.css') }}">
-       <script defer src="{{ asset('assets/main.min.js') }}"></script>
-   {% endblock %}
-   ```
+    For the Styleguide, there are two asset types: stylesheet and script. For both you can either configure a `path`
+    which will be passed through the Twig `asset()` function, or you can configure a URL (to an external stylesheet
+    or script for instance) or you can configure a `body` to add inline CSS or scripting.
 
-   The first CSS file contains the design of the styleguide, while the files below it should be the CSS and script files of 
-the project itself.
-
-5. Create a directory `data/styleguide` in the `~/htmldev` directory. Add a file `navigation.yml` containing at least
+4. Create a directory `data/styleguide/` in the `htmldev/` directory. Add a file `navigation.yml` containing at least
 the following:
 
    ```yaml
@@ -85,30 +89,17 @@ the following:
        uri: /htmldev/components/buttons
    ```
 
-6. Create a directory `pages/components` in the `~/htmldev` directory. Add a Twig template `buttons.html.twig`:
-
-   ```twig
-   {% extends '@htmldev/_base.html.twig' %}
-   {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
-
-
-   {% block head_title 'Buttons - Styleguide' %}
-
-
-   {% block component_intro %}
-       <h2 class="c-copy--h2">Buttons</h2>
-   {% endblock %}
-   ```
-
-7. Go to the styleguide's URL at `/htmldev` (e.g. http://localhost/htmldev) and you should see a basic setup of the styleguide: 
+5. Go to the styleguide's URL at `/htmldev` (e.g. http://localhost/htmldev) and you should see a basic setup of the styleguide:
 
    ![](docs/initial-setup.jpg)
 
-8. By default SVG's will be cached on every other environment then development. This is due to performance reasons. It makes use of file caching for the rendered SVG files. In order to disable this on development you may want this to be array. To achieve this you could set the config param just like this: 
+6. By default SVG's will be cached on every other environment then development. This is due to performance reasons. It
+makes use of file caching for the rendered SVG files. In order to disable this on development you may want this to be
+array. To achieve this you could set the config param just like this:
 
-    ```
-        zicht_htmldev:
-          svg_cache: array
+    ```yaml
+    zicht_htmldev:
+        svg_cache: array
     ```
 
     other supported options are file and apcu or a service id where the class implements the [PSR-16](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-16-simple-cache.md).
@@ -118,7 +109,7 @@ the following:
 #### Components
 
 Components are simple Twig templates which represent a small peace of the design of a project, for example a button or a card.
-The HtmldevBundle looks for these components in the `~/htmldev/components` folder. Inside this directory, you're free to
+The HtmldevBundle looks for these components in the `htmldev/components/` folder. Inside this directory, you're free to
 structure them how you want.
 
 The component is rendered inside a Twig control structure `{% strict false %}` block from the [zicht/framework-extra-bundle](https://github.com/zicht/framework-extra-bundle)
@@ -140,35 +131,11 @@ helper function:
 </article>
 ```
 
-#### Pages
+#### Rendering components in the Styleguide
 
-The bundle renders pages from the `~/htmldev/pages` directory. Add as many directories and files as needed.
+The HtmldevBundle loads the example/dummy data for the components from Yaml files from the `htmldev/data/` directory.
 
-Example directory structure:
-
-```
-~/htmldev/pages/
-  |- components/
-  |---- buttons.html.twig # Can be viewed in browser using the URL /htmldev/components/buttons
-  |---- cards.html.twig
-  |---- headers.html.twig
-  |- design-elements/
-  |---- colors.html.twig
-  |---- icons.html.twig
-```
-
-#### Rendering components in the styleguide
-
-The HtmldevBundle contains a `load_data` Twig function to load the contents of a Yaml file in an array. The files
- are loaded from the `~/htmldev/data` directory. 
- 
-```twig
-{% for component in load_data('buttons') %}
-    {{ ui.styleguide_component(component.styleguide_type, component) }}
-{% endfor %}
-```
-
-This example loads `~/htmldev/data/buttons.yml`:   
+For example, it loads a `htmldev/data/buttons.yml`:
 
 ```yaml
 -
@@ -176,7 +143,6 @@ This example loads `~/htmldev/data/buttons.yml`:
     styleguide_type: buttons/text
     text: Button
     color: blue
-
 -
     styleguide_title: White button outline
     styleguide_type: buttons/text
@@ -192,7 +158,7 @@ are only used to influence rendering of the component in the styleguide. The oth
 The available options for rendering in the styleguide are:
 
 - `styleguide_type`   
-  The name of the component to show. For example, `buttons/text` corresponds to the file `~/htmldev/components/buttons/text.html.twig`.
+  The name of the component to show. For example, `buttons/text` corresponds to the file `htmldev/components/buttons/text.html.twig`.
 - `styleguide_title`   
   The title that will be rendered with the component.
 - `styleguide_description`   
@@ -202,12 +168,41 @@ The available options for rendering in the styleguide are:
 - `styleguide_component_width`   
   Override the default width of the component in the styleguide. Use a pixel/percentage/viewport unit to change the width of the component
   next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`.
-  
+
+#### Pages
+
+The bundle renders default pages for all the components that are added to the `navigation.yml` and their own data
+Yaml files. The templates for the Styleguide reside within the HtmldevBundle own `Resources/views/styleguide/`
+directory and can be overridden within the project's `htmldev/pages/` directory. Both directory's structure looks
+like below. The HtmldevBundle has a base `component.html.twig` template for all components. You can override this
+template in your project's `htmldev/pages/` directory to do global changes. In your project's
+`htmldev/pages/` directory you can create a `components/` subdirectory and add custom templates for specific components
+(the base name part of the template file should be the same as the base name of the Yaml file).
+The design elements do have their own template within the HtmldevBundle, which are all based on the
+`component.html.twig` template (either the one in your project's `htmldev/pages/` directory or the one of the Htmldev
+bundle).
+
+Relative directory structure:
+
+```
+ ./
+  ├─ component.html.twig
+  ├┈ (components/)
+  │  ├┈ (buttons.html.twig)
+  │  ├┈ (cards.html.twig)
+  │  └┈ (headers.html.twig)
+  └─ design-elements/
+     ├─ colors.html.twig
+     ├─ icons.html.twig
+     └─ typography.html.twig
+```
+
 #### Adding navigation
 
-The HtmldevBundle supports two levels of navigation in the styleguide. The items that make up the menu should be added to `~/htmldev/data/styleguide/navigation.yml`.
+The HtmldevBundle supports two levels of navigation in the styleguide. The items that make up the menu should be added
+to `htmldev/data/styleguide/navigation.yml`.
 
-Example of adding a submenu:
+Example of a navigation structure:
 
 ```yaml
 -
@@ -220,56 +215,44 @@ Example of adding a submenu:
         -
             title: Cards
             uri: /htmldev/components/cards
+-
+   title: Design Elements
+   uri: /htmldev/design-elements/colors
+   items:
+       -
+           title: Colors
+           uri: /htmldev/design-elements/colors
+       -
+           title: Icons
+           uri: /htmldev/design-elements/icons
+       -
+           title: Typography
+           uri: /htmldev/design-elements/typography
 ```
 
-#### Rendering icons
+#### Colors
 
-The Twig function `icon_list()` returns an list of file names inside the directory `~/htmldev/images/icons`. There's
-also a Twig macro `icons()` that renders a list of icon file names inside a grid. So to render a grid of available icons:
+The HtmldevBundle Styleguide page Design Elements > Colors will read the color Sass map inside the file
+`htmldev/sass/variables/_zss-overrides.scss` and renders these colors inside a grid.
 
-```twig
-{% extends '@htmldev/_base.html.twig' %}
-{% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
-
-
-{% block head_title 'Icons - Styleguide' %}
-
-
-{% block component_intro %}
-    <h2 class="c-copy--h2">Icons</h2>
-{% endblock %}
-
-
-{% block component_list %}
-    {{ styleguide.icons(icon_list()) }}
-{% endblock %}
-```
-
-#### Rendering colors
-
-The Twig function `color_palette` reads the color Sass map inside the given file name located in `~/htmldev/sass/variables` and returns the colors inside it as
-an array. There's also a Twig macro that can render these colors inside a grid. So to render a grid of available colors:
-
-```twig
-{% extends '@htmldev/_base.html.twig' %}
-{% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
-
-
-{% block head_title 'Colors - Styleguide' %}
-
-
-{% block component_intro %}
-    <h2 class="c-copy--h2">Colors</h2>
-{% endblock %}
-
-
-{% block component_list %}
-    {{ styleguide.colors(color_palette('_zss-overrides.scss')) }}
-{% endblock %}
-```
+The page is using a Twig function `color_palette()` and passes the filename `_zss-overrides.scss`. You can override
+this page (see [Pages](#pages)) to change/add the files it is reading from.
 
 The default color service assumes variables of the [ZSS](https://github.com/zicht/zss) framework, but feel free to
 use a different service. See the [Customising](#customising) section.
+
+#### Icons
+
+The HtmldevBundle Styleguide page Design Elements > Icons will render the icons in the directory `htmldev/images/icons/`
+(no subdirectories).
+
+#### Typography
+
+The HtmldevBundle Styleguide page Design Elements > Typography contains a static set of typographical elements such as
+`<h1>`, `<h2>`, `<h3>` and `<h4>` headings, a few `<p>` paragraphs, a `<blockquote>` quote with a `<footer>` and a few
+`<ul>` unordered lists. The paragraphs and lists contain some `<a>` links.
+
+You can override this page (see [Pages](#pages)) to customize the HTML specially for your project.
 
 ### Using the styleguide in the project
 
@@ -277,7 +260,7 @@ use a different service. See the [Customising](#customising) section.
 
 The HtmldevBundle provides a `component` macro to render components from the styleguide anywhere in your application.
 
-This wil load `~/htmldev/components/cards/cover.html.twig` with the given properties:
+This wil load `htmldev/components/cards/cover.html.twig` with the given properties:
  
 ```twig
 {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
@@ -290,10 +273,10 @@ This wil load `~/htmldev/components/cards/cover.html.twig` with the given proper
 
 #### Rendering SVG files
 
-The HtmldevBundle provides an `svg` macro to inline render SVG's located in `~/htmldev`. This allows 
+The HtmldevBundle provides an `svg` macro to inline render SVG's located in `htmldev`. This allows
 easy coloring of the SVG with `currentColor` and CSS.
 
-This will render the contents of `~/htmldev/images/icons/arrow--right.svg` in the HTML:
+This will render the contents of `htmldev/images/icons/arrow--right.svg` in the HTML:
 
 ```twig
 {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
@@ -331,7 +314,7 @@ The second argument is an options object. These keys are available:
   Reference: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)
 - `directory`   
   The directory where the SVG file is located. This must be a directory inside the directory that's marked as 
-  the root of the HtmldevBundle (default `~/htmldev`).
+  the root of the HtmldevBundle (default `htmldev`).
    
 ### Customising
 

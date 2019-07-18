@@ -1,0 +1,20 @@
+{# Try htmldev/_base.html.twig first. Kept this in for backward compatibility (BC) #}
+{% extends ['@htmldev/_base.html.twig', 'ZichtHtmldevBundle:styleguide:index.html.twig'] %}
+{% import 'ZichtHtmldevBundle::macros/components.html.twig' as ui %}
+
+
+{% block head_title -%}
+    Styleguide{% if name|default %} - {{ name|capitalize }}{% endif %}
+{%- endblock %}
+
+
+{% block component_intro %}
+    <h2 class="c-copy--h2">{{ name|capitalize }}</h2>
+{% endblock %}
+
+
+{% block component_list %}
+    {% for component in load_data(name) %}
+        {{ ui.styleguide_component(component.styleguide_type, component) }}
+    {% endfor %}
+{% endblock %}

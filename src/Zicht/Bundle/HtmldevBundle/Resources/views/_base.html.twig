@@ -16,7 +16,36 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block head '' %}
+        {% block head -%}
+            {%- if assets is not defined or assets is not iterable -%}
+                {%- set assets = [] -%}
+            {%- endif -%}
+            {%- set assets = [{ type: 'stylesheet', path: 'bundles/zichthtmldev/css/styleguide.css' }] |merge(assets) -%}
+
+            {%- for assetConfig in assets -%}
+                {%- if assetConfig.type == 'stylesheet' -%}
+                    {%- if assetConfig.path is defined -%}
+                        <link rel="stylesheet" href="{{ asset(assetConfig.path) }}">
+                    {% elseif assetConfig.url is defined -%}
+                        <link rel="stylesheet" href="{{ assetConfig.url }}">
+                    {% elseif assetConfig.body is defined -%}
+                        <style>
+                            {{ assetConfig.body }}
+                        </style>
+                    {% endif -%}
+                {%- elseif assetConfig.type == 'script' -%}
+                    {%- if assetConfig.path is defined -%}
+                        <script defer src={{ asset(assetConfig.path) }}"></script>
+                    {% elseif assetConfig.url is defined -%}
+                        <script defer src="{{ assetConfig.url }}"></script>
+                    {% elseif assetConfig.body is defined -%}
+                        <script>
+                            {{ assetConfig.body }}
+                        </script>
+                    {% endif -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endblock %}
 
         <script>
             'use strict';
