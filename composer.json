@@ -2,10 +2,6 @@
     "name": "zicht/htmldev-bundle",
     "description": "Easy living styleguides with Symfony and Twig",
     "type": "symfony-bundle",
-    "repositories": [{
-        "type": "vcs",
-        "url": "git@github.com:zicht/htmldev-bundle.git"
-    }],
     "authors": [
         {
             "name": "Zicht Online",
