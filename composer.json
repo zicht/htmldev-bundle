@@ -10,13 +10,13 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
-        "rakit/validation": "^1.2"
+        "php": ">=5.3"
     },
     "require-dev": {
         "symfony/framework-bundle": "*",
         "symfony/routing": "*",
-        "phpunit/phpunit": "<=4.4"
+        "phpunit/phpunit": "<=4.4",
+        "rakit/validation": "^1.2"
     },
     "autoload": {
         "psr-0": {
