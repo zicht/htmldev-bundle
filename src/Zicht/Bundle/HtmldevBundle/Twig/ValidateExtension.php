@@ -14,7 +14,7 @@ use Twig_SimpleFilter;
 class ValidateExtension extends Twig_Extension
 {
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function getFilters()
     {
