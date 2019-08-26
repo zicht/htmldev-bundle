@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3",
+        "rakit/validation": "^1.2"
     },
     "require-dev": {
         "symfony/framework-bundle": "*",
