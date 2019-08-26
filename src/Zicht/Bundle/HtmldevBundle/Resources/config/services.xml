@@ -66,6 +66,9 @@
             <tag name="twig.extension"/>
         </service>
 
+        <service id="Zicht\Bundle\HtmldevBundle\Twig\ValidateExtension" class="Zicht\Bundle\HtmldevBundle\Twig\ValidateExtension">
+            <tag name="twig.extension"/>
+        </service>
 
         <!-- Navigation -->
         <service id="htmldev.menu_builder" class="%htmldev.menu_builder%">

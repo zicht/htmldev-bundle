@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": "^7",
+        "rakit/validation": "^1.2"
         "symfony/framework-bundle": "*",
         "symfony/routing": "*",
         "zicht/framework-extra-bundle": "^8",
