@@ -10,6 +10,7 @@
     ],
     "require": {
         "php": "^7",
+        "knplabs/knp-menu-bundle": "^2.2",
         "rakit/validation": "^1.2",
         "symfony/framework-bundle": "*",
         "symfony/routing": "*",
