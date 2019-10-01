@@ -18,7 +18,7 @@
             <argument type="service" id="templating" />
             <argument type="service" id="htmldev.yaml_data_loader" />
         </service>
-
+        <service id="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController" alias="htmldev.htmldev_controller"/>
 
         <!-- Services -->
         <service id="htmldev.color_service" class="%htmldev.color_service%">
