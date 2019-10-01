@@ -14,6 +14,7 @@
         "rakit/validation": "^1.2",
         "symfony/framework-bundle": "*",
         "symfony/routing": "*",
+        "twig/twig": "^2",
         "zicht/framework-extra-bundle": "^8",
         "zicht/twig-classes": "^1.0"
     },

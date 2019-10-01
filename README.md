@@ -57,10 +57,10 @@ Create living Styleguides with Symfony and Twig! ✨
       resource: "@ZichtHtmldevBundle/Resources/config/routing.yml"
    ```
 
-   ⚠️ if you combine this bundle with the [zicht/page-bundle](https://github.com/page-bundle), make sure this configuration is placed *above* any routing containing `/{locale}`.
+   ⚠️ if you combine this bundle with the [zicht/page-bundle](https://github.com/zicht/page-bundle), make sure this configuration is placed *above* any routing containing `/{locale}`.
 
-3. Add a app/config/bundles/ bundle configuration file to configure a Twig namespace and add project specific assets to
-the Styleguide (optionally you can configure the svg cache, see down below):
+3. Add an app/config/bundles/ bundle configuration file to configure a Twig namespace and add project specific assets to
+the Styleguide (optionally you can configure much more, see down below):
 
     ```yaml
     twig:
@@ -93,7 +93,27 @@ the following:
 
    ![](docs/initial-setup.jpg)
 
-6. By default SVG's will be cached on every other environment then development. This is due to performance reasons. It
+6. Optionally you can change the styleguide's title and its output.
+
+    * To change the Styleguide title, edit the config and add a `title: '...'` element:
+
+        ```yaml
+        zicht_htmldev:
+            styleguide:
+                title: 'Design System'
+        ```
+
+    * To change the Styleguide output, edit the config and add an `output: []` section:
+
+        ```yaml
+        zicht_htmldev:
+            styleguide:
+                output: ['example', 'twig', 'html'] # or ['example', 'html'] or ['example'] or ...
+        ```
+
+        Default (when not explicitly configured) is `output: ['example', 'twig']`
+
+7. By default SVG's will be cached on every other environment then development. This is due to performance reasons. It
 makes use of file caching for the rendered SVG files. In order to disable this on development you may want this to be
 array. To achieve this you could set the config param just like this:
 
@@ -188,8 +208,8 @@ The available options for rendering in the styleguide are:
 #### Pages
 
 The bundle renders default pages for all the components that are added to the `navigation.yml` and their own data
-Yaml files. The templates for the Styleguide reside within the HtmldevBundle own `Resources/views/styleguide/`
-directory and can be overridden within the project's `htmldev/pages/` directory. Both directory's structure looks
+Yaml files. The templates for the Styleguide reside within the HtmldevBundle's own `Resources/views/styleguide/`
+directory and can be overridden within the project's `htmldev/pages/` directory. Both directory's structures look
 like below. The HtmldevBundle has a base `component.html.twig` template for all components. You can override this
 template in your project's `htmldev/pages/` directory to do global changes. In your project's
 `htmldev/pages/` directory you can create a `components/` subdirectory and add custom templates for specific components
@@ -198,10 +218,14 @@ The design elements do have their own template within the HtmldevBundle, which a
 `component.html.twig` template (either the one in your project's `htmldev/pages/` directory or the one of the Htmldev
 bundle).
 
-Relative directory structure:
+You could also add a homepage/introduction page instead of going to the page of the first component in the list as
+homepage. You can do so by adding a template at `htmldev/pages/styleguide_intro.html.twig`. This will then be rendered
+as a homepage (at the `https://example.com/htmldev/` URL).
 
+Relative directory structure:
 ```
  ./
+  ├┈ (styleguide_intro.html.twig)
   ├─ component.html.twig
   ├┈ (components/)
   │  ├┈ (buttons.html.twig)

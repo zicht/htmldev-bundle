@@ -6,6 +6,7 @@ namespace Zicht\Bundle\HtmldevBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
  *
  * @Route(service="htmldev.htmldev_controller")
  */
-class HtmldevController
+class HtmldevController extends Controller
 {
     /** @var EngineInterface */
     private $templating;
@@ -26,7 +27,7 @@ class HtmldevController
     private $yamlLoader;
 
     /** @var array */
-    private $assets = [];
+    private $styleguideConfig = [];
 
     /**
      * Initializes a new instance of the HtmldevController class.
@@ -41,20 +42,25 @@ class HtmldevController
     }
 
     /**
-     * @param array $assets
+     * @param array $styleguideConfig
      */
-    public function setAssets(array $assets)
+    public function setStyleguideConfig(array $styleguideConfig)
     {
-        $this->assets = $assets;
+        $this->styleguideConfig = $styleguideConfig;
     }
 
     /**
+     * @param string|null $section
      * @return Response
      *
      * @Route("/")
      */
-    public function indexAction($section = 'colors')
+    public function indexAction($section = 'styleguide_intro')
     {
+        if (null !== $section && '' !== $section && $this->templating->exists(sprintf('@htmldev/pages/%s.html.twig', $section))) {
+            return $this->forward('ZichtHtmldevBundle:Htmldev:show', ['section' => $section]);
+        }
+
         $menuItems = $this->yamlLoader->loadData('data/styleguide', 'navigation.yml');
         if (count($menuItems) === 0) {
             throw new NotFoundHttpException();
@@ -83,14 +89,17 @@ class HtmldevController
             $template = $templates[(isset($i) ? ++$i : $i = 0)];
         } while ($i + 1 < count($templates) && !$this->templating->exists($template));
 
-
         if (null === $template) {
             throw new \UnexpectedValueException(sprintf('Can\'t find a template to render the "%s" section', $section));
         }
 
         return $this->templating->renderResponse(
             $template,
-            ['section' => $section, 'name' => array_reverse(explode('/', $section))[0], 'assets' => $this->assets]
+            [
+                'section' => $section,
+                'name' => array_reverse(explode('/', $section))[0],
+                'styleguide' => (object)$this->styleguideConfig,
+            ]
         );
     }
 }

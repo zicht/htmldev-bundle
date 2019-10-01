@@ -75,7 +75,7 @@ class Configuration implements ConfigurationInterface
      */
     private function buildStyleguideConfigTree($rootNode)
     {
-        if (isset($_SERVER['APPLICATION_ENV']) && 'production' === $_SERVER['APPLICATION_ENV']) {
+        if ('production' === getenv('APPLICATION_ENV')) {
             // Don't do any effort to validate the styleguide tree in production env.
             $rootNode->children()->variableNode('styleguide');
             return;
@@ -85,7 +85,15 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('styleguide')
                     ->fixXmlConfig('asset')
+                    ->fixXmlConfig('output')
                     ->children()
+                        ->scalarNode('title')->defaultValue('Styleguide')->end()
+                        ->arrayNode('outputs')
+                            ->info('Configure the outputs of the Styleguid: \'example\' will show the rendered component, \'twig\' will show the ui.component code to be used and \'html\' will show the rendered HTML output')
+                            ->defaultValue(['example', 'twig'])
+                            ->requiresAtLeastOneElement()
+                            ->enumPrototype()->values(['example', 'twig', 'html'])->end()
+                        ->end()
                         ->arrayNode('assets')
                             ->info(
                                 'These assets will be loaded additionally in the HTMLDEV Styleguide pages. Configure your website\'s stylesheet(s) and javascript(s) here.'
