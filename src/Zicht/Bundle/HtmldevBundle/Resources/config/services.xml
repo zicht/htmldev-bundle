@@ -80,5 +80,9 @@
             <argument type="service" id="request_stack" />
             <tag name="knp_menu.menu" alias="styleguide" />
         </service>
+        <service id="Zicht\Bundle\HtmldevBundle\Service\MenuUriVoter" class="Zicht\Bundle\HtmldevBundle\Service\MenuUriVoter">
+            <argument type="service" id="request_stack"/>
+            <tag name="knp_menu.voter" request="true"/>
+        </service>
     </services>
 </container>
