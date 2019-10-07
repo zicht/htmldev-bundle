@@ -31,7 +31,7 @@
     @param string slug The name of the component, which corresponds with the name of the file.
     @param object properties The properties of the component.
 #}
-{% macro styleguide_component(slug, properties) %}
+{% macro styleguide_component(slug, properties, outputs = ['example', 'twig']) %}
     {% import 'ZichtHtmldevBundle:macros:components.html.twig' as component %}
 
     {% set cx = {
@@ -40,7 +40,7 @@
             'c-component__view--dark': properties.styleguide_dark|default == true
         }),
         meta: classes({
-            'c-component__meta--full': properties.styleguide_component_width|default == 'full'
+            'c-component__meta--full': properties.styleguide_component_width|default == 'full' or 'example' not in outputs
         })
     } %}
 
@@ -51,9 +51,12 @@
             'styleguide_dark',
             'styleguide_component_width'
         ) %}
-        <div class="c-component__view  {{ cx.view }}">
-            {{ component.component(slug, component_properties) }}
-        </div>
+
+        {% if 'example' in outputs %}
+            <div class="c-component__view  {{ cx.view }}">
+                {{ component.component(slug, component_properties) }}
+            </div>
+        {% endif %}
 
         <div class="c-component__meta  {{ cx.meta }}">
             {% if properties.styleguide_title|default %}
@@ -64,8 +67,13 @@
                 <p class="c-component__description">{{ properties.styleguide_description }}</p>
             {% endif %}
 
-            {% set json = component_properties|ui_printable_arguments %}
-            <pre class="c-component__code">{{ '{{ ' }}ui.component('{{ slug }}', {{ json }}{{ ') }}' }}</pre>
+            {% if 'twig' in outputs %}
+                {% set json = component_properties|ui_printable_arguments %}
+                <pre class="c-component__code">{{ '{{ ' }}ui.component('{{ slug }}', {{ json }}{{ ') }}' }}</pre>
+            {% endif %}
+            {% if 'html' in outputs %}
+                <pre class="c-component__code">{{ component.component(slug, component_properties)|trim|escape }}</pre>
+            {% endif %}
         </div>
     </div>
 {% endmacro %}

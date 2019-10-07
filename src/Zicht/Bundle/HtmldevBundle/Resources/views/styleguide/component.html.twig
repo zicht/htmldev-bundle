@@ -4,7 +4,8 @@
 
 
 {% block head_title -%}
-    Styleguide{% if name|default %} - {{ name|capitalize }}{% endif %}
+    {{- parent() -}}
+    {%- if name|default %} - {{ name|capitalize }}{% endif -%}
 {%- endblock %}
 
 
@@ -15,6 +16,6 @@
 
 {% block component_list %}
     {% for component in load_data(name) %}
-        {{ ui.styleguide_component(component.styleguide_type, component) }}
+        {{ ui.styleguide_component(component.styleguide_type, component, styleguide.outputs) }}
     {% endfor %}
 {% endblock %}

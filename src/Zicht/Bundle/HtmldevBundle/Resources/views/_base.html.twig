@@ -1,26 +1,24 @@
+{% set version = asset_version('/') -%}
 <!doctype html>
 <html class="s-no-javascript  not-loaded  {% block html_class '' %}" {% block html_attributes '' %}>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{%- if app.environment != 'production' %}{{ asset_version('/') }} - {% endif %}{% block head_title '' %}</title>
+        <title>{%- if app.environment != 'production' and version is not empty %}{{ version ~ ' - ' }}{% endif %}{% block head_title styleguide.title %}</title>
 
-        {% block head_copyright %}
+        {%~ block head_copyright %}
             <!--
             Copyright (c) Zicht Online {{ 'now'|date('Y') }} All rights reserved
-            Developed by: Zicht online
+            Developed by: Zicht Online
             Contact: info@zicht.nl
-            Version: {{ asset_version('/') }}
+            Version: {{ version ?: 'n.a.' }}
             -->
         {% endblock %}
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {% block head -%}
-            {%- if assets is not defined or assets is not iterable -%}
-                {%- set assets = [] -%}
-            {%- endif -%}
-            {%- set assets = [{ type: 'stylesheet', path: 'bundles/zichthtmldev/css/styleguide.css' }] |merge(assets) -%}
+            {%- set assets = [{ type: 'stylesheet', path: 'bundles/zichthtmldev/css/styleguide.css' }] |merge(styleguide.assets) -%}
 
             {%- for assetConfig in assets -%}
                 {%- if assetConfig.type == 'stylesheet' -%}
@@ -30,17 +28,17 @@
                         <link rel="stylesheet" href="{{ assetConfig.url }}">
                     {% elseif assetConfig.body is defined -%}
                         <style>
-                            {{ assetConfig.body }}
+                            {{ assetConfig.body|raw }}
                         </style>
                     {% endif -%}
                 {%- elseif assetConfig.type == 'script' -%}
                     {%- if assetConfig.path is defined -%}
-                        <script defer src={{ asset(assetConfig.path) }}"></script>
+                        <script defer src="{{ asset(assetConfig.path) }}"></script>
                     {% elseif assetConfig.url is defined -%}
                         <script defer src="{{ assetConfig.url }}"></script>
                     {% elseif assetConfig.body is defined -%}
                         <script>
-                            {{ assetConfig.body }}
+                            {{ assetConfig.body|raw }}
                         </script>
                     {% endif -%}
                 {%- endif -%}

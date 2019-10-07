@@ -1,6 +1,6 @@
 
 <header class="c-page-header">
-    <h1 class="c-page-header__title"><a class="c-page-header__link" href="/htmldev">Styleguide</a></h1>
+    <h1 class="c-page-header__title"><a class="c-page-header__link" href="{{ path('zicht_htmldev_htmldev_index') }}">{{ styleguide.title }}</a></h1>
 
     {% set items = knp_menu_get('styleguide', [], { depth: 1 }) %}
     {% if items|default and items|length %}
