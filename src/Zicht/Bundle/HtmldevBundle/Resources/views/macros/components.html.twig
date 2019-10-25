@@ -35,6 +35,9 @@
     {% import 'ZichtHtmldevBundle:macros:components.html.twig' as component %}
 
     {% set cx = {
+        container: classes({
+            'c-component--full': properties.styleguide_component_width|default == 'full',
+        }),
         view: classes({
             'c-component__view--full': properties.styleguide_component_width|default == 'full',
             'c-component__view--dark': properties.styleguide_dark|default == true
@@ -44,7 +47,7 @@
         })
     } %}
 
-    <div class="c-component" {% if properties.styleguide_component_width|default != '' and properties.styleguide_component_width|default != 'full' %}style="grid-template-columns: {{ properties.styleguide_component_width }} minmax(0, 1fr)"{% endif %}>
+    <div class="c-component  {{ cx.container }}" {% if properties.styleguide_component_width|default != '' and properties.styleguide_component_width|default != 'full' %}style="grid-template-columns: {{ properties.styleguide_component_width }} minmax(0, 1fr)"{% endif %}>
         {% set component_properties = properties|delete(
             'styleguide_title',
             'styleguide_type',
