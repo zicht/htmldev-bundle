@@ -2,22 +2,7 @@
 <header class="c-page-header">
     <h1 class="c-page-header__title"><a class="c-page-header__link" href="{{ path('zicht_htmldev_htmldev_index') }}">{{ styleguide.title }}</a></h1>
 
-    {% set items = knp_menu_get('styleguide', [], { depth: 1 }) %}
-    {% if items|default and items|length %}
-        <nav class="c-navigation  c-page-header__navigation">
-            <ul class="c-navigation__list">
-                {% for i in items %}
-                    {% set cx_loop = {
-                        link: classes({
-                            'c-navigation__link--current': i is knp_menu_ancestor or i is knp_menu_current
-                        })
-                    } %}
-
-                    <li class="c-navigation__item">
-                        <a class="c-navigation__link  {{ cx_loop.link }}" href="{{ i.uri }}">{{ i.label }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
+    {% if styleguide.brand|default %}
+        <h2 class="c-page-header__subtitle">{{ styleguide.brand|raw }}</h2>
     {% endif %}
 </header>

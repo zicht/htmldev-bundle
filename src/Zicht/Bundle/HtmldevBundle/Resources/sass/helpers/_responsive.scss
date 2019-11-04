@@ -1,0 +1,11 @@
+
+@mixin media-from($name, $breakpoints: $default-breakpoints) {
+    @if map-has-key($breakpoints, $name) == false {
+        @error
+            "There is no breakpoint defined by the name `#{$name}`";
+    }
+
+    @media (min-width: map-get($breakpoints, $name)) {
+        @content;
+    }
+}

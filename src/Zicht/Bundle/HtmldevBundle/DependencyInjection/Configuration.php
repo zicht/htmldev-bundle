@@ -88,6 +88,7 @@ class Configuration implements ConfigurationInterface
                     ->fixXmlConfig('output')
                     ->children()
                         ->scalarNode('title')->defaultValue('Styleguide')->end()
+                        ->scalarNode('brand')->defaultValue('Zicht')->end()
                         ->arrayNode('outputs')
                             ->info('Configure the outputs of the Styleguid: \'example\' will show the rendered component, \'twig\' will show the ui.component code to be used and \'html\' will show the rendered HTML output')
                             ->defaultValue(['example', 'twig'])

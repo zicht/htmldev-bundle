@@ -1,27 +1,50 @@
-{% set breadcrumbs = knp_menu_get_breadcrumbs_array(knp_menu_get_current_item('styleguide')) %}
-{% if breadcrumbs|length > 1 %}
-    {% set current_root_item = breadcrumbs[1].item %}
-    {% if current_root_item|default %}
-        {% set submenu_items = knp_menu_get('styleguide', [current_root_item.name]).children %}
-        {% if submenu_items|length %}
-            <aside class="c-content__aside">
-                <h3 class="c-copy--h3">{{ current_root_item.name }}</h3>
-                <nav class="c-sub-navigation">
-                    <ul class="c-sub-navigation__list">
-                    {% for i in submenu_items %}
-                        {% set cx_loop = {
-                            link: classes({
-                                'c-sub-navigation__link--current': i is knp_menu_ancestor or i is knp_menu_current
-                            })
-                        } %}
+{% set items = knp_menu_get('styleguide', [], { depth: 2 }) %}
 
-                        <li class="c-sub-navigation__item">
-                            <a class="c-sub-navigation__link  {{ cx_loop.link }}" href="{{ i.uri }}">{{ i.label }}</a>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </nav>
-            </aside>
-        {% endif %}
-    {% endif %}
+{% if items|default and items|length %}
+    <input type="checkbox" id="navToggle" class="c-content__toggle__checkbox">
+    <div class="c-content__nav__overlay"></div>
+
+    <aside class="c-content__aside">
+
+        <label class="c-content__toggle__trigger" for="navToggle"></label>
+
+        <nav class="c-navigation  c-page-header__navigation">
+            <ul class="c-navigation__list">
+                {% for i in items %}
+                    {% set cx_loop = {
+                        item: classes({
+                            'c-navigation__item--current': i is knp_menu_ancestor or i is knp_menu_current
+                        }),
+                        link: classes({
+                            'c-navigation__link--current': i is knp_menu_ancestor or i is knp_menu_current
+                        })
+                    } %}
+
+                    <li class="c-navigation__item  {{ cx_loop.item }}">
+                        <a class="c-navigation__link  {{ cx_loop.link }}" href="{{ i.uri }}">{{ i.label }}</a>
+                        {% if i is knp_menu_ancestor or i is knp_menu_current %}
+                            {% if i.children %}
+                                {% set submenu_items = i.children %}
+                                {% if submenu_items|length %}
+                                    <ul class="c-sub-navigation__list">
+                                        {% for i in submenu_items %}
+                                            {% set cx_loop = {
+                                                link: classes({
+                                                    'c-sub-navigation__link--current': i is knp_menu_ancestor or i is knp_menu_current
+                                                })
+                                            } %}
+
+                                            <li class="c-sub-navigation__item">
+                                                <a class="c-sub-navigation__link  {{ cx_loop.link }}" href="{{ i.uri }}">{{ i.label }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </aside>
 {% endif %}

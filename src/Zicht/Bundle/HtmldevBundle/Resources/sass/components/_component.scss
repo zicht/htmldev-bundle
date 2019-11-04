@@ -2,7 +2,19 @@
 .c-component {
     display: grid;
     grid-column-gap: 3rem;
-    grid-template-columns: 400px minmax(0, 1fr);
+    grid-template-columns: 280px minmax(0, 1fr);
+
+    @include media-from(md) {
+        grid-template-columns: 50% minmax(0, 1fr);
+    }
+
+    &.c-component--full {
+        grid-template-columns: 280px minmax(0, 1fr);
+
+        @include media-from(md) {
+            grid-template-columns: 400px minmax(0, 1fr);
+        }
+    }
 }
 
 
@@ -11,7 +23,7 @@
     overflow: auto;
     padding: 0.25rem;
     background-color: $white--smoke;
-    border-color: $white--smoke-dark;
+    border-color: $white--smoke--dark;
     border-style: solid;
     border-width: 1px;
     border-radius: 3px;
@@ -27,9 +39,21 @@
 
 
 
+.c-component__description {
+    margin-bottom: 1.5rem;
+}
+
+
+
 .c-component__view {
-    position: relative;
-    margin-bottom: 80px;
+    grid-column: 1 / -1;
+    margin-bottom: 15px;
+
+    @include media-from(lg) {
+        grid-column: 1 / 1;
+        position: relative;
+        margin-bottom: 80px;
+    }
 }
 
 .c-component__view--full {
@@ -51,5 +75,15 @@
 
 .c-component__meta--full {
     grid-column: 1 / -1;
-    max-width: 50vw;
+    max-width: 80vw;
+
+    @include media-from(md) {
+        max-width: 50vw;
+    }
+}
+
+
+
+.c-component--typograph {
+    max-width: 980px;
 }
