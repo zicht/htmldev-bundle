@@ -102,6 +102,26 @@ the following:
             styleguide:
                 title: 'Design System'
         ```
+      
+    * To change the Styleguide's subtitle, or add a (SVG) logo, edit the config and add a `subtitle: '...'` element:
+    
+        ```yaml
+        zicht_htmldev:
+          styleguide:
+              title: 'Design System'
+              subtitle: 'Zicht'
+        ```
+        Or you can use raw SVG-code, but don't forget to define a height that doesn't exceed 35px:
+        
+        ```yaml
+        zicht_htmldev:
+          styleguide:
+              title: 'Design System'
+              subtitle: >-
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="35px" height="35px" preserveAspectRatio="xMidYMid meet">
+                    <path fill="currentColor" d="M32 16c0 8.8-7.2 16-16 16S0 24.8 0 16 7.2 0 16 0s16 7.2 16 16zm-21 1.9h6.1l8.7-10.6h-14l-4.3 4.4h8.6L11 17.9zm9.7 5.9l4.3-4.4H9.8l-3.6 4.4h14.5z"/>
+                    </svg>
+        ```
 
     * To change the Styleguide output, edit the config and add an `output: []` section:
 
@@ -203,7 +223,7 @@ The available options for rendering in the styleguide are:
   A boolean indicating whether the styleguide should render the component on a dark background, for example for white buttons.
 - `styleguide_component_width`   
   Override the default width of the component in the styleguide. Use a pixel/percentage/viewport unit to change the width of the component
-  next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`.
+  next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`. 
 
 #### Pages
 
