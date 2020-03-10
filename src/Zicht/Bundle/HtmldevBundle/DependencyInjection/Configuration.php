@@ -84,6 +84,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('styleguide')
+                    ->addDefaultsIfNotSet()
                     ->fixXmlConfig('asset')
                     ->fixXmlConfig('output')
                     ->children()
