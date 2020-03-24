@@ -1,5 +1,6 @@
 {#
-    This Zicht component easily adds lazyloading and responsive image support in 1 file include. Future plans also cover the support for modern image filetypes such as WebP (as part of a wider scope on image optimisation).
+    This Zicht component easily adds lazyloading and responsive image support in 1 file include. 
+    Future plans also cover the support for modern image filetypes such as WebP (as part of a wider scope on image optimisation).
     Goal is to minimize data transfer during siteload while simultaneously improving image quality for each suitable breakpoint.
     The component is designed for images that are presented as noteworthy content while icons are considered out of scope.
 
@@ -46,11 +47,15 @@
     - Improved support for Retina options on the non-lazyloading option
     - Support modern filetypes (JPEG -> WebP + JPEG2000, PNG -> WebP)
     - Possibly introducing a CDN for solving current limitations by Liip Imagine (Quality, Compression, Filetypes, Image resizing)
-    - 
 #}
 
 {#
-    {{ ui.component('images/image', {
+    In your project import the component just like you normally would import components from the htmldev folder. 
+    Instead this time you import it from the htmldev-bundle on top of the file:
+    {% import 'ZichtHtmldevBundle:components/images:image.html.twig' as img %}
+
+    Where you want to include an image:
+    {{ img.component({
         image_source: image.url, :: REQUIRED -- STRING WITH URL
         image_alt: image.alt, :: REQUIRED -- STRING
         image_classes: 'u-block  _width--event-wide-image  u-height--100  u-fit--cover', :: OPTIONAL -- STRING separated with spaces
@@ -75,8 +80,8 @@
 {% macro component(properties) %}
     {% if app.debug %}
         {#
-        Validate the provided template _context
-        For rules, see: https://github.com/rakit/validation#available-rules
+            Validate the provided template _context
+            For rules, see: https://github.com/rakit/validation#available-rules
         #}
         {{ _context|validate_context({
             'properties.image_source': 'required',
