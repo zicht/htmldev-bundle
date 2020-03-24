@@ -1,0 +1,15 @@
+
+<img
+    class="lazyload {{ image_classes|default }}"
+    alt="{{ image_alt|default }}"
+    data-srcset="
+        {%- for breakpoint in breakpoints -%}
+            {%- if image_source is not null and (breakpoint.viewport_width|default is not null or loop.last) -%}
+
+                {# MIN WIDTH BREAKPOINTS #}
+                {{ breakpoint.image_url }} {{ loop.last ? '9999' : breakpoint.viewport_width }}w,
+            {%- endif -%}
+        {%- endfor -%}
+    "
+    data-src="{{ breakpoints|last.image_url }}"
+>

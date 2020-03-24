@@ -1,0 +1,24 @@
+
+<picture
+    class="{{ picture_classes|default }}"
+>
+    {% for breakpoint in breakpoints %}
+        {% if image_source is not null and breakpoint.viewport_width|default is not null %}
+            {% if not loop.last %}
+
+                {# MIN WIDTH BREAKPOINTS > 1 EL #}
+                <source
+                    srcset="{{ breakpoint.image_url }}"
+                    media="(max-width: {{ breakpoint.viewport_width }}px)"
+                >
+
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    <img
+        class="{{ image_classes|default }}"
+        alt="{{ image_alt }}"
+        srcset="{{ breakpoints|last.image_url }}"
+    >
+</picture>

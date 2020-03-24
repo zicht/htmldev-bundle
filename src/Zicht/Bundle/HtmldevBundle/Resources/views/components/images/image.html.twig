@@ -1,0 +1,102 @@
+{#
+    This Zicht component easily adds lazyloading and responsive image support in 1 file include. Future plans also cover the support for modern image filetypes such as WebP (as part of a wider scope on image optimisation).
+    Goal is to minimize data transfer during siteload while simultaneously improving image quality for each suitable breakpoint.
+    The component is designed for images that are presented as noteworthy content while icons are considered out of scope.
+
+    This component makes use of an external JavaScript dependency named lazysizes
+    https://github.com/aFarkas/lazysizes#lazysizes
+
+    Installation guide:
+    1. Install the lazysizes dependency via your favorite shell:
+        npm install lazysizes --save
+
+    2. Import the lazysizes depencency in main.ts:
+        import 'lazysizes';
+       
+    3. Lazysizes does not need any JS configuration
+        Add the class "lazyload" to your images/iframes in conjunction with a data-src and/or data-srcset attribute. 
+        In our case the image component will take care of this.
+
+    4. These classes are used by the lazyload script to fade in images when they are loaded
+        NOTE: it is not possible to change these classnames as they are used in the minified script from the third-party as well.
+        .fade-box .lazyload,
+        .fade-box .lazyloading {
+            opacity: 0;
+            transition: opacity 400ms;
+        }
+
+        .fade-box img.lazyloaded {
+            opacity: 1;
+        }
+
+        Include them by adding the following @import statement to your main.scss' components:
+        @import "../../vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/sass/components/lazyload.scss";
+
+    5. Start development using the component.
+
+    Uses:
+    - If you only want lazy loading functionality and skip responsive image use, you can pass only one image source without viewport_width to show it on every breakpoint in its most simple form.
+    - On pages where some images are instantly shown in the viewport and others are not: it is recommended to pass false for the lazyloading boolean for first images (within the fold) and true for the latter.
+
+    Guidlines:
+    - It might be possible that when using lazy loading, images are not displayed in the expected dimensions due to the order in which the DOM is loaded and the IMG that is loaded afterwards
+        A possible solution to this problem can be to add a 100% width to the parent element of the image.
+    
+    Future considerations
+    - Improved support for Retina options on the non-lazyloading option
+    - Support modern filetypes (JPEG -> WebP + JPEG2000, PNG -> WebP)
+    - Possibly introducing a CDN for solving current limitations by Liip Imagine (Quality, Compression, Filetypes, Image resizing)
+    - 
+#}
+
+{#
+    {{ ui.component('images/image', {
+        image_source: image.url, :: REQUIRED -- STRING WITH URL
+        image_alt: image.alt, :: REQUIRED -- STRING
+        image_classes: 'u-block  _width--event-wide-image  u-height--100  u-fit--cover', :: OPTIONAL -- STRING separated with spaces
+        picture_classes: 'u-block  _width--event-wide-image  u-height--100  u-fit--cover', :: OPTIONAL -- STRING separated with spaces // Only for non-lazyloading cases
+        breakpoints: [ :: REQUIRED - ARRAY with at least 1 item
+            {
+                viewport_width: 300, :: REQUIRED -- NUMBER // Max-width parameter
+                image_url: image.url|imagine_filter(card_event_wide_sm), :: REQUIRED -- Path to image / Preferably with Liip Imagine filter
+            },
+            {
+                viewport_width: 600,
+                image_url: image.url|imagine_filter(card_event_wide_md),
+            },
+            {
+                image_url: image.url|imagine_filter(card_event_wide_lg), :: The last image doesn't have a maximum viewport and therefore it is not passed as an argument
+            },
+        ],
+        lazyload: image.lazyload, :: REQUIRED -- BOOLEAN
+    }) }}
+#}
+
+{% macro component(properties) %}
+    {% if app.debug %}
+        {#
+        Validate the provided template _context
+        For rules, see: https://github.com/rakit/validation#available-rules
+        #}
+        {{ _context|validate_context({
+            'properties.image_source': 'required',
+            'properties.image_alt': 'required',
+            'properties.lazyload': 'required|in:1,0',
+            'properties.breakpoints': 'required:array',
+            'properties.breakpoints.*.image_url': 'required',
+            'properties.breakpoints.*.viewport_width': 'numeric',
+        }) }}
+    {% endif %}
+
+    {% if properties.image_source|default or properties.breakpoints|default|length > 0 %}
+        {% if properties.lazyload %}
+            {# Lazyload the images #}
+            {% include 'ZichtHtmldevBundle:components/images:image--lazyload.html.twig' with properties only %}
+
+        {% else %}
+            {# If lazyload is false, fallback to browser default mechanics of responsive images #}
+            {% include 'ZichtHtmldevBundle:components/images:image--responsive.html.twig' with properties only %}
+
+        {% endif %}
+    {% endif %}
+{% endmacro %}

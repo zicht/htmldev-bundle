@@ -1,0 +1,15 @@
+
+/*
+    These classes are used by the lazyload script to fade in images when they are loaded
+    NOTE: it is not possible to change these classnames as they are used in the minified script from the third-party as well.
+*/
+
+.lazyload,
+.lazyloading {
+    opacity: 0.2;
+}
+
+.lazyloaded {
+    opacity: 1;
+    transition: opacity 150ms;
+}
