@@ -11,6 +11,7 @@ Create living Styleguides with Symfony and Twig! ✨
    - [Adding stuff to the styleguide](#adding-stuff-to-the-styleguide)
       - [Components](#components)
       - [Rendering components in the styleguide](#rendering-components-in-the-styleguide)
+      - [Responsive image component](#responsive-image-component)
       - [Pages](#pages)
       - [Adding navigation](#adding-navigation)
       - [Colors](#colors)
@@ -224,6 +225,10 @@ The available options for rendering in the styleguide are:
 - `styleguide_component_width`   
   Override the default width of the component in the styleguide. Use a pixel/percentage/viewport unit to change the width of the component
   next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`. 
+
+
+#### Responsive image component
+Please refer to the [HTMLdev components folder](src/Zicht/Bundle/HtmldevBundle/Resources/views/components/images/image.html.twig) for documentation on the installation and usage of the Zicht responsive image component.
 
 #### Pages
 
