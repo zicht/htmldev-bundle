@@ -17,7 +17,7 @@
         "symfony/framework-bundle": "^3.4 || ^4.4",
         "symfony/routing": "^3.4 || ^4.4",
         "twig/twig": "^2",
-        "zicht/framework-extra-bundle": "^8",
+        "zicht/framework-extra-bundle": "^8 || ^9",
         "zicht/twig-classes": "^1.0"
     },
     "require-dev": {
