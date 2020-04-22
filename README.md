@@ -412,5 +412,4 @@ resulting files in `~/Resources/public/css`.
 ## Maintainer
 
 * Peter Benner ([@wpbenner](https://github.com/wpbenner))
-* Peter Knijff ([@pknijff](https://github.com/pknijff))
 * Jurg Roessen ([@Hangloozz](https://github.com/Hangloozz))
