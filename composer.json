@@ -25,10 +25,18 @@
         "zicht/standards-php": "^3"
     },
     "autoload": {
-        "psr-0": { "": [ "src/" ] }
+        "psr-4": {
+            "Zicht\\Bundle\\HtmldevBundle\\": [
+                "src/Zicht/Bundle/HtmldevBundle/"
+            ]
+        }
     },
     "autoload-dev": {
-        "psr-0": { "": ["tests/"] }
+        "psr-4": {
+            "Zicht\\Bundle\\HtmldevBundle\\Tests\\": [
+                "tests/Zicht/Bundle/HtmldevBundle/"
+            ]
+        }
     },
     "minimum-stability": "stable",
     "license": "MIT",
