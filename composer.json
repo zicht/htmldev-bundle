@@ -27,14 +27,14 @@
     "autoload": {
         "psr-4": {
             "Zicht\\Bundle\\HtmldevBundle\\": [
-                "src/Zicht/Bundle/HtmldevBundle/"
+                "src/"
             ]
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Zicht\\Bundle\\HtmldevBundle\\Tests\\": [
-                "tests/Zicht/Bundle/HtmldevBundle/"
+                "tests/"
             ]
         }
     },
