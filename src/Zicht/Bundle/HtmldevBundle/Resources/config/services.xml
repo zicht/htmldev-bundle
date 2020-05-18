@@ -14,11 +14,11 @@
 
     <services>
         <!-- Controllers -->
-        <service id="htmldev.htmldev_controller" class="%htmldev.controller%">
+        <service id="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController" class="%htmldev.controller%" public="true">
             <argument type="service" id="templating" />
             <argument type="service" id="htmldev.yaml_data_loader" />
         </service>
-        <service id="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController" alias="htmldev.htmldev_controller"/>
+        <service id="htmldev.htmldev_controller" alias="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController"/>
 
         <!-- Services -->
         <service id="htmldev.color_service" class="%htmldev.color_service%">

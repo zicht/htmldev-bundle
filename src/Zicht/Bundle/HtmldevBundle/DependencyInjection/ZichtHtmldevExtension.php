@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Zicht\Bundle\HtmldevBundle\Controller\HtmldevController;
 
 /**
  * Zicht Htmldev bundle extension.
@@ -36,7 +37,7 @@ class ZichtHtmldevExtension extends Extension
         }
 
         if (isset($config['styleguide']) && is_array($config['styleguide'])) {
-            $container->getDefinition('htmldev.htmldev_controller')
+            $container->getDefinition(HtmldevController::class)
                 ->addMethodCall('setStyleguideConfig', [$config['styleguide']]);
         }
     }
