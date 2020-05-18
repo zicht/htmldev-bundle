@@ -6,7 +6,7 @@ namespace Zicht\Bundle\HtmldevBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +15,8 @@ use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
 
 /**
  * Handles requests inside the Htmldev bundle.
- *
- * @Route(service="htmldev.htmldev_controller")
  */
-class HtmldevController extends Controller
+class HtmldevController extends AbstractController
 {
     /** @var EngineInterface */
     private $templating;
