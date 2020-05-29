@@ -1,12 +1,20 @@
 {% extends ['@htmldev/pages/component.html.twig', 'ZichtHtmldevBundle:styleguide:component.html.twig'] %}
 {% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
 
+{% block component_intro %}
+    <h1 class="c-copy--h1">{{ name|capitalize }}</h1>
+{% endblock %}
 
 {% block component_list %}
+    <section class="c-component--typography  s-cms-content  s-cms-content--introduction">
+        <p>
+            Is this my espresso machine? Wh-what is-h-how did you get my espresso machine? You know what? It is beets.
+            I've crashed into a beet truck. My dad once told me, laugh and the world laughs with you, Cry, and I'll give
+            you something to cry about you little bastard!
+        </p>
+    </section>
     <section class="c-component--typography  s-cms-content" style="max-width: 980px;">
-
-        <h1>The quick brown fox jumps over the lazy dog.</h1>
-
+        
         <h2>Jived fox nymph grabs quick waltz?</h2>
         <p>
             That’s not the only ballroom dance. I take lessons too. There’s Salsa, Tango, Waltz,
@@ -23,6 +31,40 @@
             couldn’t possibly imagine.
         </p>
 
+        <h4>Hey, take a look at the earthlings. Goodbye!</h4>
+        <p>
+            You really think you can fly that thing? Forget the fat lady! You're obsessed with the fat lady! Drive us
+            out of here! My dad once told me, laugh and the world laughs with you, Cry, and I'll give you something to
+            cry about you little bastard! Hey, take a look at the earthlings. Goodbye!
+        </p>
+
+        <h5>Eventually, you do plan to have dinosaurs on your dinosaur tour, right?</h5>
+        <p>
+            Life finds a way. Remind me to thank John for a lovely weekend. Yes, Yes, without the oops! You're a very
+            talented young man, with your own clever thoughts and ideas. Do you need a manager?
+        </p>
+
+        <h6>Must go faster. Jaguar shark!</h6>
+        <p>
+            So tell me - does it really exist? I gave it a cold? I gave it a virus. A computer virus. My dad once told
+            me, laugh and the world laughs with you, Cry, and I'll give you something to cry about you little bastard!
+            So you two dig up, dig up dinosaurs?
+        </p>
+
+        <h2>God help us, we're in the hands of engineers</h2>
+        <p>
+            Remind me to thank John for a lovely weekend. Hey, take a look at the earthlings. Goodbye! Hey, take a look
+            at the earthlings. Goodbye! God creates dinosaurs. God destroys dinosaurs. God creates Man. Man destroys
+            God. Man creates Dinosaurs. You're a very talented young man, with your own clever thoughts and ideas. Do
+            you need a manager?
+        </p>
+
+        <p>
+            What do they got in there? King Kong? Yeah, but John, if The Pirates of the Caribbean breaks down, the
+            pirates don’t eat the tourists. Remind me to thank John for a lovely weekend. Eventually, you do plan to
+            have dinosaurs on your dinosaur tour, right?
+        </p>
+
         <blockquote>
             You, me, or nobody is gonna hit as hard as life. But it ain't about how hard you hit. It's
             about how hard you can get hit and keep moving forward. How much you can take and keep moving
@@ -30,12 +72,25 @@
         </blockquote>
         <footer>Rocky Balboa</footer>
 
+        <p>
+            You really think you can fly that thing? Forget the fat lady! You're obsessed with the fat lady! Drive us
+            out of here! My dad once told me, laugh and the world laughs with you, Cry, and I'll give you something to
+            cry about you little bastard! Hey, take a look at the earthlings. Goodbye!
+        </p>
+
         <h3>This is a:</h3>
         <ul>
             <li>Normal list with items</li>
             <li>Second item</li>
             <li>and maybe a third item</li>
         </ul>
+
+        <h3>This is:</h3>
+        <ol>
+            <li>An ordered list with items</li>
+            <li>Second item</li>
+            <li>and maybe a third item</li>
+        </ol>
 
         <h4>Link list</h4>
         <ul>
@@ -47,6 +102,41 @@
             </a></li>
             <li><a href="/htmldev/">Go back</a></li>
         </ul>
+
+        <table style="width: 1599px;">
+            <tbody>
+            <tr>
+                <th style="width: 392px;">Prize</th>
+                <th style="width: 610px;">Year</th>
+                <th style="width: 610px;">Name</th>
+                <th style="width: 596px;">Education</th>
+            </tr>
+            <tr>
+                <td style="width: 392px;">ITs Acting Award</td>
+                <td style="width: 610px;">2015<br />2016</td>
+                <td style="width: 610px;">Ruta van Hoof and Linda Zijl<br />Tim Schmidt and Whitney Sawyer</td>
+                <td style="width: 596px;">Theater school Arnhem<br />Theater school Zwolle</td>
+            </tr>
+            <tr>
+                <td style="width: 392px;">ITs Choreography Award</td>
+                <td style="width: 610px;">2016</td>
+                <td style="width: 610px;">Sophie Mayeux</td>
+                <td style="width: 596px;">Dance</td>
+            </tr>
+            <tr>
+                <td style="width: 392px;">Poetry debut prize</td>
+                <td style="width: 610px;">2015</td>
+                <td style="width: 610px;">Simone Atangana Bekono</td>
+                <td style="width: 596px;">Creative Writing</td>
+            </tr>
+            <tr>
+                <td style="width: 392px;">Golden calf</td>
+                <td style="width: 610px;">2018, 2005<br />2018, 2003<br />2018</td>
+                <td style="width: 610px;">Maria Kraakman<br />Jacob Derwig<br />Ilse Warringa</td>
+                <td style="width: 596px;">Theater school Arnhem<br />Theater school Arnhem<br />Theater teacher Zwolle</td>
+            </tr>
+            </tbody>
+        </table>
 
     </section>
 {% endblock %}
