@@ -4,7 +4,7 @@
     TLDR:
     1. npm install lazysizes --save
     2. import 'lazysizes'; // in main.ts
-    3. @import "../../vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/sass/components/lazyload.scss"; // in main.scss
+    3. @import "../../vendor/zicht/htmldev-bundle/src/Resources/sass/components/lazyload.scss"; // in main.scss
     4. {% import 'ZichtHtmldevBundle:components/images:image.html.twig' as img %}
     5. {{ img.component({
         image_source: 'sourcestring',
@@ -62,7 +62,7 @@
         }
 
         Include them by adding the following @import statement to your main.scss' components:
-        @import "../../vendor/zicht/htmldev-bundle/src/Zicht/Bundle/HtmldevBundle/Resources/sass/components/lazyload.scss";
+        @import "../../vendor/zicht/htmldev-bundle/src/Resources/sass/components/lazyload.scss";
 
     5. Start development using the component.
 
@@ -70,7 +70,7 @@
     - If you only want lazy loading functionality and skip responsive image use, you can pass only one image source without viewport_width to show it on every breakpoint in its most simple form.
     - On pages where some images are instantly shown in the viewport and others are not: it is recommended to pass false for the lazyloading boolean for first images (within the fold) and true for the latter.
 
-    Guidlines:
+    Guidelines:
     - It might be possible that when using lazy loading, images are not displayed in the expected dimensions due to the order in which the DOM is loaded and the IMG that is loaded afterwards
         A possible solution to this problem can be to add a 100% width to the parent element of the image.
 
