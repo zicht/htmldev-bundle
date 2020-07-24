@@ -38,7 +38,7 @@ class SvgService implements SvgServiceInterface
     {
         $key = sha1(json_encode(func_get_args()));
         if (null === $out = $this->cache->get($key)) {
-            $fileName = sprintf('%s/%s/%s.svg', $this->baseDir, $directory, $name);
+            $fileName = $this->baseDir . ($directory ? '/' . $directory : '') . '/' . $name . '.svg';
             if (!is_file($fileName)) {
                 $this->logger->info('svg file not found: ' . $fileName);
                 return null;
