@@ -21,6 +21,7 @@ Create living Styleguides with Symfony and Twig! ✨
       - [Rendering components](#rendering-components)
       - [Rendering SVG files](#rendering-svg-files)
    - [Customising](#customising)
+   - [Alternative structure](#alternative-structure)
 - [Development](#development)
    - [CSS](#css)
 ---
@@ -33,7 +34,7 @@ Create living Styleguides with Symfony and Twig! ✨
 
 ## Install
 
-1. Require via composer.   
+1. Require via composer.
 
    ```shell script
    composer require zicht/htmldev-bundle
@@ -43,7 +44,7 @@ Create living Styleguides with Symfony and Twig! ✨
 
 ### Setup
 
-1. Load the bundle into your AppKernel.   
+1. Load the bundle into your AppKernel.
 
    ```php
    new Zicht\Bundle\HtmldevBundle\ZichtHtmldevBundle()
@@ -51,7 +52,7 @@ Create living Styleguides with Symfony and Twig! ✨
 
 2. Configure routing.
 
-   Add the following Yaml to your app's route configuration.   
+   Add the following Yaml to your app's route configuration.
 
    ```yaml
    htmldev:
@@ -103,9 +104,9 @@ the following:
             styleguide:
                 title: 'Design System'
         ```
-      
+
     * To change the Styleguide's subtitle, or add a (SVG) logo, edit the config and add a `subtitle: '...'` element:
-    
+
         ```yaml
         zicht_htmldev:
           styleguide:
@@ -113,7 +114,7 @@ the following:
               subtitle: 'Zicht'
         ```
         Or you can use raw SVG-code, but don't forget to define a height that doesn't exceed 35px:
-        
+
         ```yaml
         zicht_htmldev:
           styleguide:
@@ -165,8 +166,8 @@ helper function:
         'u-margin--b2': image.url,
         'u-margin--b0  u-text--center': not image.url,
     })
-} %} 
-   
+} %}
+
 <article class="{{ cx.article }}">
     ...
 </article>
@@ -214,17 +215,17 @@ are only used to influence rendering of the component in the styleguide. The oth
 
 The available options for rendering in the styleguide are:
 
-- `styleguide_type`   
+- `styleguide_type`
   The name of the component to show. For example, `buttons/text` corresponds to the file `htmldev/components/buttons/text.html.twig`.
-- `styleguide_title`   
+- `styleguide_title`
   The title that will be rendered with the component.
-- `styleguide_description`   
+- `styleguide_description`
   An extra description of the component that will be rendered below the title.
-- `styleguide_dark` (`true`|`false`)   
+- `styleguide_dark` (`true`|`false`)
   A boolean indicating whether the styleguide should render the component on a dark background, for example for white buttons.
-- `styleguide_component_width`   
+- `styleguide_component_width`
   Override the default width of the component in the styleguide. Use a pixel/percentage/viewport unit to change the width of the component
-  next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`. 
+  next to the code example, e.g. `styleguide_component_width: 500px`. Or to render the code example below the component, use `styleguide_component_width: full`.
 
 
 #### Responsive image component
@@ -323,17 +324,17 @@ You can override this page (see [Pages](#pages)) to customize the HTML specially
 
 #### Rendering components
 
-The HtmldevBundle provides a `component` macro to render components from the styleguide anywhere in your application.
+*Rendering components through the `component` macro (`ui.component()`) is deprecated*
+
+To render components, simply use a Twig  include like below:
 
 This wil load `htmldev/components/cards/cover.html.twig` with the given properties:
- 
-```twig
-{% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
 
-{{ ui.component('cards/cover', { 
+```twig
+{% include '@htmldev/components/cards/cover.html.twig' with {
     title: 'Hodor',
     url: '/some/page'
-}) }}
+} only %}
 ```
 
 #### Rendering SVG files
@@ -346,67 +347,84 @@ This will render the contents of `htmldev/images/icons/arrow--right.svg` in the 
 ```twig
 {% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
 
-{{ ui.svg('arrow--right', { 
+{{ ui.svg('arrow--right', {
     width: 20,
     height: 20,
     directory: 'images/icons'
 }) }}
-``` 
+```
 
 The second argument is an options object. These keys are available:
 
-- `width`    
-  The width that should be set on the `<svg />` element. This will override an existing `width` attribute.  
-  The macro assumes `px`, so `width: 20` will be rendered as `<svg width="20px" />`. 
+- `width`
+  The width that should be set on the `<svg />` element. This will override an existing `width` attribute.
+  The macro assumes `px`, so `width: 20` will be rendered as `<svg width="20px" />`.
   Allowed values: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/width#svg).
-- `height`    
-  The height that should be set on the `<svg />` element. This will override an existing `height` attribute.  
-  The macro assumes `px`, so `height: 20` will be rendered as `<svg height="20px" />`. 
+- `height`
+  The height that should be set on the `<svg />` element. This will override an existing `height` attribute.
+  The macro assumes `px`, so `height: 20` will be rendered as `<svg height="20px" />`.
   Allowed values: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/height#svg).
-- `viewbox_x` and `viewbox_y`    
+- `viewbox_x` and `viewbox_y`
   The `x` and `y` values of the `viewbox` property. This will override an existing `viewbox` attribute. These arguments
-  must both be passed, otherwise they will not be applied. 
+  must both be passed, otherwise they will not be applied.
   `viewbox_x: 20, viewbox_y: 30` will be rendered as `<svg viewbox="0 0 20 30" />`.
-- `css_classes`   
+- `css_classes`
   An array of CSS classes that will be applied to the `<svg />` element.
   `css_classes: ['u-white', 'u-block']` will be rendered as `<svg class="u-white  u-black" />`.
-- `attributes`   
+- `attributes`
   An array of extra attributes that will be applied to the `<svg />` element.
   This can be any attribute that's valid for the `<svg />` element.
   The default value for this parameter is `{ 'aria-hidden: 'true', 'role: 'img' }`.
-- `title`   
+- `title`
   This will add a `<title />` element inside the `<svg />` for accessibility improvements.
   Reference: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)
-- `directory`   
-  The directory where the SVG file is located. This must be a directory inside the directory that's marked as 
+- `directory`
+  The directory where the SVG file is located. This must be a directory inside the directory that's marked as
   the root of the HtmldevBundle (default `htmldev`).
-   
+
 ### Customising
 
 There are several Symfony parameters available to override, to add a different implementation.
 
-- `htmldev.directory` (default: `%kernel.root_dir%/../htmldev`)   
-  Change the styleguide directory. 
-- `htmldev.controller`   
+- `htmldev.directory` (default: `%kernel.root_dir%/../htmldev`)
+  Change the styleguide directory.
+- `htmldev.controller`
   The controller that handles the requests for pages inside the styleguide.
-- `htmldev.color_service`   
-  The service that reads colors from a Sass variable in ZSS. To change the way this works, implement the `ColorServiceInterface` 
+- `htmldev.color_service`
+  The service that reads colors from a Sass variable in ZSS. To change the way this works, implement the `ColorServiceInterface`
   class and change this parameter to your own class.
-- `htmldev.svg_service`   
+- `htmldev.svg_service`
   The service that returns the contents of SVG files. To change the way this works, implement the `SvgServiceInterface` and
   change this parameter to your own class.
+
+### Alternative structure
+
+It is possible to move everything out of the HtmldevBundle's default htmldev/ directory by changing a few configurations.
+For instance, to adhere to a more industry standard structure in a Symfony 4+ project:
+
+Add to `config/packages/zicht_htmldev.yaml`:
+```yaml
+zicht_htmldev:
+    paths:
+        data: '%kernel.project_dir%/config/packages/_zicht_htmldev'
+        images_icons: '%kernel.project_dir%/assets/images/icons/'
+        sass_variables: '%kernel.project_dir%/assets/sass/variables/'
+        svg_service_base_dir: '%kernel.project_dir%/assets/'
+```
+
+And move stuff around accordingly.
 
 ## Development
 
 ### CSS
 
-The bundle contains a CSS file to provide default styling for the styleguide. 
+The bundle contains a CSS file to provide default styling for the styleguide.
 
 - The source of this CSS file is `styleguide.scss`, located in the [Resourcs/sass](src/Zicht/Bundle/HtmldevBundle/Resources/sass) folder.
 - The Sass files are compiled with webpack and node-sass.
 - The Sass files are linted with [stylelint-config-zicht](https://github.com/zicht/stylelint-config-zicht).
 
-Run `npm run build` to add your features or bug fixes to the compiled CSS file, and don't forget to commit the 
+Run `npm run build` to add your features or bug fixes to the compiled CSS file, and don't forget to commit the
 resulting files in `~/Resources/public/css`.
 
 ## Maintainer

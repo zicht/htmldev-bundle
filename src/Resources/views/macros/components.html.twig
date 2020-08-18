@@ -15,6 +15,8 @@
 
     @param string slug The name of the component, which corresponds with the name of the file.
     @param object properties The properties of the component.
+
+    @deprecated
 #}
 {% macro component(slug, properties) %}
     {% strict false %}
@@ -25,14 +27,18 @@
 
 
 {#
-    This method does exactly the same as the `component()` macro, except it's intended
-    for rendering inside the style guide, with code examples et cetera.
+    For rendering inside the style guide, with code examples et cetera.
 
-    @param string slug The name of the component, which corresponds with the name of the file.
+    @param string template The path of the component template.
     @param object properties The properties of the component.
 #}
-{% macro styleguide_component(slug, properties, outputs = ['example', 'twig']) %}
-    {% import '@ZichtHtmldev/macros/components.html.twig' as component %}
+{% macro styleguide_component(template, properties, outputs = ['example', 'twig']) %}
+    {% if 'components/' not in template %}
+        {% set template = '@htmldev/components/' ~ template %}
+    {% endif %}
+    {% if '.html.twig' not in template %}
+        {% set template = template ~ '.html.twig' %}
+    {% endif %}
 
     {% set cx = {
         container: classes({
@@ -57,7 +63,9 @@
 
         {% if 'example' in outputs %}
             <div class="c-component__view  {{ cx.view }}">
-                {{ component.component(slug, component_properties) }}
+                {% strict false %}
+                    {% include template with component_properties only %}
+                {% endstrict %}
             </div>
         {% endif %}
 
@@ -72,10 +80,19 @@
 
             {% if 'twig' in outputs %}
                 {% set json = component_properties|ui_printable_arguments %}
-                <pre class="c-component__code">{{ '{{ ' }}ui.component('{{ slug }}', {{ json }}{{ ') }}' }}</pre>
+                <pre class="c-component__code">{{ '{% ' }}include '{{ template }}' with {{ json }} only{{ ' %}' }}</pre>
             {% endif %}
+
             {% if 'html' in outputs %}
-                <pre class="c-component__code">{{ component.component(slug, component_properties)|trim|escape }}</pre>
+                <pre class="c-component__code">
+                    {%- apply escape -%}
+                        {%- apply trim -%}
+                            {%- strict false -%}
+                                {%- include template with component_properties only -%}
+                            {%- endstrict -%}
+                        {%- endapply -%}
+                    {%- endapply -%}
+                </pre>
             {% endif %}
         </div>
     </div>

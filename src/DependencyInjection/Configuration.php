@@ -24,7 +24,17 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('htmldev');
 
         $rootNode
+            ->fixXmlConfig('path')
             ->children()
+                ->arrayNode('paths')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('data')->defaultValue('%htmldev.directory%/data/')->end()
+                        ->scalarNode('images_icons')->defaultValue('%htmldev.directory%/images/icons/')->end()
+                        ->scalarNode('sass_variables')->defaultValue('%htmldev.directory%/sass/variables/')->end()
+                        ->scalarNode('svg_service_base_dir')->defaultValue('%htmldev.directory%')->end()
+                    ->end()
+                ->end()
                 ->arrayNode('svg_cache')
                     ->addDefaultsIfNotSet()
                         ->info('This should be a service prefixed with @ fro0r an service or one of "file", "array", or "apcu" values.')

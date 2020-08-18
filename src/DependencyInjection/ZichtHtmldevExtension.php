@@ -15,6 +15,9 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Zicht\Bundle\HtmldevBundle\Controller\HtmldevController;
+use Zicht\Bundle\HtmldevBundle\Service\AbstractDataLoader;
+use Zicht\Bundle\HtmldevBundle\Service\SvgService;
+use Zicht\Bundle\HtmldevBundle\Twig\ImageExtension;
 
 /**
  * Zicht Htmldev bundle extension.
@@ -32,13 +35,24 @@ class ZichtHtmldevExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
+        $htmldevDir = $container->getParameter('htmldev.directory');
+        $paths = array_map(
+            static function ($path) use ($htmldevDir) {
+                return str_replace('%htmldev.directory%', $htmldevDir, $path);
+            },
+            $config['paths']
+        );
+
+        $container->getDefinition(AbstractDataLoader::class)->replaceArgument(0, $paths);
+        $container->getDefinition(ImageExtension::class)->replaceArgument(0, $paths['images_icons']);
+        $container->getDefinition(SvgService::class)->replaceArgument(0, $paths['svg_service_base_dir']);
+
         if (null !== $cache = $this->getCacheReference($config, $container)) {
-            $container->getDefinition('htmldev.svg_service')->replaceArgument(1, $cache);
+            $container->getDefinition(SvgService::class)->replaceArgument(1, $cache);
         }
 
         if (isset($config['styleguide']) && is_array($config['styleguide'])) {
-            $container->getDefinition(HtmldevController::class)
-                ->addMethodCall('setStyleguideConfig', [$config['styleguide']]);
+            $container->getDefinition(HtmldevController::class)->addMethodCall('setStyleguideConfig', [$config['styleguide']]);
         }
     }
 

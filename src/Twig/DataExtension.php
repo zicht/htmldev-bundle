@@ -13,21 +13,16 @@ use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
  */
 class DataExtension extends Twig_Extension
 {
-    /** @var string */
-    private $htmldevDirectory;
-
     /** @var DataLoaderInterface */
     private $yamlLoader;
 
     /**
      * Initializes a new instance of the DataExtension class.
      *
-     * @param string $htmldevDirectory
      * @param DataLoaderInterface $yamlLoader
      */
-    public function __construct($htmldevDirectory, DataLoaderInterface $yamlLoader)
+    public function __construct(DataLoaderInterface $yamlLoader)
     {
-        $this->htmldevDirectory = $htmldevDirectory;
         $this->yamlLoader = $yamlLoader;
     }
 
