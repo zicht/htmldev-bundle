@@ -5,7 +5,7 @@
     1. npm install lazysizes --save
     2. import 'lazysizes'; // in main.ts
     3. @import "../../vendor/zicht/htmldev-bundle/src/Resources/sass/components/lazyload.scss"; // in main.scss
-    4. {% import 'ZichtHtmldevBundle:components/images:image.html.twig' as img %}
+    4. {% import '@ZichtHtmldev/components/images/image.html.twig' as img %}
     5. {{ img.component({
         image_source: 'sourcestring',
         image_alt: 'altstring',
@@ -83,7 +83,7 @@
 {#
     In your project import the component just like you normally would import components from the htmldev folder.
     Instead this time you import it from the htmldev-bundle on top of the file:
-    {% import 'ZichtHtmldevBundle:components/images:image.html.twig' as img %}
+    {% import '@ZichtHtmldev/components/images/image.html.twig' as img %}
 
     Where you want to include an image:
     {{ img.component({
@@ -127,11 +127,11 @@
     {% if properties.image_source|default or properties.breakpoints|default|length > 0 %}
         {% if properties.lazyload %}
             {# Lazyload the images #}
-            {% include 'ZichtHtmldevBundle:components/images:image--lazyload.html.twig' with properties only %}
+            {% include '@ZichtHtmldev/components/images/image--lazyload.html.twig' with properties only %}
 
         {% else %}
             {# If lazyload is false, fallback to browser default mechanics of responsive images #}
-            {% include 'ZichtHtmldevBundle:components/images:image--responsive.html.twig' with properties only %}
+            {% include '@ZichtHtmldev/components/images/image--responsive.html.twig' with properties only %}
 
         {% endif %}
     {% endif %}

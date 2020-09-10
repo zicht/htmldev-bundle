@@ -1,6 +1,6 @@
 {# Try htmldev/_base.html.twig first. Kept this in for backward compatibility (BC) #}
-{% extends ['@htmldev/_base.html.twig', 'ZichtHtmldevBundle:styleguide:index.html.twig'] %}
-{% import 'ZichtHtmldevBundle::macros/components.html.twig' as ui %}
+{% extends ['@htmldev/_base.html.twig', '@ZichtHtmldev/styleguide/index.html.twig'] %}
+{% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
 
 
 {% block head_title -%}

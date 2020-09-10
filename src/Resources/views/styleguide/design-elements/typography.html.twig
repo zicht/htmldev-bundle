@@ -1,5 +1,5 @@
-{% extends ['@htmldev/pages/component.html.twig', 'ZichtHtmldevBundle:styleguide:component.html.twig'] %}
-{% import 'ZichtHtmldevBundle:macros:styleguide.html.twig' as styleguide %}
+{% extends ['@htmldev/pages/component.html.twig', '@ZichtHtmldev/styleguide/component.html.twig'] %}
+{% import '@ZichtHtmldev/macros/styleguide.html.twig' as styleguide %}
 
 {% block component_intro %}
     <h1 class="c-copy--h1">{{ name|capitalize }}</h1>
@@ -14,7 +14,7 @@
         </p>
     </section>
     <section class="c-component--typography  s-cms-content" style="max-width: 980px;">
-        
+
         <h2>Jived fox nymph grabs quick waltz?</h2>
         <p>
             That’s not the only ballroom dance. I take lessons too. There’s Salsa, Tango, Waltz,

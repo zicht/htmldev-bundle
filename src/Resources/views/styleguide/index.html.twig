@@ -1,14 +1,14 @@
-{% extends 'ZichtHtmldevBundle::_base.html.twig' %}
+{% extends '@ZichtHtmldev/_base.html.twig' %}
 
 
 {% block body %}
     {% block styleguide_top %}
-        {% include 'ZichtHtmldevBundle:styleguide:_top.html.twig' %}
+        {% include '@ZichtHtmldev/styleguide/_top.html.twig' %}
     {% endblock %}
 
     <main class="c-content">
         {% block styleguide_aside %}
-            {% include 'ZichtHtmldevBundle:styleguide:_side-bar.html.twig' %}
+            {% include '@ZichtHtmldev/styleguide/_side-bar.html.twig' %}
         {% endblock %}
 
         <div class="c-content__main">

@@ -32,7 +32,7 @@
     @param object properties The properties of the component.
 #}
 {% macro styleguide_component(slug, properties, outputs = ['example', 'twig']) %}
-    {% import 'ZichtHtmldevBundle:macros:components.html.twig' as component %}
+    {% import '@ZichtHtmldev/macros/components.html.twig' as component %}
 
     {% set cx = {
         container: classes({

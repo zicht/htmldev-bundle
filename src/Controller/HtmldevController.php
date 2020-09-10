@@ -76,9 +76,9 @@ class HtmldevController extends AbstractController
     public function showAction($section)
     {
         $templates = [
-            sprintf('@htmldev/pages/%s.html.twig', $section),                 // Override: Custom section specific template
-            sprintf('ZichtHtmldevBundle::styleguide/%s.html.twig', $section), // Section specific template
-            'ZichtHtmldevBundle:styleguide:component.html.twig',              // No custom template, use general component template
+            sprintf('@htmldev/pages/%s.html.twig', $section),           // Override: Custom section specific template
+            sprintf('@ZichtHtmldev/styleguide/%s.html.twig', $section), // Section specific template
+            '@ZichtHtmldev/styleguide/component.html.twig',             // No custom template, use general component template
             null, // Final value when nothing is found
         ];
         do {

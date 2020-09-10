@@ -328,7 +328,7 @@ The HtmldevBundle provides a `component` macro to render components from the sty
 This wil load `htmldev/components/cards/cover.html.twig` with the given properties:
  
 ```twig
-{% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
+{% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
 
 {{ ui.component('cards/cover', { 
     title: 'Hodor',
@@ -344,7 +344,7 @@ easy coloring of the SVG with `currentColor` and CSS.
 This will render the contents of `htmldev/images/icons/arrow--right.svg` in the HTML:
 
 ```twig
-{% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
+{% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
 
 {{ ui.svg('arrow--right', { 
     width: 20,
