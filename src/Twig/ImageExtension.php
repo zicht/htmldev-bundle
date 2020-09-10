@@ -16,7 +16,7 @@ use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 class ImageExtension extends Twig_Extension
 {
     /** @var string */
-    private $htmldevDirectory;
+    private $imageDirectory;
 
     /** @var SvgServiceInterface */
     private $svgService;
@@ -24,12 +24,12 @@ class ImageExtension extends Twig_Extension
     /**
      * Initializes a new instance of the ImageExtension class.
      *
-     * @param string $htmldevDirectory
+     * @param string $imageDirectory
      * @param SvgServiceInterface $svgService
      */
-    public function __construct($htmldevDirectory, SvgServiceInterface $svgService)
+    public function __construct($imageDirectory, SvgServiceInterface $svgService)
     {
-        $this->htmldevDirectory = $htmldevDirectory;
+        $this->imageDirectory = $imageDirectory;
         $this->svgService = $svgService;
     }
 
@@ -52,15 +52,15 @@ class ImageExtension extends Twig_Extension
      */
     public function getIcons($type = '')
     {
-        $imageDirectory = sprintf('%s/images/icons/%s', $this->htmldevDirectory, $type);
+        $imageDirectory = sprintf('%s/%s', rtrim($this->imageDirectory, '/'), $type);
         if (!is_dir($imageDirectory)) {
             return [];
         }
 
         $files = array_diff(scandir($imageDirectory), ['..', '.']);
         return array_map(
-            function ($item) {
-            return basename($item, '.svg');
+            static function ($item) {
+                return basename($item, '.svg');
             },
             $files
         );

@@ -25,24 +25,25 @@
             <argument type="service" id="htmldev.text_data_loader" />
         </service>
 
-        <service id="htmldev.abstract_data_loader" abstract="true">
-            <argument type="string">%htmldev.directory%</argument>
+        <service id="Zicht\Bundle\HtmldevBundle\Service\AbstractDataLoader" abstract="true">
+            <argument type="collection"/> <!-- set by config -->
         </service>
+        <service id="htmldev.abstract_data_loader" alias="Zicht\Bundle\HtmldevBundle\Service\AbstractDataLoader" />
 
         <service id="htmldev.yaml_data_loader" class="Zicht\Bundle\HtmldevBundle\Service\YamlDataLoader" parent="htmldev.abstract_data_loader" />
 
         <service id="htmldev.text_data_loader" class="Zicht\Bundle\HtmldevBundle\Service\TextDataLoader" parent="htmldev.abstract_data_loader" />
 
-        <service id="htmldev.svg_service" class="%htmldev.svg_service%">
-            <argument type="string">%htmldev.directory%</argument>
-            <argument/> <!-- set by config -->
+        <service id="Zicht\Bundle\HtmldevBundle\Service\SvgService" class="%htmldev.svg_service%">
+            <argument type="string"/> <!-- Base dir, set by config -->
+            <argument/> <!-- Cache, set by config -->
             <argument type="service" id="logger"/>
             <tag name="monolog.logger" channel="svg_service"/>
         </service>
+        <service id="htmldev.svg_service" alias="Zicht\Bundle\HtmldevBundle\Service\SvgService"/>
 
         <!-- Twig extensions -->
         <service id="htmldev.twig.data_extension" class="Zicht\Bundle\HtmldevBundle\Twig\DataExtension">
-            <argument type="string">%htmldev.directory%</argument>
             <argument type="service" id="htmldev.yaml_data_loader" />
             <tag name="twig.extension"/>
         </service>
@@ -52,11 +53,12 @@
             <tag name="twig.extension"/>
         </service>
 
-        <service id="htmldev.twig.image_extension" class="Zicht\Bundle\HtmldevBundle\Twig\ImageExtension">
-            <argument type="string">%htmldev.directory%</argument>
+        <service id="Zicht\Bundle\HtmldevBundle\Twig\ImageExtension">
+            <argument type="string"/> <!-- Image Directory, set by config -->
             <argument type="service" id="htmldev.svg_service" />
             <tag name="twig.extension"/>
         </service>
+        <service id="htmldev.twig.image_extension" alias="Zicht\Bundle\HtmldevBundle\Twig\ImageExtension"/>
 
         <service id="htmldev.twig.util_extension" class="Zicht\Bundle\HtmldevBundle\Twig\UtilExtension">
             <tag name="twig.extension"/>
