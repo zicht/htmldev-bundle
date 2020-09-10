@@ -32,7 +32,7 @@
 
 
 {% macro icons(icon_list) %}
-    {% import 'ZichtHtmldevBundle:macros:components.html.twig' as ui %}
+    {% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
 
     {% if icon_list|default and icon_list|length %}
         <div class="c-icon-list">
