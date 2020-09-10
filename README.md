@@ -339,48 +339,42 @@ This wil load `htmldev/components/cards/cover.html.twig` with the given properti
 
 #### Rendering SVG files
 
-The HtmldevBundle provides an `svg` macro to inline render SVG's located in `htmldev`. This allows
-easy coloring of the SVG with `currentColor` and CSS.
+*The HtmldevBundle `svg` macro (`ui.svg()`) to inline render SVG's is deprecated*
+
+The HtmldevBundle provides a `inline_images` filter to inline render SVG's within the string subject.
+This allows easy coloring of the SVG with `currentColor` and CSS.
 
 This will render the contents of `htmldev/images/icons/arrow--right.svg` in the HTML:
 
 ```twig
-{% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
-
-{{ ui.svg('arrow--right', {
-    width: 20,
-    height: 20,
-    directory: 'images/icons'
-}) }}
+{% apply inline_images %}
+    <img src="htmldev/images/icons/arrow--right.svg" width="20" height="20">
+{% endapply %}
 ```
 
-The second argument is an options object. These keys are available:
+The following attributes can be used within the `<img />` tag:
 
 - `width`
   The width that should be set on the `<svg />` element. This will override an existing `width` attribute.
-  The macro assumes `px`, so `width: 20` will be rendered as `<svg width="20px" />`.
+  The filter assumes `px`, so `width: 20` will be rendered as `<svg width="20px" />`.
   Allowed values: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/width#svg).
 - `height`
   The height that should be set on the `<svg />` element. This will override an existing `height` attribute.
-  The macro assumes `px`, so `height: 20` will be rendered as `<svg height="20px" />`.
+  The filter assumes `px`, so `height: 20` will be rendered as `<svg height="20px" />`.
   Allowed values: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/height#svg).
-- `viewbox_x` and `viewbox_y`
+- `viewbox-x` and `viewbox-y`
   The `x` and `y` values of the `viewbox` property. This will override an existing `viewbox` attribute. These arguments
   must both be passed, otherwise they will not be applied.
-  `viewbox_x: 20, viewbox_y: 30` will be rendered as `<svg viewbox="0 0 20 30" />`.
-- `css_classes`
-  An array of CSS classes that will be applied to the `<svg />` element.
-  `css_classes: ['u-white', 'u-block']` will be rendered as `<svg class="u-white  u-black" />`.
-- `attributes`
-  An array of extra attributes that will be applied to the `<svg />` element.
-  This can be any attribute that's valid for the `<svg />` element.
-  The default value for this parameter is `{ 'aria-hidden: 'true', 'role: 'img' }`.
+  `<img viewbox-x="20" viewbox-y="30">` will be rendered as `<svg viewbox="0 0 20 30" />`.
+- `class`
+  A list of CSS classes that will be applied to the `<svg />` element.
+  `<img class="u-white  u-block">` will be rendered as `<svg class="u-white  u-black" />`.
 - `title`
   This will add a `<title />` element inside the `<svg />` for accessibility improvements.
   Reference: [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title)
-- `directory`
-  The directory where the SVG file is located. This must be a directory inside the directory that's marked as
-  the root of the HtmldevBundle (default `htmldev`).
+- Any other attributes will also be applied to the `<svg />` element.
+  This can be any attribute that's valid for the `<svg />` element.
+  Default values for some other attributes are: `aria-hidden="true"` and `role="img"`.
 
 ### Customising
 
