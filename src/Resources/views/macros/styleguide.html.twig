@@ -32,17 +32,13 @@
 
 
 {% macro icons(icon_list) %}
-    {% import '@ZichtHtmldev/macros/components.html.twig' as ui %}
-
     {% if icon_list|default and icon_list|length %}
         <div class="c-icon-list">
             {% for i in icon_list %}
                 <div class="c-icon-list__item">
-                    {{ ui.svg(i, {
-                        directory: 'images/icons',
-                        width: 32,
-                        height: 32,
-                    }) }}
+                    {% apply inline_images %}
+                        <img src="images/icons/{{ i }}.svg" width="32" height="32">
+                    {% endapply %}
                     <p class="c-icon-list__item__name">{{ i }}</p>
                 </div>
             {% endfor %}
