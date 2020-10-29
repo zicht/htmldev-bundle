@@ -58,7 +58,7 @@ class ImageExtension extends Twig_Extension
 
     public function inlineImagesInHtmlBlock(TwigMarkup $block): TwigMarkup
     {
-        $hasMatches = preg_match_all('/<img(?:\s+(?P<attrs>.*?))?\\/?>/i', $block, $imageMatches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        $hasMatches = preg_match_all('/<img(?:\s+(?P<attrs>.*?))?\\/?>/is', $block, $imageMatches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
         if (false === $hasMatches || 0 === $hasMatches) {
             return $block;
         }
