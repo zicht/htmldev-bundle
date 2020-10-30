@@ -41,7 +41,7 @@
             <tag name="console.command"/>
         </service>
 
-        <service id="htmldev.htmldev_controller" class="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController">
+        <service id="htmldev.htmldev_controller" class="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController" public="true">
             <argument type="service" id="htmldev.template" />
             <argument type="service" id="twig" />
             <argument type="service" id="templating" />
