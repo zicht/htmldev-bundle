@@ -28,7 +28,7 @@ class MenuUriVoter implements VoterInterface
      * @param ItemInterface $item
      * @return bool|null
      */
-    public function matchItem(ItemInterface $item)
+    public function matchItem(ItemInterface $item): ?bool
     {
         return $this->requestStack->getMasterRequest()->getPathInfo() === $item->getUri() ? true : null;
     }
