@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{%- if app.environment != 'production' and version is not empty %}{{ version ~ ' - ' }}{% endif %}{% block head_title styleguide.title %}</title>
+        <title>{%- if app.environment not in ['prod','production'] and version is not empty %}{{ version ~ ' - ' }}{% endif %}{% block head_title styleguide.title %}</title>
 
         {%~ block head_copyright %}
             <!--
