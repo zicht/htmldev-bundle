@@ -80,7 +80,7 @@
 
             {% if 'twig' in outputs %}
                 {% set json = component_properties|ui_printable_arguments %}
-                <pre class="c-component__code">{{ '{% ' }}include '{{ template }}' with {{ json }} only{{ ' %}' }}</pre>
+                <pre class="c-component__code">{{ '{% ' }}include '{{ template|replace({'@htmldev/':''}) }}' with {{ json }} only{{ ' %}' }}</pre>
             {% endif %}
 
             {% if 'html' in outputs %}
