@@ -63,7 +63,7 @@ class SvgService implements SvgServiceInterface
              * Add CSS classes for extra theming or positioning.
              */
             if (is_array($cssClasses)) {
-                $this->setSvgAttribute($svg, 'class',  implode('  ', $cssClasses));
+                $this->setSvgAttribute($svg, 'class', trim(implode('  ', $cssClasses)));
             }
             if (!empty($title)) {
                 $this->logger->debug(sprintf('adding title to svg: "%s"', $title));
@@ -78,7 +78,7 @@ class SvgService implements SvgServiceInterface
                     $svg->setAttribute($attr, $value);
                 }
             }
-            $out = $d->saveXML();
+            $out = $d->saveXML($d->documentElement);
             $this->cache->set($key, $out);
         } else {
             $this->logger->info('svg ' . $name . ' loaded from cache');
