@@ -1,6 +1,10 @@
 {% set version = asset_version('/') -%}
 <!doctype html>
-<html class="s-no-javascript  not-loaded  {% block html_class '' %}" {% block html_attributes '' %}>
+<html class="s-no-javascript  not-loaded  {% block html_class '' %}" {% block html_attributes -%}
+    {%- if app is defined and app.request and app.request.locale -%}
+        lang="{{ app.request.locale|lower }}"
+    {%- endif -%}
+{%- endblock %}>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
