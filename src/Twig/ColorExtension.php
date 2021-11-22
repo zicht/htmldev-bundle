@@ -4,6 +4,9 @@
  */
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigTest;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Zicht\Bundle\HtmldevBundle\Service\ColorServiceInterface;
@@ -11,14 +14,12 @@ use Zicht\Bundle\HtmldevBundle\Service\ColorServiceInterface;
 /**
  * Twig extension for using colors in the styleguide.
  */
-class ColorExtension extends Twig_Extension
+class ColorExtension extends AbstractExtension
 {
     /** @var ColorServiceInterface */
     private $colorService;
 
     /**
-     * Initializes a new instance of the ColorExtension class.
-     *
      * @param ColorServiceInterface $colorService
      */
     public function __construct(ColorServiceInterface $colorService)
@@ -32,7 +33,7 @@ class ColorExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('color_palette', [$this->colorService, 'getColorGroups'])
+            new TwigFunction('color_palette', [$this->colorService, 'getColorGroups'])
         ];
     }
 
@@ -42,8 +43,8 @@ class ColorExtension extends Twig_Extension
     public function getTests()
     {
         return [
-            new \Twig_SimpleTest('dark', [$this, 'isDark']),
-            new \Twig_SimpleTest('light', [$this, 'isLight'])
+            new TwigTest('dark', [$this, 'isDark']),
+            new TwigTest('light', [$this, 'isLight']),
         ];
     }
 

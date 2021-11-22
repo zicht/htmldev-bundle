@@ -1,0 +1,37 @@
+name: QA
+
+on:
+    pull_request:
+        branches:
+            - release/*
+
+jobs:
+    backend:
+        runs-on: ubuntu-18.04
+        strategy:
+            matrix:
+                php: [ '7.2', '7.4', '8.0', '8.1' ]
+        name: PHP ${{ matrix.php }}
+        steps:
+            -   uses: actions/checkout@v2
+
+            # https://github.com/php-actions/composer
+            -   uses: actions/cache@v1
+                with:
+                    path: vendor
+                    key: ${{ runner.OS }}-build-${{ hashFiles('**/composer.lock') }}
+
+            # https://github.com/shivammathur/setup-php
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    coverage: none # disable xdebug, pcov
+                    tools: composer:v2
+
+            -   run: composer validate
+            -   run: composer config -g github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
+            -   run: composer install --prefer-dist --no-progress --no-scripts
+            -   if: always()
+                run: composer run-script lint-no-warn
+            -   if: always()
+                run: composer run-script test

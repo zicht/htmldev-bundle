@@ -4,6 +4,8 @@
  */
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
@@ -11,14 +13,12 @@ use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
 /**
  * Twig extension for loading data.
  */
-class DataExtension extends Twig_Extension
+class DataExtension extends AbstractExtension
 {
     /** @var DataLoaderInterface */
     private $yamlLoader;
 
     /**
-     * Initializes a new instance of the DataExtension class.
-     *
      * @param DataLoaderInterface $yamlLoader
      */
     public function __construct(DataLoaderInterface $yamlLoader)
@@ -32,7 +32,7 @@ class DataExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('load_data', [$this, 'loadData']),
+            new TwigFunction('load_data', [$this, 'loadData']),
         ];
     }
 

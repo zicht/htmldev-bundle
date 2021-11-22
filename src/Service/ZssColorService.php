@@ -14,8 +14,6 @@ class ZssColorService implements ColorServiceInterface
     private $textLoader;
 
     /**
-     * Initializes a new instance of the ZssColorService class.
-     *
      * @param DataLoaderInterface $textLoader
      */
     public function __construct(DataLoaderInterface $textLoader)

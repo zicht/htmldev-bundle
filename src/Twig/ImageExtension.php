@@ -4,8 +4,10 @@
  */
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
+use Twig\Extension\AbstractExtension;
 use Twig\Markup as TwigMarkup;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Symfony\Component\Yaml\Yaml;
@@ -15,7 +17,7 @@ use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 /**
  * Twig extension for handling images.
  */
-class ImageExtension extends Twig_Extension
+class ImageExtension extends AbstractExtension
 {
     /** @var string */
     private $imageDirectory;
@@ -24,8 +26,6 @@ class ImageExtension extends Twig_Extension
     private $svgService;
 
     /**
-     * Initializes a new instance of the ImageExtension class.
-     *
      * @param string $imageDirectory
      * @param SvgServiceInterface $svgService
      */
@@ -41,8 +41,8 @@ class ImageExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('icon_list', [$this, 'getIcons']),
-            new Twig_SimpleFunction('embed_svg', [$this->svgService, 'getSvg']),
+            new TwigFunction('icon_list', [$this, 'getIcons']),
+            new TwigFunction('embed_svg', [$this->svgService, 'getSvg']),
         ];
     }
 

@@ -28,8 +28,6 @@ class HtmldevController extends AbstractController
     private $styleguideConfig = [];
 
     /**
-     * Initializes a new instance of the HtmldevController class.
-     *
      * @param EngineInterface $templating
      * @param DataLoaderInterface $yamlLoader
      */
