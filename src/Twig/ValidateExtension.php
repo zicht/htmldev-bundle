@@ -5,13 +5,14 @@
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Rakit\Validation\Validator;
-use Twig_Extension;
-use Twig_SimpleFilter;
+use Twig\Error\Error;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * Twig extensions for validating data.
  */
-class ValidateExtension extends Twig_Extension
+class ValidateExtension extends AbstractExtension
 {
     /**
      * {@inheritDoc}
@@ -19,7 +20,7 @@ class ValidateExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('validate_context', [$this, 'validateContext'])
+            new TwigFilter('validate_context', [$this, 'validateContext'])
         ];
     }
 
@@ -33,7 +34,7 @@ class ValidateExtension extends Twig_Extension
         $validator = new Validator();
         $validation = $validator->validate($context, $rules);
         if ($validation->fails()) {
-            throw new \Twig\Error\Error(sprintf("validate_context error (%d errors)\n%s", $validation->errors()->count(), json_encode($validation->errors()->firstOfAll())));
+            throw new Error(sprintf("validate_context error (%d errors)\n%s", $validation->errors()->count(), json_encode($validation->errors()->firstOfAll())));
         }
     }
 

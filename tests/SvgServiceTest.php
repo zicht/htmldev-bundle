@@ -5,13 +5,12 @@
 
 namespace Zicht\Bundle\HtmldevBundle\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
 use Zicht\Bundle\HtmldevBundle\Service\SvgService;
 
-/**
- * Tests for the SvgService class.
- */
-class SvgServiceTest extends PHPUnit_Framework_TestCase
+class SvgServiceTest extends TestCase
 {
     /** @var SvgService */
     private $service;
@@ -19,9 +18,11 @@ class SvgServiceTest extends PHPUnit_Framework_TestCase
     /**
      * Initializes resources shared by all tests in this test case.
      */
-    protected function setUp()
+    public function setUp(): void
     {
-        $this->service = new SvgService('');
+        $cache = $this->createMock(CacheInterface::class);
+        $logger = $this->createMock(LoggerInterface::class);
+        $this->service = new SvgService(sys_get_temp_dir(), $cache, $logger);
     }
 
     /**

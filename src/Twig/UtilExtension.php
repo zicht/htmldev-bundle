@@ -4,13 +4,15 @@
  */
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig_Extension;
 use Twig_SimpleFilter;
 
 /**
  * Twig extension for manipulating data.
  */
-class UtilExtension extends Twig_Extension
+class UtilExtension extends AbstractExtension
 {
     /**
      * {@inheritDoc}
@@ -18,8 +20,8 @@ class UtilExtension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('delete', [$this, 'deleteFromArray']),
-            new Twig_SimpleFilter('ui_printable_arguments', [$this, 'getUiPrintableArguments'])
+            new TwigFilter('delete', [$this, 'deleteFromArray']),
+            new TwigFilter('ui_printable_arguments', [$this, 'getUiPrintableArguments']),
         ];
     }
 
@@ -27,8 +29,7 @@ class UtilExtension extends Twig_Extension
      * Removes the given keys from the given array.
      *
      * @param array $array
-     * @param array $keysToDelete
-     *
+     * @param array ...$keysToDelete
      * @return array
      */
     public function deleteFromArray($array, ...$keysToDelete)

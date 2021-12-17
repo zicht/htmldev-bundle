@@ -20,8 +20,6 @@ class MenuBuilder implements MenuBuilderInterface
     private $yamlLoader;
 
     /**
-     * Initializes a new instance of the MenuBuilder class.
-     *
      * @param FactoryInterface $factory
      * @param DataLoaderInterface $yamlLoader
      */

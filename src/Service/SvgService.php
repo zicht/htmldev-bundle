@@ -93,7 +93,7 @@ class SvgService implements SvgServiceInterface
      *
      * @param \DOMNode $svg
      * @param string $name
-     * @param string
+     * @param string $value
      * @param boolean $overwrite
      */
     public function setSvgAttribute(\DOMElement $svg, $name, $value, $overwrite = false)
