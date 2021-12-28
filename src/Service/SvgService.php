@@ -81,7 +81,7 @@ class SvgService implements SvgServiceInterface
             $out = $d->saveXML($d->documentElement);
             $this->cache->set($key, $out);
         } else {
-            $this->logger->info('svg ' . $name . ' loaded from cache');
+            $this->logger->debug('svg ' . $name . ' loaded from cache');
         }
         return $out;
     }
