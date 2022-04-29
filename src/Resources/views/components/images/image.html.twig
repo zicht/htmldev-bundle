@@ -109,21 +109,6 @@
 #}
 
 {% macro component(properties) %}
-    {% if app.debug %}
-        {#
-            Validate the provided template _context
-            For rules, see: https://github.com/rakit/validation#available-rules
-        #}
-        {{ _context|validate_context({
-            'properties.image_source': 'required',
-            'properties.image_alt': 'required',
-            'properties.lazyload': 'required|in:1,0',
-            'properties.breakpoints': 'required:array',
-            'properties.breakpoints.*.image_url': 'required',
-            'properties.breakpoints.*.viewport_width': 'numeric',
-        }) }}
-    {% endif %}
-
     {% if properties.image_source|default or properties.breakpoints|default|length > 0 %}
         {% if properties.lazyload %}
             {# Lazyload the images #}

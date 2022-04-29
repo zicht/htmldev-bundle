@@ -6,11 +6,11 @@
 namespace Zicht\Bundle\HtmldevBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
 
 /**
@@ -18,8 +18,8 @@ use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
  */
 class HtmldevController extends AbstractController
 {
-    /** @var EngineInterface */
-    private $templating;
+    /** @var Environment */
+    private $twig;
 
     /** @var DataLoaderInterface */
     private $yamlLoader;
@@ -28,12 +28,12 @@ class HtmldevController extends AbstractController
     private $styleguideConfig = [];
 
     /**
-     * @param EngineInterface $templating
+     * @param Environment $twig
      * @param DataLoaderInterface $yamlLoader
      */
-    public function __construct(EngineInterface $templating, DataLoaderInterface $yamlLoader)
+    public function __construct(Environment $twig, DataLoaderInterface $yamlLoader)
     {
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->yamlLoader = $yamlLoader;
     }
 
@@ -53,8 +53,8 @@ class HtmldevController extends AbstractController
      */
     public function indexAction($section = 'styleguide_intro')
     {
-        if (null !== $section && '' !== $section && $this->templating->exists(sprintf('@htmldev/pages/%s.html.twig', $section))) {
-            return $this->forward('ZichtHtmldevBundle:Htmldev:show', ['section' => $section]);
+        if (null !== $section && '' !== $section && $this->twig->getLoader()->exists(sprintf('@htmldev/pages/%s.html.twig', $section))) {
+            return $this->forward(self::class . '::showAction', ['section' => $section]);
         }
 
         $menuItems = $this->yamlLoader->loadData('data/styleguide', 'navigation.yml');
@@ -81,19 +81,21 @@ class HtmldevController extends AbstractController
         ];
         do {
             $template = $templates[(isset($i) ? ++$i : $i = 0)];
-        } while ($i + 1 < count($templates) && !$this->templating->exists($template));
+        } while ($i + 1 < count($templates) && !$this->twig->getLoader()->exists($template));
 
         if (null === $template) {
             throw new \UnexpectedValueException(sprintf('Can\'t find a template to render the "%s" section', $section));
         }
 
-        return $this->templating->renderResponse(
-            $template,
-            [
-                'section' => $section,
-                'name' => array_reverse(explode('/', $section))[0],
-                'styleguide' => (object)$this->styleguideConfig,
-            ]
+        return new Response(
+            $this->twig->render(
+                $template,
+                [
+                    'section' => $section,
+                    'name' => array_reverse(explode('/', $section))[0],
+                    'styleguide' => (object)$this->styleguideConfig,
+                ]
+            )
         );
     }
 }

@@ -15,7 +15,7 @@
     <services>
         <!-- Controllers -->
         <service id="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController" class="%htmldev.controller%" public="true">
-            <argument type="service" id="templating" />
+            <argument type="service" id="twig" />
             <argument type="service" id="htmldev.yaml_data_loader" />
         </service>
         <service id="htmldev.htmldev_controller" alias="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController"/>
@@ -65,10 +65,6 @@
         </service>
 
         <service id="zicht.twig.classes_extension" class="Zicht\Twig\Extension\ClassesExtension">
-            <tag name="twig.extension"/>
-        </service>
-
-        <service id="Zicht\Bundle\HtmldevBundle\Twig\ValidateExtension" class="Zicht\Bundle\HtmldevBundle\Twig\ValidateExtension">
             <tag name="twig.extension"/>
         </service>
 

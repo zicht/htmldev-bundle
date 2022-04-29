@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Zicht Online <http://www.zicht.nl>
+ * @copyright Zicht Online <https://zicht.nl>
  */
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
@@ -21,7 +21,6 @@ interface SvgServiceInterface
      * @param array $attributes
      * @param string $title
      * @param string $directory
-     *
      * @return null|string
      */
     public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory);
