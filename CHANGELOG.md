@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Replaced use of `Symfony\Bundle\FrameworkBundle\Templating\EngineInterface` with `Twig\Environment`
 - Replaces SVG Service deprecated Simple Cache with Cache Adapters
+- Update copyright comment in `_base.html.twig`: Changed Zicht to Fabrique
 ## Fixed
 - Fixed several other deprecations
 ## Added
