@@ -10,13 +10,13 @@ namespace Zicht\Bundle\HtmldevBundle\Service;
  */
 class ZssColorService implements ColorServiceInterface
 {
-    /** @var DataLoaderInterface */
+    /** @var TextDataLoader */
     private $textLoader;
 
     /**
-     * @param DataLoaderInterface $textLoader
+     * @param TextDataLoader $textLoader
      */
-    public function __construct(DataLoaderInterface $textLoader)
+    public function __construct(TextDataLoader $textLoader)
     {
         $this->textLoader = $textLoader;
     }

@@ -2,12 +2,12 @@
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
+use Twig\Markup as TwigMarkup;
 use Twig\TwigFilter;
-use Twig_Extension;
-use Twig_SimpleFilter;
 
 /**
  * Twig extension for manipulating data.
@@ -56,7 +56,7 @@ class UtilExtension extends AbstractExtension
      */
     public function getUiPrintableArguments($val, $format = true)
     {
-        if ($val instanceof \Twig_Markup) {
+        if ($val instanceof TwigMarkup) {
             $val = (string)$val;
         }
 

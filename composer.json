@@ -16,12 +16,14 @@
         "symfony/cache": "^4.4",
         "symfony/framework-bundle": "^4.4",
         "symfony/routing": "^4.4",
+        "symfony/yaml": "^4.4",
         "twig/twig": "^2.7 || ^3",
         "zicht/framework-extra-bundle": "^9",
         "zicht/twig-classes": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
+        "vimeo/psalm": "^4",
         "zicht/standards-php": "^4"
     },
     "autoload": {
@@ -36,6 +38,7 @@
     },
     "minimum-stability": "stable",
     "scripts": {
+        "analysis": "psalm",
         "lint": "phpcs --standard=vendor/zicht/standards-php/phpcs.xml src/ tests/",
         "lint-no-warn": "phpcs -n --standard=vendor/zicht/standards-php/phpcs.xml src/ tests/",
         "lint-fix": "phpcbf --standard=vendor/zicht/standards-php/phpcs.xml src/ tests/",

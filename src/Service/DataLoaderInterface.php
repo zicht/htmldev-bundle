@@ -15,7 +15,7 @@ interface DataLoaderInterface
      *
      * @param string $directory
      * @param string $namePattern The name pattern of the files to load. Can include directories.
-     * @return array
+     * @return string|array
      */
     public function loadData($directory, $namePattern = '*');
 }

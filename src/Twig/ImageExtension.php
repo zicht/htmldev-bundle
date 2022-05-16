@@ -2,6 +2,7 @@
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
@@ -58,12 +59,13 @@ class ImageExtension extends AbstractExtension
 
     public function inlineImagesInHtmlBlock(TwigMarkup $block): TwigMarkup
     {
-        $hasMatches = preg_match_all('/<img(?:\s+(?P<attrs>.*?))?\\/?>/is', $block, $imageMatches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        $hasMatches = preg_match_all('/<img(?:\s+(?P<attrs>.*?))?\\/?>/is', (string)$block, $imageMatches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
         if (false === $hasMatches || 0 === $hasMatches) {
             return $block;
         }
 
         // This array of options will be passed as arguments to the image processor method and therefor the elements must match this method's arguments
+        /** @var array<string, mixed> $defaultOptions */
         $defaultOptions = [
             'src' => '',
             'width' => '',
@@ -80,7 +82,6 @@ class ImageExtension extends AbstractExtension
         ];
 
         $newBlock = null;
-        $images = [];
         $blockPosModifier = 0;
         foreach ($imageMatches as $imageMatch) {
             if (!isset($imageMatch['attrs']) || '' === $imageMatch['attrs'][0]) {
@@ -116,6 +117,7 @@ class ImageExtension extends AbstractExtension
                 throw new \InvalidArgumentException(sprintf('No file extension was found for the image "%s/%s"', $attrs['directory'], $attrs['src']));
             }
 
+            /** @psalm-suppress UnusedVariable */
             $inlineHtml = null;
             $ext = strtolower(substr($attrs['src'], strrpos($attrs['src'], '.') + 1));
             switch ($ext) {
@@ -136,7 +138,7 @@ class ImageExtension extends AbstractExtension
             $oldImageHtmlStartPos = $imageMatch[0][1] + $blockPosModifier;
             // First element is the full match. And then element 0 contains the actual match string
             $oldImageHtmlLength = strlen($imageMatch[0][0]);
-            $newBlock = substr_replace(($newBlock !== null ? $newBlock : $block), $inlineHtml, $oldImageHtmlStartPos, $oldImageHtmlLength);
+            $newBlock = substr_replace((string)($newBlock !== null ? $newBlock : $block), $inlineHtml, $oldImageHtmlStartPos, $oldImageHtmlLength);
 
             $blockPosModifier += strlen($inlineHtml) - $oldImageHtmlLength;
         }

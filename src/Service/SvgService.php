@@ -34,7 +34,7 @@ class SvgService implements SvgServiceInterface
         $cacheWasHit = true;
         $out = $this->cache->get(
             $key,
-            function (ItemInterface $item) use ($cacheWasHit, $name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory) {
+            function (ItemInterface $_item) use (&$cacheWasHit, $name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory) {
                 $cacheWasHit = false;
                 return $this->createSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory);
             }
@@ -110,7 +110,7 @@ class SvgService implements SvgServiceInterface
      * does not override existing attribute values, except when the merge parameter
      * is set to `true`.
      *
-     * @param \DOMNode $svg
+     * @param \DOMElement $svg
      * @param string $name
      * @param string $value
      * @param boolean $overwrite

@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## Fixed
 - Fixed several other deprecations
 ## Added
+- Added Vimeo Psalm (level 4) and fixed all errors
 - Added this CHANGELOG.md
 
 ## <4.0.0

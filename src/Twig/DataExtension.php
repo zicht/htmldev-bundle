@@ -8,20 +8,20 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
+use Zicht\Bundle\HtmldevBundle\Service\YamlDataLoader;
 
 /**
  * Twig extension for loading data.
  */
 class DataExtension extends AbstractExtension
 {
-    /** @var DataLoaderInterface */
+    /** @var YamlDataLoader */
     private $yamlLoader;
 
     /**
-     * @param DataLoaderInterface $yamlLoader
+     * @param YamlDataLoader $yamlLoader
      */
-    public function __construct(DataLoaderInterface $yamlLoader)
+    public function __construct(YamlDataLoader $yamlLoader)
     {
         $this->yamlLoader = $yamlLoader;
     }

@@ -79,11 +79,14 @@ class HtmldevController extends AbstractController
             '@ZichtHtmldev/styleguide/component.html.twig',             // No custom template, use general component template
             null, // Final value when nothing is found
         ];
-        do {
-            $template = $templates[(isset($i) ? ++$i : $i = 0)];
-        } while ($i + 1 < count($templates) && !$this->twig->getLoader()->exists($template));
+        $template = null;
+        foreach ($templates as $template) {
+            if ($this->twig->getLoader()->exists($template)) {
+                break;
+            }
+        }
 
-        if (null === $template) {
+        if ($template === null) {
             throw new \UnexpectedValueException(sprintf('Can\'t find a template to render the "%s" section', $section));
         }
 

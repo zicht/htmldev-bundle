@@ -66,7 +66,6 @@ class ZichtHtmldevExtension extends Extension
         switch ($config['svg_cache']['type']) {
             case 'service':
                 return new Reference($config['svg_cache']['name']);
-                break;
             case 'auto':
                 switch ($config['svg_cache']['name']) {
                     case 'file':
@@ -83,7 +82,6 @@ class ZichtHtmldevExtension extends Extension
                 }
                 $container->setDefinition('htmldev.svg_cache', $definition)->setPublic(false);
                 return new Reference('htmldev.svg_cache');
-                break;
         }
         return null;
     }
