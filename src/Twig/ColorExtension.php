@@ -68,8 +68,7 @@ class ColorExtension extends AbstractExtension
 
     /**
      * @param string $hexColor A CSS hex color, can be formatted as `#888`, `#888888`, `888` or `888888`.
-     *
-     * @return number
+     * @return int
      */
     protected function getLuminance($hexColor)
     {

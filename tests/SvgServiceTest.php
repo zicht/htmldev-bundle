@@ -7,7 +7,7 @@ namespace Zicht\Bundle\HtmldevBundle\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Psr\SimpleCache\CacheInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Zicht\Bundle\HtmldevBundle\Service\SvgService;
 
 class SvgServiceTest extends TestCase

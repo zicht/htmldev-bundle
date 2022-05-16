@@ -173,22 +173,6 @@ helper function:
 </article>
 ```
 
-#### Validating component _context
-
-```twig
-{% if app.debug %}
-    {#
-       Validate the provided template _context
-       For rules, see: https://github.com/rakit/validation#available-rules
-    #}
-    {{ _context|validate_context({
-        required_number: 'required|numeric',
-        required_boolean: 'required|in:1,0',
-        optional_string: 'in:foo,bar',
-    }) }}
-{% endif %}
-```
-
 #### Rendering components in the Styleguide
 
 The HtmldevBundle loads the example/dummy data for the components from Yaml files from the `htmldev/data/` directory.
