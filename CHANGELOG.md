@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 - Nothing so far
 
+## 5.0.0 - 2022-10-06
+### Added
+- Support for Symfony ^5.4
+### Removed
+- Support for Symfony 4
+
 ## 4.0.1 - 2022-10-06
 ### Fixed
 - Changed usages of deprecated `%kernel.root_dir%` parameter into `%kernel.project_dir%`
