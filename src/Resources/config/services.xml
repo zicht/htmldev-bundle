@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="htmldev.directory">%kernel.root_dir%/../htmldev</parameter>
+        <parameter key="htmldev.directory">%kernel.project_dir%/htmldev</parameter>
         <parameter key="htmldev.controller">Zicht\Bundle\HtmldevBundle\Controller\HtmldevController</parameter>
         <parameter key="htmldev.color_service">Zicht\Bundle\HtmldevBundle\Service\ZssColorService</parameter>
         <parameter key="htmldev.svg_service">Zicht\Bundle\HtmldevBundle\Service\SvgService</parameter>
