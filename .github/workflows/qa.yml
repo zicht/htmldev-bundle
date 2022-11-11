@@ -34,6 +34,6 @@ jobs:
             -   if: always()
                 run: composer run-script lint-no-warn
             -   if: always()
-                run: composer run-script analysis -- --no-suggestions --output-format=github
+                run: composer run-script analysis -- --php-version=${{ matrix.php }} --no-suggestions --output-format=github
             -   if: always()
                 run: composer run-script test

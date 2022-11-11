@@ -17,6 +17,11 @@
         <service id="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController" class="%htmldev.controller%" public="true">
             <argument type="service" id="twig" />
             <argument type="service" id="htmldev.yaml_data_loader" />
+            <tag name="controller.service_arguments" />
+            <tag name="container.service_subscriber" />
+            <call method="setContainer">
+                <argument type="service" id="Psr\Container\ContainerInterface" />
+            </call>
         </service>
         <service id="htmldev.htmldev_controller" alias="Zicht\Bundle\HtmldevBundle\Controller\HtmldevController"/>
 
