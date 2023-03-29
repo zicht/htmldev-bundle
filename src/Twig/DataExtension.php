@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Twig_Extension;
-use Twig_SimpleFunction;
 use Zicht\Bundle\HtmldevBundle\Service\YamlDataLoader;
 
 /**
@@ -18,9 +17,6 @@ class DataExtension extends AbstractExtension
     /** @var YamlDataLoader */
     private $yamlLoader;
 
-    /**
-     * @param YamlDataLoader $yamlLoader
-     */
     public function __construct(YamlDataLoader $yamlLoader)
     {
         $this->yamlLoader = $yamlLoader;

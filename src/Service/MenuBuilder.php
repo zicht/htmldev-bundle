@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht online <http://zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 use Knp\Menu\FactoryInterface;
@@ -19,10 +20,6 @@ class MenuBuilder implements MenuBuilderInterface
     /** @var DataLoaderInterface */
     private $yamlLoader;
 
-    /**
-     * @param FactoryInterface $factory
-     * @param DataLoaderInterface $yamlLoader
-     */
     public function __construct(FactoryInterface $factory, DataLoaderInterface $yamlLoader)
     {
         $this->factory = $factory;
@@ -30,7 +27,6 @@ class MenuBuilder implements MenuBuilderInterface
     }
 
     /**
-     * @param RequestStack $requestStack
      * @return ItemInterface
      */
     public function createStyleguideMenu(RequestStack $requestStack)
@@ -42,7 +38,6 @@ class MenuBuilder implements MenuBuilderInterface
 
     /**
      * @param array $items
-     * @param ItemInterface $parent
      * @return ItemInterface
      */
     protected function buildMenuFromYml($items, ItemInterface $parent)

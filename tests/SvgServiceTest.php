@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
@@ -42,7 +42,6 @@ class SvgServiceTest extends TestCase
     /**
      * Helper function for quickly saving an XML document to string.
      *
-     * @param \DOMElement $element
      * @return string
      */
     protected function elementToString(\DOMElement $element)

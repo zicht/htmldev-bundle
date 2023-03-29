@@ -26,13 +26,13 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
-                    tools: composer:v2
+                    tools: cs2pr
 
             -   run: composer validate
             -   run: composer config -g github-oauth.github.com ${{ secrets.GITHUB_TOKEN }}
             -   run: composer install --prefer-dist --no-progress --no-scripts
             -   if: always()
-                run: composer run-script lint-no-warn
+                run: composer run-script lint -- --format=checkstyle | cs2pr
             -   if: always()
                 run: composer run-script analysis -- --php-version=${{ matrix.php }} --no-suggestions --output-format=github
             -   if: always()

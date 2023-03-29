@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
@@ -9,10 +9,6 @@ use Twig\Extension\AbstractExtension;
 use Twig\Markup as TwigMarkup;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig_Extension;
-use Twig_SimpleFunction;
-use Symfony\Component\Yaml\Yaml;
-use Zicht\Bundle\HtmldevBundle\Service\ColorServiceInterface;
 use Zicht\Bundle\HtmldevBundle\Service\SvgServiceInterface;
 
 /**
@@ -28,7 +24,6 @@ class ImageExtension extends AbstractExtension
 
     /**
      * @param string $imageDirectory
-     * @param SvgServiceInterface $svgService
      */
     public function __construct($imageDirectory, SvgServiceInterface $svgService)
     {
@@ -143,7 +138,7 @@ class ImageExtension extends AbstractExtension
             $blockPosModifier += strlen($inlineHtml) - $oldImageHtmlLength;
         }
 
-        return ($newBlock !== null ? new TwigMarkup($newBlock, 'UTF-8') : $block);
+        return $newBlock !== null ? new TwigMarkup($newBlock, 'UTF-8') : $block;
     }
 
     /**

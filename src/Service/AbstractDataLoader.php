@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://zicht.nl>
  */
@@ -6,7 +6,6 @@
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Loads text data from a directory in the styleguide.
