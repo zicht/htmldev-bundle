@@ -6,3 +6,5 @@
 /vendor
 /composer.lock
 /docker-compose.y*ml
+/.php-cs-fixer.php
+/.php-cs-fixer.cache

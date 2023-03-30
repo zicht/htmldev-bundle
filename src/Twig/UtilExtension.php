@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
@@ -41,7 +41,7 @@ class UtilExtension extends AbstractExtension
         return array_filter(
             $array,
             function ($key) use ($keysToDelete) {
-            return !in_array($key, $keysToDelete);
+                return !in_array($key, $keysToDelete);
             },
             ARRAY_FILTER_USE_KEY
         );

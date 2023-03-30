@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
-use Twig_Extension;
-use Twig_SimpleFunction;
 use Zicht\Bundle\HtmldevBundle\Service\ColorServiceInterface;
 
 /**
@@ -19,9 +18,6 @@ class ColorExtension extends AbstractExtension
     /** @var ColorServiceInterface */
     private $colorService;
 
-    /**
-     * @param ColorServiceInterface $colorService
-     */
     public function __construct(ColorServiceInterface $colorService)
     {
         $this->colorService = $colorService;
@@ -33,7 +29,7 @@ class ColorExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('color_palette', [$this->colorService, 'getColorGroups'])
+            new TwigFunction('color_palette', [$this->colorService, 'getColorGroups']),
         ];
     }
 

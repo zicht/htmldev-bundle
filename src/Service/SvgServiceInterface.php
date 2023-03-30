@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <https://zicht.nl>
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
@@ -21,7 +22,7 @@ interface SvgServiceInterface
      * @param array $attributes
      * @param string $title
      * @param string $directory
-     * @return null|string
+     * @return string|null
      */
     public function getSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory);
 }

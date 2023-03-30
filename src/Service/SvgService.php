@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <https://zicht.nl>
  */
@@ -56,7 +56,7 @@ class SvgService implements SvgServiceInterface
      * @param array $attributes
      * @param string $title
      * @param string $directory
-     * @return null|string
+     * @return string|null
      */
     private function createSvg($name, $width, $height, $viewboxX, $viewboxY, $cssClasses, $attributes, $title, $directory)
     {
@@ -68,7 +68,7 @@ class SvgService implements SvgServiceInterface
         $d = new \DOMDocument();
         $d->load($fileName);
         $svg = $d->getElementsByTagName('svg')->item(0);
-        /**
+        /*
          * Set dimensions to ensure proper rendering across different browsers.
          */
         if (!empty($width)) {
@@ -81,7 +81,7 @@ class SvgService implements SvgServiceInterface
             $this->setSvgAttribute($svg, 'viewBox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')), true);
         }
         $this->setSvgAttribute($svg, 'preserveAspectRatio', 'xMidYMid meet');
-        /**
+        /*
          * Add CSS classes for extra theming or positioning.
          */
         if (is_array($cssClasses)) {
@@ -91,7 +91,7 @@ class SvgService implements SvgServiceInterface
             $this->logger->debug(sprintf('adding title to svg: "%s"', $title));
             $svg->appendChild($d->createElement('title', $title));
         }
-        /**
+        /*
          * Set accessibility attributes.
          */
         if (is_array($attributes)) {
@@ -110,10 +110,9 @@ class SvgService implements SvgServiceInterface
      * does not override existing attribute values, except when the merge parameter
      * is set to `true`.
      *
-     * @param \DOMElement $svg
      * @param string $name
      * @param string $value
-     * @param boolean $overwrite
+     * @param bool $overwrite
      */
     public function setSvgAttribute(\DOMElement $svg, $name, $value, $overwrite = false)
     {
@@ -147,7 +146,6 @@ class SvgService implements SvgServiceInterface
 
         return sprintf('%s%s', $value, $unit);
     }
-
 
     /**
      * Removes the given unit from the given value, if it's not already removed.

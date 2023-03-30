@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://www.zicht.nl>
  */
@@ -57,9 +57,7 @@ class ZichtHtmldevExtension extends Extension
     }
 
     /**
-     * @param array $config
-     * @param ContainerBuilder $container
-     * @return null|Reference
+     * @return Reference|null
      */
     private function getCacheReference(array $config, ContainerBuilder $container)
     {

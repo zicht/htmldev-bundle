@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online
  */
+
 namespace Zicht\Bundle\HtmldevBundle\Service;
 
 /**
@@ -13,9 +14,6 @@ class ZssColorService implements ColorServiceInterface
     /** @var TextDataLoader */
     private $textLoader;
 
-    /**
-     * @param TextDataLoader $textLoader
-     */
     public function __construct(TextDataLoader $textLoader)
     {
         $this->textLoader = $textLoader;

@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 - Nothing so far
 
+## 5.0.1 - 2023-03-30
+### Added
+- Linter friendsofphp/php-cs-fixer
+### Removed
+- Linter zicht/standards-php
+
 ## 5.0.0 - 2022-10-06
 ### Added
 - Support for Symfony ^5.4

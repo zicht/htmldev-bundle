@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @copyright Zicht Online <http://zicht.nl>
  */
@@ -27,19 +27,12 @@ class HtmldevController extends AbstractController
     /** @var array */
     private $styleguideConfig = [];
 
-    /**
-     * @param Environment $twig
-     * @param DataLoaderInterface $yamlLoader
-     */
     public function __construct(Environment $twig, DataLoaderInterface $yamlLoader)
     {
         $this->twig = $twig;
         $this->yamlLoader = $yamlLoader;
     }
 
-    /**
-     * @param array $styleguideConfig
-     */
     public function setStyleguideConfig(array $styleguideConfig)
     {
         $this->styleguideConfig = $styleguideConfig;
