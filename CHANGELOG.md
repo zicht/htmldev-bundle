@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 - Nothing so far
 
+## 5.0.2 - 2023-04-19
+### Added
+- Font-smoothing to styleguide components
+
 ## 5.0.1 - 2023-03-30
 ### Added
 - Linter friendsofphp/php-cs-fixer
