@@ -1,7 +1,4 @@
 <?php declare(strict_types=1);
-/**
- * @copyright Zicht Online <http://zicht.nl>
- */
 
 namespace Zicht\Bundle\HtmldevBundle\Controller;
 
@@ -9,23 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Twig\Environment;
 use Zicht\Bundle\HtmldevBundle\Service\DataLoaderInterface;
 
-/**
- * Handles requests inside the Htmldev bundle.
- */
-class HtmldevController extends AbstractController
+/** Handles requests inside the Htmldev bundle. */
+final class HtmldevController extends AbstractController
 {
-    /** @var Environment */
-    private $twig;
+    private Environment $twig;
 
-    /** @var DataLoaderInterface */
-    private $yamlLoader;
+    private DataLoaderInterface $yamlLoader;
 
-    /** @var array */
-    private $styleguideConfig = [];
+    private array $styleguideConfig = [];
 
     public function __construct(Environment $twig, DataLoaderInterface $yamlLoader)
     {
@@ -38,13 +30,8 @@ class HtmldevController extends AbstractController
         $this->styleguideConfig = $styleguideConfig;
     }
 
-    /**
-     * @param string|null $section
-     * @return Response
-     *
-     * @Route("/")
-     */
-    public function indexAction($section = 'styleguide_intro')
+    #[Route('/')]
+    public function indexAction(?string $section = 'styleguide_intro'): Response
     {
         if (null !== $section && '' !== $section && $this->twig->getLoader()->exists(sprintf('@htmldev/pages/%s.html.twig', $section))) {
             return $this->forward(self::class . '::showAction', ['section' => $section]);
@@ -58,13 +45,8 @@ class HtmldevController extends AbstractController
         return new RedirectResponse($menuItems[0]['uri']);
     }
 
-    /**
-     * @param string $section
-     * @return Response
-     *
-     * @Route("/{section}", requirements={"section"=".+"})
-     */
-    public function showAction($section)
+    #[Route('/{section}', requirements: ['section' => '.+'])]
+    public function showAction(string $section): Response
     {
         $templates = [
             sprintf('@htmldev/pages/%s.html.twig', $section),           // Override: Custom section specific template

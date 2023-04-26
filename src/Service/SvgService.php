@@ -67,6 +67,7 @@ class SvgService implements SvgServiceInterface
         }
         $d = new \DOMDocument();
         $d->load($fileName);
+        /** @var \DOMElement $svg */
         $svg = $d->getElementsByTagName('svg')->item(0);
         /*
          * Set dimensions to ensure proper rendering across different browsers.

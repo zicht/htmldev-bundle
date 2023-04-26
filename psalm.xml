@@ -2,14 +2,14 @@
 <psalm
     errorLevel="4"
     resolveFromConfigFile="true"
-
-    findUnusedVariablesAndParams="true"
-    usePhpDocMethodsWithoutMagicCall="true"
-    usePhpDocPropertiesWithoutMagicCall="true"
-
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="false"
+    findUnusedVariablesAndParams="true"
+    usePhpDocMethodsWithoutMagicCall="true"
+    usePhpDocPropertiesWithoutMagicCall="true"
 >
     <projectFiles>
         <directory name="src" />
@@ -19,12 +19,23 @@
     </projectFiles>
 
     <issueHandlers>
+        <Trace errorLevel="error" />
+        <RedundantCast>
+            <errorLevel type="info">
+                <file name="src/Service/SvgService.php"/>
+            </errorLevel>
+        </RedundantCast>
         <UndefinedDocblockClass>
             <errorLevel type="suppress">
                 <!-- https://github.com/symfony/symfony/issues/45609 -->
                 <referencedClass name="UnitEnum" />
             </errorLevel>
         </UndefinedDocblockClass>
+        <UndefinedMethod>
+            <errorLevel type="info">
+                <file name="src/DependencyInjection/Configuration.php"/>
+            </errorLevel>
+        </UndefinedMethod>
         <UnusedVariable>
             <errorLevel type="info">
                 <file name="src/Twig/ImageExtension.php" />
