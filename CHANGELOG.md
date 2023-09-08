@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 - Nothing so far
 
+## 5.0.3 - 2023-09-08
+### Fixed
+- Fixed type errors in SvgService
+
 ## 5.0.2 - 2023-04-19
 ### Added
 - Font-smoothing to styleguide components

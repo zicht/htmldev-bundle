@@ -72,13 +72,13 @@ class SvgService implements SvgServiceInterface
          * Set dimensions to ensure proper rendering across different browsers.
          */
         if (!empty($width)) {
-            $this->setSvgAttribute($svg, 'width', $this->addUnit($width, 'px'), true);
+            $this->setSvgAttribute($svg, 'width', $this->addUnit((string)$width, 'px'), true);
         }
         if (!empty($height)) {
-            $this->setSvgAttribute($svg, 'height', $this->addUnit($height, 'px'), true);
+            $this->setSvgAttribute($svg, 'height', $this->addUnit((string)$height, 'px'), true);
         }
         if (!empty($viewboxX) && !empty($viewboxY)) {
-            $this->setSvgAttribute($svg, 'viewBox', sprintf('0 0 %s %s', $this->removeUnit($viewboxX, 'px'), $this->removeUnit($viewboxY, 'px')), true);
+            $this->setSvgAttribute($svg, 'viewBox', sprintf('0 0 %s %s', $this->removeUnit((string)$viewboxX, 'px'), $this->removeUnit((string)$viewboxY, 'px')), true);
         }
         $this->setSvgAttribute($svg, 'preserveAspectRatio', 'xMidYMid meet');
         /*
