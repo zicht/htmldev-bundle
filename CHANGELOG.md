@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Removed
+- Removed PHP 8.0 from Q&A Github actions workflow
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 - Nothing so far
 
