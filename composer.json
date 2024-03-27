@@ -10,21 +10,21 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "knplabs/knp-menu-bundle": "^3",
         "psr/simple-cache": "^1.0",
-        "symfony/cache": "^5.4",
-        "symfony/framework-bundle": "^5.4",
-        "symfony/routing": "^5.4",
-        "symfony/yaml": "^5.4",
-        "twig/twig": "^2.7 || ^3",
-        "zicht/framework-extra-bundle": "^10",
+        "symfony/cache": "^5.4 || ^6",
+        "symfony/framework-bundle": "^5.4 || ^6",
+        "symfony/routing": "^5.4 || ^6",
+        "symfony/yaml": "^5.4 || ^6",
+        "twig/twig": "^3",
+        "zicht/framework-extra-bundle": "^10 || ^11.x-dev",
         "zicht/twig-classes": "^1.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.15",
         "phpunit/phpunit": "^9",
-        "vimeo/psalm": "^4.30"
+        "vimeo/psalm": "^5"
     },
     "autoload": {
         "psr-4": {
@@ -42,5 +42,10 @@
         "lint": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --dry-run --diff -vvv",
         "lint-fix": "php-cs-fixer fix",
         "test": "phpunit -c phpunit.xml.dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-feature-symfony-6": "6.x-dev"
+        }
     }
 }

@@ -5,10 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Removed
-- Removed PHP 8.0 from Q&A Github actions workflow
 ### Added|Changed|Deprecated|Removed|Fixed|Security
 - Nothing so far
+
+## 6.0.0 - 2024-03-27
+### Added
+- Support for Symfony 6
+### Removed
+- Support for PHP 7.4
+- Support for Tiwg 2
+- Removed PHP 8.0 from Q&A Github actions workflow
+### Changed
+- Made HtmldevController final
+- Changed Route annotations to Route attribute
 
 ## 5.0.3 - 2023-09-08
 ### Fixed
